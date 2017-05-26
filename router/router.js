@@ -48,8 +48,6 @@ exports.showIndex = function (req, res, next) {
 
     });
 
-    
-
 };
 
 //注册业务
@@ -242,6 +240,12 @@ exports.goodsSubmit = function(req,res,next) {
         var login = false;
     }
 
+    var userDir = req.session.username;
+
+    // if(!fs.existsSync(userDir)){
+    //     fs.mkdir(userDir);//创建到asset指定文件下
+    // }
+
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       var username           = req.session.username;
@@ -253,6 +257,27 @@ exports.goodsSubmit = function(req,res,next) {
       var userChangeTar      = fields.userChangeTar;
       var userName           = fields.userName;
       var userPhone          = fields.userPhone;
+
+      var userImgOne         = fields.userImgOne;
+      var userImgTwo         = fields.userImgTwo;
+      var userImgThree       = fields.userImgThree;
+      var userImgFore        = fields.userImgFore;
+      var imgBase64Arr       = [userImgOne,userImgTwo,userImgThree,userImgFore];
+
+      for(var i = 0;i<imgBase64Arr.length;i++) {
+        var path       = 'assets/img/'+ username + userGoodsName + i + '.png';
+        var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
+        var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+        
+        console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
+        fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
+            if(err){
+                console.log(err);
+            }else{
+               console.log('图片上传成功！');
+            }
+        })
+      }
       //查询数据库的名字是否重复
       db.find("goodslist",{"username": username},function (err,result) {
         if(err) {
@@ -271,6 +296,7 @@ exports.goodsSubmit = function(req,res,next) {
           "userName"          :  userName,
           "userChangeTar"     :  userChangeTar,
           "userPhone"         :  userPhone,
+          "imgBase64Arr"      :  imgBase64Arr,
         },function(err,result){
           if(err){
             res.send("-3");//服务器错误
