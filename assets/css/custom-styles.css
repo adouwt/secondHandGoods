@@ -1,0 +1,275 @@
+/*这里使用rem用法*/
+
+html,body {
+  font-size: 10px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+ul,li,dd,dl,dt,h1,h2,h3,h4,h5,h6,p {
+  margin: 0;
+  padding: 0px;
+}
+li {
+  list-style: none;
+}
+.navbar {
+  margin-bottom: 0;
+}
+.navbar-brand .strong {
+  font-size: 1.6rem;
+}
+
+.top-navbar .navbar-brand {
+    color: #fff;
+    width: 20rem;
+    text-align: left;
+    height: 65px;
+    font-size: 2.4rem;
+    font-weight: 700;
+     text-transform: uppercase;
+    line-height: 3rem;
+    background: #30cc7b;
+}
+.left_colum {
+    background: #2c445a;
+    position: fixed;
+    height: 100%;
+    margin-top: 60px;
+}
+#sideNav {
+    float: left;
+    left: 0;
+    z-index: 3;
+    color: #868686;
+    cursor: pointer;
+    border-radius: 0;
+    width: 14px;
+    font-size: 2.2rem;
+    line-height: 3rem;
+    margin: 7px 0 0 13px;
+    background: #ececec;
+    width: 3.5rem;
+    height: 3.5rem;
+    text-align: center;
+    line-height: 3.5rem;
+    margin-top: 0.9rem;
+    border-radius: 50%;
+}
+
+header li.dropdown>a.dropdown-toggle {
+  line-height: 30px;
+}
+
+header li.dropdown {
+  width: 6rem;
+  font-size: 2rem
+}
+
+.left_colum_nav li {
+  border-bottom:  1px solid rgba(255, 255, 255, 0.47);;
+}
+.left_colum_nav li>a {
+  padding: 2rem;
+  font-size: 2rem;
+  display: block;
+  color: #ddd;
+  opacity: 0.5;
+  line-height: 5rem;
+}
+.left_colum_nav li>a.active {
+  opacity: 1;
+}
+.left_colum_nav li>a:hover{
+    text-decoration: none;
+}
+.left_colum_nav li>a>span {
+  margin-left: 1.5rem;
+}
+
+/*右边显示区域*/
+.right_board {
+  margin-left: 20rem;
+  background: #ececec;
+  height: 100%;
+  overflow: auto;
+  padding-top: 60px;
+}
+.right_board  h1 {
+  padding: 2rem ;
+}
+
+/*面包屑导航*/
+.right_board header ol {
+  box-shadow: 0 2px 2px rgba(0,0,0,.05);
+}
+.right_board header ol li a {
+  color: #666;
+  opacity: 0.8;
+}
+.right_board header ol li.active a {
+  opacity: 1;
+  color: #333;
+}
+
+/*具体展示product*/
+.left_product_img {
+  margin-top: 2rem;
+  height: 500px;
+  border-right:1px solid rgba(255,255,255,0.5);
+  float: left;
+}
+.right_product_details {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  float: left;
+}
+
+.right_product_details li span.right_board_categories,
+.right_product_details li span.right_board_categories_name{
+  display: inline-block;
+  font-size: 1.4rem;
+}
+.right_product_details .product_details_addText.right_board_categories_name {
+  display: block;
+  max-width: 500px;
+  min-height: 100px;
+}
+.right_product_details li span.right_board_categories {
+  width:  7rem;
+  text-align: right;
+}
+.product_details_addText {
+  display: inline-block;
+  text-indent: 2rem;
+  max-width: 400px;
+  margin-left: 1rem;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+/*限制图片的最低规格*/
+.carousel-inner .item img {
+  height: 400px;
+  min-width: 670px;
+}
+
+/*修改轮播的图   js 控制显示的大图和小图路径一致*/
+.carousel-indicators li {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    margin: 1px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #000 \9;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+}
+
+
+.carousel-indicators li.active {
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  background-color: #fff;
+  background-image: url(../img/index_img.jpg);
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+
+/*分页条*/
+.copy_right ,.deliver-page{
+  overflow: hidden;
+  font-size: 1.4rem;
+}
+.deliver-page nav {
+  margin-top: 3rem;
+  margin-right: 10rem;
+  font-size: 1.6rem;
+}
+.copy_right  {
+  margin-left: 2rem;
+}
+
+
+/*用户信息的css*/
+header li.dropdown.userMessages {
+  width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*没有出现...*/
+}
+#userimg {
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 5px;
+}
+
+li .header-regist,.header-login{
+  margin-top: 1rem;
+}
+
+.validate_username,.validate_userpwd {
+  color: red;
+}
+  /*奇怪的模态框 背景 半透明的颜色z-index的数值太大*/
+.modal-backdrop {
+  z-index: 140;
+}
+
+
+.navbar-right {
+  margin-right: 1em;
+}
+#username {
+  display: inline-block;
+  width: 6em;
+  font-size: 1.4rem;
+  text-overflow: ellipsis;
+}
+#login_error_cue,#error_cue {
+  margin-top: 10px;
+}
+
+@media(min-width:768px) {
+    .navbar-side {
+        width: 20rem;
+        z-index: 1;
+    }
+
+   .navbar {
+     border-radius: 0px;
+   }
+
+}
+ @media(max-width:768px) {
+	#sideNav{
+	display:none;
+}
+
+}
+
+  /*添加商品页面的css*/
+
+.add_product_details {
+  overflow: hidden;
+}
+/*上传图片*/
+
+.sec-goods-img-default {
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+  background-position: center center;
+  background-image: url(/img/down_img.jpg);
+}
