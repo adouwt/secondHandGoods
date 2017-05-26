@@ -39,8 +39,7 @@ exports.showIndex = function (req, res, next) {
             avatar: avatar
         }
 
-        db.find("goodslist",{username: username},function(err,result) {
-          // console.log(result);
+        db.find("goodslist",{},function(err,result) {
           res.render("index",{
             "result"    : result,
             "loginInfo" : loginInfo
@@ -286,3 +285,5 @@ exports.goodsSubmit = function(req,res,next) {
     });
 
 }
+
+
