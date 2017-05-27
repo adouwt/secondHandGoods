@@ -6,7 +6,7 @@ $(function(){
 
 	// 图片上传的处理
 
-	$("#goods-submit").click(function() {
+	$("#exchangeGoods-submit").click(function() {
 
 		// 获取图片的base64的代码
         //后端的formindable 无法接受数组，因此暂时分开数组 单个传输给后端
@@ -29,25 +29,27 @@ $(function(){
   		var userGoodsUseTime 		= $("#user-goods-usetime").val();
   		var userGoodsaddText 		= $("#user-goods-addText").val();
   		var userChangeTar   		= $("#user-change-target").val();
-  		var userName   				= $("#user-name").val();
+  		var userName   				  = $("#user-name").val();
   		var userPhone      			= $("#user-phone").val();
   		var username       			= $("#username").val();
-  		var userGoodsPrice          = $("#user-goods-price").val();
+      var userGoodsPrice      = $("#user-goods-price").val();
+      var selectWay           = $("#user-selectway").val();
 
-  		$.post("/goodsSubmit",{
-  			"username" 				: username,
-  			"userGoodsSort" 		: userGoodsSort,
-  			"userGoodsPrice" 		: userGoodsPrice,
-  			"userGoodsName" 		: userGoodsName,
+  		$.post("/exchangeGoodsSubmit",{
+        "username"            : username,
+  			"selectWay" 				  : selectWay,
+  			"userGoodsSort" 		  : userGoodsSort,
+  			"userGoodsPrice" 		  : userGoodsPrice,
+  			"userGoodsName" 		  : userGoodsName,
   			"userGoodsUseTime"   	: userGoodsUseTime,
   			"userGoodsaddText"   	: userGoodsaddText,
-  			"userChangeTar" 		: userChangeTar,
-  			"userName" 				: userName,
-  			"userPhone" 			: userPhone,
-  			"userImgOne" 			: userImgOne,
-  			"userImgTwo" 			: userImgTwo,
-  			"userImgThree" 			: userImgThree,
-  			"userImgFore" 			: userImgFore,
+  			"userChangeTar" 		  : userChangeTar,
+  			"userName" 				    : userName,
+  			"userPhone" 			    : userPhone,
+  			"userImgOne" 			    : userImgOne,
+  			"userImgTwo" 			    : userImgTwo,
+  			"userImgThree" 			  : userImgThree,
+  			"userImgFore" 			  : userImgFore,
   		},function(result) {
   			if(result=="1"){
   				$(".right_board_categories_sort").html(userGoodsSort);

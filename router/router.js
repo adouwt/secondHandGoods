@@ -33,7 +33,7 @@ exports.showIndex = function (req, res, next) {
             var avatar = result[0].avatar;
         }
 
-        console.log(result); 
+        // console.log(result); 
 
         loginInfo = {
             login: login,
@@ -41,7 +41,7 @@ exports.showIndex = function (req, res, next) {
             avatar: avatar
         }
 
-        db.find("goodslist",{},function(err,result) {
+        db.find("exchangelist",{},function(err,result) {
           res.render("index",{
             "result"    : result,
             "loginInfo" : loginInfo
@@ -229,8 +229,9 @@ exports.show_product_img = function (req,res,next) {
         });
     });
 }
-//发布商品
-exports.goodsSubmit = function(req,res,next) {
+
+//交换商品
+exports.exchangeGoodsSubmit = function(req,res,next) {
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -250,7 +251,9 @@ exports.goodsSubmit = function(req,res,next) {
 
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
+      // console.log(fields);
       var username           = req.session.username;
+      var selectWay          = fields.selectWay;
       var userGoodsSort      = fields.userGoodsSort;
       var userGoodsPrice     = fields.userGoodsPrice;
       var userGoodsName      = fields.userGoodsName;
@@ -267,7 +270,9 @@ exports.goodsSubmit = function(req,res,next) {
       var imgBase64Arr       = [userImgOne,userImgTwo,userImgThree,userImgFore];
 
       for(var i = 0;i<imgBase64Arr.length;i++) {
-        var path       = 'assets/img/'+ username + userGoodsName + i + '.png';
+
+        var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
+        console.log(path);
         var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
         var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
         
@@ -281,15 +286,16 @@ exports.goodsSubmit = function(req,res,next) {
         })
       }
       //查询数据库的名字是否重复
-      db.find("goodslist",{"username": username},function (err,result) {
+      db.find("exchangelist",{"selectWay": selectWay},function (err,result) {
         if(err) {
           res.send("-3");
           return;
         }
         // console.log(username);
         //返回result.length的长度为０，说明数据库中没有此名字
-        db.insertOne("goodslist",{
+        db.insertOne("exchangelist",{
           "username"          :  username,
+          "selectWay"         :  selectWay,
           "userGoodsSort"     :  userGoodsSort,
           "userGoodsPrice"    :  userGoodsPrice,
           "userGoodsName"     :  userGoodsName,
@@ -314,4 +320,83 @@ exports.goodsSubmit = function(req,res,next) {
 
 }
 
+//添加卖的商品
+exports.sailGoodsSubmit = function(req,res,next) {
+    //检索数据库，查找此人的头像
+    if (req.session.login == "1") {
+        //如果登陆了
+        var username = req.session.username;
+        var login = true;
+    } else {
+        //没有登陆
+        var username = "";  //制定一个空用户名
+        var login = false;
+    }
+
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function(err, fields, files) {
+      var username           = req.session.username;
+      var selectWay          = req.session.selectWay;
+      var userGoodsSort      = fields.userGoodsSort;
+      var userGoodsPrice     = fields.userGoodsPrice;
+      var userGoodsName      = fields.userGoodsName;
+      var userGoodsUseTime   = fields.userGoodsUseTime;
+      var userGoodsaddText   = fields.userGoodsaddText;
+      var userChangeTar      = fields.userChangeTar;
+      var userName           = fields.userName;
+      var userPhone          = fields.userPhone;
+
+      var userImgOne         = fields.userImgOne;
+      var userImgTwo         = fields.userImgTwo;
+      var userImgThree       = fields.userImgThree;
+      var userImgFore        = fields.userImgFore;
+      var imgBase64Arr       = [userImgOne,userImgTwo,userImgThree,userImgFore];
+
+      for(var i = 0;i<imgBase64Arr.length;i++) {
+        var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
+        var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
+        var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+        
+        console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
+        fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
+            if(err){
+                console.log(err);
+            }else{
+               console.log('图片上传成功！');
+            }
+        })
+      }
+      //查询数据库的名字是否重复
+      db.find("saillist",{"selectWay": selectWay},function (err,result) {
+        if(err) {
+          res.send("-3");
+          return;
+        }
+        // console.log(username);
+        //返回result.length的长度为０，说明数据库中没有此名字
+        db.insertOne("saillist",{
+          "username"          :  username,
+          "selectWay"         :  selectWay,
+          "userGoodsSort"     :  userGoodsSort,
+          "userGoodsPrice"    :  userGoodsPrice,
+          "userGoodsName"     :  userGoodsName,
+          "userGoodsUseTime"  :  userGoodsUseTime,
+          "userGoodsaddText"  :  userGoodsaddText,
+          "userName"          :  userName,
+          "userChangeTar"     :  userChangeTar,
+          "userPhone"         :  userPhone,
+          "imgBase64Arr"      :  imgBase64Arr,
+        },function(err,result){
+          if(err){
+            res.send("-3");//服务器错误
+            return;
+          }
+          req.session.login = "1";
+          req.session.username = username;
+          res.send("1");//发布成功         
+        });
+       });
+    });
+}
 

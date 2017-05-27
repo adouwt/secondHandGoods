@@ -30,7 +30,7 @@ app.post("/doRegist",router.doRegist);
 app.post("/doLogin",router.doLogin);
 
 //执行发布商品业务
-app.post("/goodsSubmit",router.goodsSubmit);
+app.post("/exchangeGoodsSubmit",router.exchangeGoodsSubmit);
 
 
 //退出
