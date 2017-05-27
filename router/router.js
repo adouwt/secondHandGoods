@@ -26,12 +26,14 @@ exports.showIndex = function (req, res, next) {
     }
 
     //已经登陆了，那么就要检索数据库，查登陆这个人的头像
-    db.find("users", {username: username}, function (err, result) {
+    db.find("users", {}, function (err, result) {
         if (result.length == 0) {
             var avatar = "default.jpg";
         } else {
             var avatar = result[0].avatar;
         }
+
+        console.log(result); 
 
         loginInfo = {
             login: login,
