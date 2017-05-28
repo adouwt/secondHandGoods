@@ -11,14 +11,109 @@ var fs = require("fs");
 
 var file = require("../model/file.js");
 
-//显示主页
-exports.showIndex = function (req, res, next) {
+//显示主页(exchage)
+exports.showExchange = function (req, res, next) {
     // var pageData = {};
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
-        var username = req.session.username;
-        var login = true;
+        var username  = req.session.username;
+        var login     = true;
+        var selectWay = "exchange";
+
+    } else {
+        //没有登陆
+        var username = "";  //制定一个空用户名
+        var login = false;
+    }
+
+    //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+    db.find("users", {}, function (err, result) {
+        if (result.length == 0) {
+            var avatar = "default.jpg";
+        } else {
+            var avatar = result[0].avatar;
+        }
+
+        // console.log(result); 
+
+        loginInfo = {
+            login: login,
+            username: username,
+            avatar: avatar,
+            active: "active"
+        }
+
+        db.find("exchangelist",{},{"sort":{"publicTime":-1}},function(err,result) {
+          res.render("exchange",{
+            "result"    : result,
+            "loginInfo" : loginInfo
+          });      
+        })
+
+    });
+
+};
+
+
+//显示变卖（sale）
+exports.showSale = function (req, res, next) {
+    // var pageData = {};
+    //检索数据库，查找此人的头像
+    if (req.session.login == "1") {
+        //如果登陆了
+        var username  = req.session.username;
+        var login     = true;
+        var selectWay = "sale";
+
+    } else {
+        //没有登陆
+        var username = "";  //制定一个空用户名
+        var login = false;
+    }
+
+    //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+    db.find("users", {}, function (err, result) {
+
+
+        if (result.length == 0) {
+            var avatar = "default.jpg";
+        } else {
+            var avatar = result[0].avatar;
+        }
+
+        // console.log(result); 
+
+        loginInfo = {
+            login: login,
+            username: username,
+            avatar: avatar
+        }
+
+        db.find("salelist",{"sort":{"publicTime":-1}},function(err,result) {
+
+          console.log("sale表:"+result);
+          res.render("sale",{
+            "result"    : result,
+            "loginInfo" : loginInfo
+          });      
+        })
+
+    });
+
+};
+
+
+//显示送
+exports.showSend = function (req, res, next) {
+    // var pageData = {};
+    //检索数据库，查找此人的头像
+    if (req.session.login == "1") {
+        //如果登陆了
+        var username  = req.session.username;
+        var login     = true;
+        var selectWay = "send";
+
     } else {
         //没有登陆
         var username = "";  //制定一个空用户名
@@ -41,8 +136,8 @@ exports.showIndex = function (req, res, next) {
             avatar: avatar
         }
 
-        db.find("exchangelist",{},function(err,result) {
-          res.render("index",{
+        db.find("sendlist",{"sort":{"publicTime":-1}},function(err,result) {
+          res.render("send",{
             "result"    : result,
             "loginInfo" : loginInfo
           });      
@@ -51,6 +146,52 @@ exports.showIndex = function (req, res, next) {
     });
 
 };
+
+
+
+//显示捐
+exports.showDonate = function (req, res, next) {
+    // var pageData = {};
+    //检索数据库，查找此人的头像
+    if (req.session.login == "1") {
+        //如果登陆了
+        var username  = req.session.username;
+        var login     = true;
+        var selectWay = "donate";
+
+    } else {
+        //没有登陆
+        var username = "";  //制定一个空用户名
+        var login = false;
+    }
+
+    //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+    db.find("users", {}, function (err, result) {
+        if (result.length == 0) {
+            var avatar = "default.jpg";
+        } else {
+            var avatar = result[0].avatar;
+        }
+
+        // console.log(result); 
+
+        loginInfo = {
+            login: login,
+            username: username,
+            avatar: avatar
+        }
+
+        db.find("donatelist",{"sort":{"publicTime":-1}},function(err,result) {
+          res.render("donate",{
+            "result"    : result,
+            "loginInfo" : loginInfo
+          });      
+        })
+
+    });
+
+};
+
 
 //注册业务
 exports.doRegist = function (req,res,next) {
@@ -89,33 +230,6 @@ exports.doRegist = function (req,res,next) {
        });
     });
 }
-
-exports.add_product = function (req,res,next) {
-  //必须登录
-  if(req.session.login != "1") {
-    res.end("没有登录，请登录");
-    return;
-  }
-  //检索数据库，查找此人的头像
-  if (req.session.login == "1") {
-      //如果登陆了
-      var username = req.session.username;
-      var login = true;
-      var avatar = req.session.avatar;
-  }
-
-  //已经登陆了，那么就要检索数据库，查登陆这个人的头像
-  db.find("users", {username: username}, function (err, result) {
-
-      res.render("add_product", {
-          "newpath":"",
-          "login": login,
-          "username": username,
-          "avatar":  "default.jpg",
-          "index_url": "/img/down_img.jpg"
-      });
-  });
-};
 
 // //执行登录
 exports.doLogin = function (req,res,next) {
@@ -215,22 +329,114 @@ exports.doSetavatar = function (req,res,next) {
 };
 
 
-exports.show_product_img = function (req,res,next) {
-    var albumName = req.params.albumName;
-    //具体业务交给model
-    file.getAllImagesByAlbumName(albumName,function(err,imagesArray){
-        if(err){
-            next(); //交给下面的中间件
-            return;
-        }
-        res.render("album",{
-            "albumname" : albumName,
-            "images" : imagesArray
-        });
-    });
-}
+//显示交换 提交页面
+exports.showAddExchangeProduct = function (req,res,next) {
+  //必须登录
+  if(req.session.login != "1") {
+    res.end("没有登录，请登录");
+    return;
+  }
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username = req.session.username;
+      var login = true;
+      var avatar = req.session.avatar;
+  }
 
-//交换商品
+  //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+  db.find("users", {username: username}, function (err, result) {
+
+      res.render("add_exchange_product", {
+          "login": login,
+          "username": username,
+          "avatar":  "default.jpg",
+      });
+  });
+};
+
+//显示赠送 提交页面
+exports.showAddSendProduct = function (req,res,next) {
+  //必须登录
+  if(req.session.login != "1") {
+    res.end("没有登录，请登录");
+    return;
+  }
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username = req.session.username;
+      var login = true;
+      var avatar = req.session.avatar;
+  }
+
+  //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+  db.find("users", {username: username}, function (err, result) {
+
+      res.render("add_send_product", {
+          "login": login,
+          "username": username,
+          "avatar":  "default.jpg",
+      });
+  });
+};
+
+//显示变卖 提交页面
+exports.showAddSailProduct = function (req,res,next) {
+  //必须登录
+  if(req.session.login != "1") {
+    res.end("没有登录，请登录");
+    return;
+  }
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username = req.session.username;
+      var login = true;
+      var avatar = req.session.avatar;
+  }
+
+  //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+  db.find("users", {username: username}, function (err, result) {
+
+      res.render("add_sale_product", {
+          "login": login,
+          "username": username,
+          "avatar":  "default.jpg",
+      });
+  });
+};
+
+//显示捐 提交页面
+exports.showAddDonateProduct = function (req,res,next) {
+  //必须登录
+  if(req.session.login != "1") {
+    res.end("没有登录，请登录");
+    return;
+  }
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username = req.session.username;
+      var login = true;
+      var avatar = req.session.avatar;
+  }
+
+  //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+  db.find("users", {username: username}, function (err, result) {
+
+      res.render("add_donate_product", {
+          "login": login,
+          "username": username,
+          "avatar":  "default.jpg",
+      });
+  });
+};
+
+
+
+
+//交换商品表单提交
 exports.exchangeGoodsSubmit = function(req,res,next) {
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
@@ -262,6 +468,7 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
       var userChangeTar      = fields.userChangeTar;
       var userName           = fields.userName;
       var userPhone          = fields.userPhone;
+      var publicTime         = fields.publicTime;
 
       var userImgOne         = fields.userImgOne;
       var userImgTwo         = fields.userImgTwo;
@@ -272,7 +479,6 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
       for(var i = 0;i<imgBase64Arr.length;i++) {
 
         var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
-        console.log(path);
         var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
         var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
         
@@ -304,6 +510,7 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
           "userName"          :  userName,
           "userChangeTar"     :  userChangeTar,
           "userPhone"         :  userPhone,
+          "publicTime"        :  publicTime,
           "imgBase64Arr"      :  imgBase64Arr,
         },function(err,result){
           if(err){
@@ -320,8 +527,8 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
 
 }
 
-//添加卖的商品
-exports.sailGoodsSubmit = function(req,res,next) {
+//添加卖的商品提交
+exports.saleGoodsSubmit = function(req,res,next) {
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -336,8 +543,10 @@ exports.sailGoodsSubmit = function(req,res,next) {
     var form = new formidable.IncomingForm();
 
     form.parse(req, function(err, fields, files) {
+
+      // console.log(fields);
       var username           = req.session.username;
-      var selectWay          = req.session.selectWay;
+      var selectWay          = fields.selectWay;
       var userGoodsSort      = fields.userGoodsSort;
       var userGoodsPrice     = fields.userGoodsPrice;
       var userGoodsName      = fields.userGoodsName;
@@ -346,6 +555,7 @@ exports.sailGoodsSubmit = function(req,res,next) {
       var userChangeTar      = fields.userChangeTar;
       var userName           = fields.userName;
       var userPhone          = fields.userPhone;
+      var publicTime         = fields.publicTime;
 
       var userImgOne         = fields.userImgOne;
       var userImgTwo         = fields.userImgTwo;
@@ -368,14 +578,14 @@ exports.sailGoodsSubmit = function(req,res,next) {
         })
       }
       //查询数据库的名字是否重复
-      db.find("saillist",{"selectWay": selectWay},function (err,result) {
+      db.find("salelist",{"selectWay": selectWay},function (err,result) {
         if(err) {
           res.send("-3");
           return;
         }
         // console.log(username);
         //返回result.length的长度为０，说明数据库中没有此名字
-        db.insertOne("saillist",{
+        db.insertOne("salelist",{
           "username"          :  username,
           "selectWay"         :  selectWay,
           "userGoodsSort"     :  userGoodsSort,
@@ -386,6 +596,7 @@ exports.sailGoodsSubmit = function(req,res,next) {
           "userName"          :  userName,
           "userChangeTar"     :  userChangeTar,
           "userPhone"         :  userPhone,
+          "publicTime"        :  publicTime,
           "imgBase64Arr"      :  imgBase64Arr,
         },function(err,result){
           if(err){
@@ -400,3 +611,188 @@ exports.sailGoodsSubmit = function(req,res,next) {
     });
 }
 
+// //添加送的商品提交
+exports.sendGoodsSubmit = function(req,res,next) {
+    //检索数据库，查找此人的头像
+    if (req.session.login == "1") {
+        //如果登陆了
+        var username = req.session.username;
+        var login = true;
+    } else {
+        //没有登陆
+        var username = "";  //制定一个空用户名
+        var login = false;
+    }
+
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function(err, fields, files) {
+      var username           = req.session.username;
+      var selectWay          = fields.selectWay;
+      var userGoodsSort      = fields.userGoodsSort;
+      var userGoodsPrice     = fields.userGoodsPrice;
+      var userGoodsName      = fields.userGoodsName;
+      var userGoodsUseTime   = fields.userGoodsUseTime;
+      var userGoodsaddText   = fields.userGoodsaddText;
+      var userChangeTar      = fields.userChangeTar;
+      var userName           = fields.userName;
+      var userPhone          = fields.userPhone;
+      var publicTime         = fields.publicTime;
+
+      var userImgOne         = fields.userImgOne;
+      var userImgTwo         = fields.userImgTwo;
+      var userImgThree       = fields.userImgThree;
+      var userImgFore        = fields.userImgFore;
+      var imgBase64Arr       = [userImgOne,userImgTwo,userImgThree,userImgFore];
+
+      for(var i = 0;i<imgBase64Arr.length;i++) {
+        var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
+        var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
+        var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+        
+        console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
+        fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
+            if(err){
+                console.log(err);
+            }else{
+               console.log('图片上传成功！');
+            }
+        })
+      }
+      //查询数据库的名字是否重复
+      db.find("sendlist",{"selectWay": selectWay},function (err,result) {
+        if(err) {
+          res.send("-3");
+          return;
+        }
+        // console.log(username);
+        //返回result.length的长度为０，说明数据库中没有此名字
+        db.insertOne("sendlist",{
+          "username"          :  username,
+          "selectWay"         :  selectWay,
+          "userGoodsSort"     :  userGoodsSort,
+          "userGoodsPrice"    :  userGoodsPrice,
+          "userGoodsName"     :  userGoodsName,
+          "userGoodsUseTime"  :  userGoodsUseTime,
+          "userGoodsaddText"  :  userGoodsaddText,
+          "userName"          :  userName,
+          "userChangeTar"     :  userChangeTar,
+          "userPhone"         :  userPhone,
+          "publicTime"        :  publicTime,
+          "imgBase64Arr"      :  imgBase64Arr,
+        },function(err,result){
+          if(err){
+            res.send("-3");//服务器错误
+            return;
+          }
+          req.session.login = "1";
+          req.session.username = username;
+          res.send("1");//发布成功         
+        });
+       });
+    });
+}
+
+// //添加捐的商品提交
+exports.donateGoodsSubmit = function(req,res,next) {
+    //检索数据库，查找此人的头像
+    if (req.session.login == "1") {
+        //如果登陆了
+        var username = req.session.username;
+        var login = true;
+    } else {
+        //没有登陆
+        var username = "";  //制定一个空用户名
+        var login = false;
+    }
+
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function(err, fields, files) {
+      var username           = req.session.username;
+      var selectWay          = fields.selectWay;
+      var userGoodsSort      = fields.userGoodsSort;
+      var userGoodsPrice     = fields.userGoodsPrice;
+      var userGoodsName      = fields.userGoodsName;
+      var userGoodsUseTime   = fields.userGoodsUseTime;
+      var userGoodsaddText   = fields.userGoodsaddText;
+      var userChangeTar      = fields.userChangeTar;
+      var userName           = fields.userName;
+      var userPhone          = fields.userPhone;
+      var publicTime         = fields.publicTime;
+
+      var userImgOne         = fields.userImgOne;
+      var userImgTwo         = fields.userImgTwo;
+      var userImgThree       = fields.userImgThree;
+      var userImgFore        = fields.userImgFore;
+      var imgBase64Arr       = [userImgOne,userImgTwo,userImgThree,userImgFore];
+
+      for(var i = 0;i<imgBase64Arr.length;i++) {
+        var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
+        var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
+        var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+        
+        console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
+        fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
+            if(err){
+                console.log(err);
+            }else{
+               console.log('图片上传成功！');
+            }
+        })
+      }
+      //查询数据库的名字是否重复
+      db.find("donatelist",{"selectWay": selectWay},function (err,result) {
+        if(err) {
+          res.send("-3");
+          return;
+        }
+        // console.log(username);
+        //返回result.length的长度为０，说明数据库中没有此名字
+        db.insertOne("donatelist",{
+          "username"          :  username,
+          "selectWay"         :  selectWay,
+          "userGoodsSort"     :  userGoodsSort,
+          "userGoodsPrice"    :  userGoodsPrice,
+          "userGoodsName"     :  userGoodsName,
+          "userGoodsUseTime"  :  userGoodsUseTime,
+          "userGoodsaddText"  :  userGoodsaddText,
+          "userName"          :  userName,
+          "userChangeTar"     :  userChangeTar,
+          "userPhone"         :  userPhone,
+          "publicTime"        :  publicTime,
+          "imgBase64Arr"      :  imgBase64Arr,
+        },function(err,result){
+          if(err){
+            res.send("-3");//服务器错误
+            return;
+          }
+          req.session.login = "1";
+          req.session.username = username;
+          res.send("1");//发布成功         
+        });
+       });
+    });
+}
+
+//获取商品总数
+exports.alllogs = function(req,res,next){
+    //这个页面接收一个参数，页面
+    var page = req.query.page;
+    db.find("logs",{},{"pageamount":6,"page":page,"sort":{"datetime":-1}},function(err,result){
+        res.json(result);
+    });
+};
+
+//商品总数分页总数
+exports.alllogsamount = function(req,res,next){
+    db.getAllCount("logs",function(count){
+        res.send(count.toString());
+    });
+};
+
+exports.searchSql = function (req,res,next) {
+    db.find("",{},function (argument) {
+      // body...
+    })
+}

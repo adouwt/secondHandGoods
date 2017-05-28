@@ -93,7 +93,8 @@ header li.dropdown {
   overflow: auto;
   padding-top: 60px;
 }
-.right_board  h1 {
+.right_board h1,
+.right_board .h1{
   padding: 2rem ;
 }
 
@@ -121,6 +122,7 @@ header li.dropdown {
   margin-top: 2rem;
   margin-left: 2rem;
   float: left;
+  margin-top: 50px;
 }
 
 .right_product_details li span.right_board_categories,

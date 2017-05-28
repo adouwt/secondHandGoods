@@ -14,21 +14,19 @@
         <%include left_colum.ejs%>
         <div class="right_board">
           <header>
-              <h1>
-                换-Exchange
-              </h1>
-              <ol class="breadcrumb">
-                <li class="active"><a href="#">全部</a></li>
-                <li><a href="#">手机</a></li>
-                <li><a href="#">数码</a></li>
-                <li><a href="#">电器</a></li>
-                <li><a href="#">运动健身</a></li>
-                <li><a href="#">衣物伞帽</a></li>
-                <li><a href="#">图书教材</a></li>
-                <li><a href="#">生活娱乐</a></li>
-                <li><a href="#">门票</a></li>
-                <li><a href="#">其他</a></li>
-              </ol>
+              <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 h1">
+                <p>
+                  卖-sale
+                </p>
+              </div> 
+              <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 h1">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                  </span>
+                </div><!-- /input-group -->
+              </div>                          
           </header>
             <% for(var i= 0;i<result.length;i++) {%>
               <section>
@@ -38,37 +36,37 @@
                       <div id="carousel-example-generic<%= i %>" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
-                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
-                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
-                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
+                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + (result[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);"></li>
+                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + (result[i].selectWay||'sale')+'1.png' || '/img/down_img.jpg' %>);"></li>
+                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + (result[i].selectWay||'sale')+'2.png' || '/img/down_img.jpg' %>);"></li>
+                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + (result[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);"></li>
                         </ol>
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                           <div class="item active sec-goods-img-default">
-                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'0.png' || '/img/down_img.jpg' %>);">
+                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + (result[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);">
                               
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
-                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'1.png' || '/img/down_img.jpg' %>);">
+                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + (result[i].selectWay||'sale') +'1.png' || '/img/down_img.jpg' %>);">
                               
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
-                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'2.png' || '/img/down_img.jpg' %>);">
+                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + (result[i].selectWay||'sale') +'2.png' || '/img/down_img.jpg' %>);">
                               
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
-                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'3.png' || '/img/down_img.jpg' %>);">
+                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + (result[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);">
                               
                             </div>
                             <div class="carousel-caption">
@@ -113,6 +111,10 @@
                           <li>
                             <span class="right_board_categories">联系电话：</span>
                             <span class="right_board_categories_name"><%= result[i].userPhone%></span>
+                          </li>
+                          <li>
+                            <span class="right_board_categories">发布时间：</span>
+                            <span class="right_board_categories_name"><%= result[i].publicTime%></span>
                           </li>
                           <li>
                             <span class="right_board_categories">详细补充：</span> <br>

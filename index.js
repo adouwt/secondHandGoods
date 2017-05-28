@@ -18,10 +18,30 @@ app.use("/product_img",express.static("./product_img"));
 
 //路由表
 
-//展示主页
-app.get("/",router.showIndex);
-//显示发布商品
-app.get("/add_product",router.add_product);
+//展示主页(exchange)
+app.get("/",router.showExchange);
+
+//展示变卖页
+app.get("/sale",router.showSale);
+
+//展示赠送
+app.get("/send",router.showSend);
+
+//展示捐献
+app.get("/donate",router.showDonate);
+
+
+//获得交换商品提交页面
+app.get("/add_exchange_product",router.showAddExchangeProduct);
+
+//获得变卖商品提交页面
+app.get("/add_sale_product",router.showAddSailProduct);
+
+//获得赠送商品提交页面
+app.get("/add_send_product",router.showAddSendProduct);
+
+//获得捐赠商品提交页面
+app.get("/add_donate_product",router.showAddDonateProduct);
 
 //执行注册业务
 app.post("/doRegist",router.doRegist);
@@ -29,8 +49,26 @@ app.post("/doRegist",router.doRegist);
 //执行登陆业务
 app.post("/doLogin",router.doLogin);
 
-//执行发布商品业务
+//执行交换发布商品业务
 app.post("/exchangeGoodsSubmit",router.exchangeGoodsSubmit);
+
+//执行变卖发布商品业务
+app.post("/saleGoodsSubmit",router.saleGoodsSubmit);
+
+// //执行赠送发布商品业务
+app.post("/sendGoodsSubmit",router.sendGoodsSubmit);
+
+// //执行捐赠发布商品业务
+app.post("/donateGoodsSubmit",router.donateGoodsSubmit);
+
+//获取所有商品内容
+app.get("/alllogs",router.alllogs);
+
+//商品内容分页总数
+app.get("/alllogsamount",router.alllogsamount);  
+
+//搜索
+app.post("/search-sql",router.searchSql);  
 
 
 //退出
