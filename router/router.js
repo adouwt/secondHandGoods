@@ -90,9 +90,8 @@ exports.showSale = function (req, res, next) {
             avatar: avatar
         }
 
-        db.find("salelist",{"sort":{"publicTime":-1}},function(err,result) {
+        db.find("salelist",{},{"sort":{"publicTime":-1}},function(err,result) {
 
-          console.log("sale表:"+result);
           res.render("sale",{
             "result"    : result,
             "loginInfo" : loginInfo
@@ -136,7 +135,7 @@ exports.showSend = function (req, res, next) {
             avatar: avatar
         }
 
-        db.find("sendlist",{"sort":{"publicTime":-1}},function(err,result) {
+        db.find("sendlist",{},{"sort":{"publicTime":-1}},function(err,result) {
           res.render("send",{
             "result"    : result,
             "loginInfo" : loginInfo
@@ -181,7 +180,7 @@ exports.showDonate = function (req, res, next) {
             avatar: avatar
         }
 
-        db.find("donatelist",{"sort":{"publicTime":-1}},function(err,result) {
+        db.find("donatelist",{},{"sort":{"publicTime":-1}},function(err,result) {
           res.render("donate",{
             "result"    : result,
             "loginInfo" : loginInfo
