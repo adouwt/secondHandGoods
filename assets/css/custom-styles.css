@@ -364,4 +364,9 @@ li .header-regist,.header-login{
 }
 
 
+/*图表页面的数据展示*/
+section>h4 {
+  margin-left: 3rem;
+}
+
 

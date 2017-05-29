@@ -432,9 +432,6 @@ exports.showAddDonateProduct = function (req,res,next) {
   });
 };
 
-
-
-
 //交换商品表单提交
 exports.exchangeGoodsSubmit = function(req,res,next) {
     //检索数据库，查找此人的头像
@@ -790,8 +787,92 @@ exports.alllogsamount = function(req,res,next){
     });
 };
 
+// 搜索框 数据库查询
 exports.searchSql = function (req,res,next) {
-    db.find("",{},function (argument) {
-      // body...
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+
+      //表单数据
+      var searchGoodContents = fields.searchGoodContents;
+
+      db.find("exchangelist",{
+        "username"          :  searchGoodContents
+      },
+      function(err,result){
+        if(err){
+            res.send("-5");//随便去，服务器错误
+            return;
+        }
+        console.log(result);
+      })
     })
+}
+
+//数据统计页面的图表显示
+
+// 超级垃圾的嵌套查询
+
+exports.dataCount = function (req,res,next) {
+
+  db.find("donatelist",{},function(err,result){
+    if(err){
+      res.send("-5");//随便去，服务器错误
+      return;
+    }
+    var donatelistCount = result.length;
+
+    if(result.length == 0){
+      res.send("-1");//用户名不存在
+      return;
+    }
+
+    db.find("exchangelist",{},function(err,result){
+      if(err){
+          res.send("-5");//随便去，服务器错误
+          return;
+      }
+      var exchangelistCount = result.length;
+
+      if(result.length == 0){
+          res.send("-1");//用户名不存在
+          return;
+      }
+
+      db.find("sendlist",{},function(err,result){
+          if(err){
+              res.send("-5");//随便去，服务器错误
+              return;
+          }
+
+          var sendlistCount = result.length;
+
+          if(result.length == 0){
+              res.send("-1");//用户名不存在
+              return;
+          }
+
+
+          db.find("salelist",{},function(err,result){
+              if(err){
+                  res.send("-5");//随便去，服务器错误
+                  return;
+              }
+              var salelistCount = result.length;
+
+              if(result.length == 0){
+                  res.send("-1");//用户名不存在
+                  return;
+              }
+              var dataArr = [exchangelistCount,salelistCount,sendlistCount,donatelistCount];
+              res.render("data-count",{
+                "exchangelistCount" :exchangelistCount,
+                "salelistCount"     :salelistCount,
+                "sendlistCount"     :sendlistCount,
+                "donatelistCount"   :donatelistCount
+              });
+        });
+
+      });            
+   }); 
+  });
 }

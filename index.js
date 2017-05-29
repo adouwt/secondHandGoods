@@ -61,11 +61,17 @@ app.post("/sendGoodsSubmit",router.sendGoodsSubmit);
 // //执行捐赠发布商品业务
 app.post("/donateGoodsSubmit",router.donateGoodsSubmit);
 
+
+//获取所有商品内容的图表统计
+app.get("/dataCount",router.dataCount);
+
 //获取所有商品内容
 app.get("/alllogs",router.alllogs);
 
 //商品内容分页总数
 app.get("/alllogsamount",router.alllogsamount);  
+
+
 
 //搜索
 app.post("/search-sql",router.searchSql);  
