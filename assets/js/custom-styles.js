@@ -13,6 +13,8 @@ $(function(){
     	$(this).parents(".checkbox").next("button").toggleClass("disabled");
 	});
 
+
+
   //暂时每个页面的单独提交，看看以后有么有办法，同意提交，后台再做区分
   // 交换商品
 
@@ -30,6 +32,8 @@ $(function(){
 		var userImgTwo   = imgBase64Arr[1];
 		var userImgThree = imgBase64Arr[2];
 		var userImgFore  = imgBase64Arr[3];
+
+    formVertify ();
 
     if(imgBase64Arr.length>=4) {
       
@@ -81,8 +85,8 @@ $(function(){
   			// 前几个事预览数据，登录后可查看所有
   		})
     } else {
-      alert("请选择四张不同的图片");
-      window.history.go(0);
+      $(".error-img-file").fadeIn();
+      return false;     
     }
 
 		return false;
@@ -104,6 +108,14 @@ $(function(){
     var userImgThree = imgBase64Arr[2];
     var userImgFore  = imgBase64Arr[3];
 
+    isNothing($("#user-goods-sort"));
+    isNothing($("#user-goods-name"));
+    isNothing($("#user-phone"))
+    isPhone($("#user-phone"));   
+    isNothing($("#user-goods-price"));
+    isNothing($("#user-goods-usetime"));
+    isNothing($("#user-name"));
+
     if(imgBase64Arr.length>=4) {
       
       //发布商品表单内容
@@ -111,7 +123,6 @@ $(function(){
       var userGoodsName       = $("#user-goods-name").val();
       var userGoodsUseTime    = $("#user-goods-usetime").val();
       var userGoodsaddText    = $("#user-goods-addText").val();
-      var userChangeTar       = $("#user-change-target").val();
       var userName            = $("#user-name").val();
       var userPhone           = $("#user-phone").val();
       var username            = $("#username").val();
@@ -126,7 +137,6 @@ $(function(){
         "userGoodsName"       : userGoodsName,
         "userGoodsUseTime"    : userGoodsUseTime,
         "userGoodsaddText"    : userGoodsaddText,
-        "userChangeTar"       : userChangeTar,
         "userName"            : userName,
         "publicTime"          : FormatDate(new Date()),
         "userImgOne"          : userImgOne,
@@ -135,14 +145,7 @@ $(function(){
         "userImgFore"         : userImgFore,
       },function(result) {
         if(result=="1"){
-          $(".right_board_categories_sort").html(userGoodsSort);
-          $(".right_board_categories_name").html(userGoodsName);
-          $(".right_board_categories_target").html(userChangeTar);
-          $(".right_board_categories_price").html(userGoodsPrice);
-          $(".right_board_categories_usetime").html(userGoodsUseTime);
-          $(".right_board_categories_people").html(userGoodsSort);
-          $(".right_board_categories_tel").html(userPhone);
-          $(".product_details_addText").html(userGoodsaddText);
+          
         }
         
         setTimeout(function () {
@@ -153,8 +156,8 @@ $(function(){
         // 前几个事预览数据，登录后可查看所有
       })
     } else {
-      alert("请选择四张不同的图片");
-      window.history.go(0);
+      $(".error-img-file").fadeIn();
+      return false;  
     }
 
     return false;
@@ -176,6 +179,12 @@ $(function(){
     var userImgThree = imgBase64Arr[2];
     var userImgFore  = imgBase64Arr[3];
 
+    isNothing($("#user-goods-sort"));
+    isNothing($("#user-goods-name"));
+    isNothing($("#user-phone"))
+    isPhone($("#user-phone"));   
+    isNothing($("#user-name"));
+
     if(imgBase64Arr.length>=4) {
       
       //发布商品表单内容
@@ -194,11 +203,8 @@ $(function(){
         "username"            : username,
         "selectWay"           : selectWay,
         "userGoodsSort"       : userGoodsSort,
-        "userGoodsPrice"      : userGoodsPrice,
         "userGoodsName"       : userGoodsName,
-        "userGoodsUseTime"    : userGoodsUseTime,
         "userGoodsaddText"    : userGoodsaddText,
-        "userChangeTar"       : userChangeTar,
         "userName"            : userName,
         "publicTime"          : FormatDate(new Date()),
         "userPhone"           : userPhone,
@@ -208,14 +214,7 @@ $(function(){
         "userImgFore"         : userImgFore,
       },function(result) {
         if(result=="1"){
-          $(".right_board_categories_sort").html(userGoodsSort);
-          $(".right_board_categories_name").html(userGoodsName);
-          $(".right_board_categories_target").html(userChangeTar);
-          $(".right_board_categories_price").html(userGoodsPrice);
-          $(".right_board_categories_usetime").html(userGoodsUseTime);
-          $(".right_board_categories_people").html(userGoodsSort);
-          $(".right_board_categories_tel").html(userPhone);
-          $(".product_details_addText").html(userGoodsaddText);
+          
         }
         
         setTimeout(function () {
@@ -226,8 +225,8 @@ $(function(){
         // 前几个事预览数据，登录后可查看所有
       })
     } else {
-      alert("请选择四张不同的图片");
-      window.history.go(0);
+      $(".error-img-file").fadeIn();
+      return false;  
     }
 
     return false;
@@ -249,6 +248,12 @@ $(function(){
     var userImgThree = imgBase64Arr[2];
     var userImgFore  = imgBase64Arr[3];
 
+    isNothing($("#user-goods-sort"));
+    isNothing($("#user-goods-name"));
+    isNothing($("#user-phone"))
+    isPhone($("#user-phone"));   
+    isNothing($("#user-name"));
+
     if(imgBase64Arr.length>=4) {
       
       //发布商品表单内容
@@ -267,11 +272,8 @@ $(function(){
         "username"            : username,
         "selectWay"           : selectWay,
         "userGoodsSort"       : userGoodsSort,
-        "userGoodsPrice"      : userGoodsPrice,
         "userGoodsName"       : userGoodsName,
-        "userGoodsUseTime"    : userGoodsUseTime,
         "userGoodsaddText"    : userGoodsaddText,
-        "userChangeTar"       : userChangeTar,
         "userName"            : userName,
         "publicTime"          : FormatDate(new Date()),
         "userPhone"           : userPhone,
@@ -281,14 +283,7 @@ $(function(){
         "userImgFore"         : userImgFore,
       },function(result) {
         if(result=="1"){
-          $(".right_board_categories_sort").html(userGoodsSort);
-          $(".right_board_categories_name").html(userGoodsName);
-          $(".right_board_categories_target").html(userChangeTar);
-          $(".right_board_categories_price").html(userGoodsPrice);
-          $(".right_board_categories_usetime").html(userGoodsUseTime);
-          $(".right_board_categories_people").html(userGoodsSort);
-          $(".right_board_categories_tel").html(userPhone);
-          $(".product_details_addText").html(userGoodsaddText);
+          
         }
         
         setTimeout(function () {
@@ -299,8 +294,8 @@ $(function(){
         // 前几个事预览数据，登录后可查看所有
       })
     } else {
-      alert("请选择四张不同的图片");
-      window.history.go(0);
+      $(".error-img-file").fadeIn();
+      return false;  
     }
 
     return false;
@@ -338,5 +333,45 @@ $(function(){
         }
       })
 
+  //表单验证
+  function isNothing (dom) {
+    var domValue = dom.val();
+    if(domValue.length<1) {
+      dom.addClass("error-border").parent("div").next(".error-msg").addClass("error-fadeIn");
+      return false;
+    }
+  }
+
+  // 当填写表单的取消红色标记
+  $(document).on('propertychange input', '.form-good-submit input', function() {
+    $(this).removeClass('error-border')
+    .parent("div").next(".error-msg").removeClass("error-fadeIn");
+    $(this).removeClass('error-border')
+    .parent("div").next().next(".error-msg-formate").removeClass("error-fadeIn");
+  });
+  
+   $("#fileImage").click(function () {
+      $(".error-img-file").fadeOut();    
+   })
+  //电话号码的验证
+  function isPhone(dom) {
+    var domValue = dom.val();
+    if(domValue.length>1 && !(/^1[34578]\d{9}$/.test(domValue))){ 
+        dom.addClass("error-border").parent("div").next().next(".error-msg-formate").addClass("error-fadeIn"); 
+        return false; 
+    } 
+  }
+
+  //所有页面提交的时候，表单数值的验证
+  function formVertify () {
+    isNothing($("#user-goods-sort"));
+    isNothing($("#user-goods-name"));
+    isNothing($("#user-change-target"));
+    isNothing($("#user-phone"))
+    isPhone($("#user-phone"));   
+    isNothing($("#user-goods-price"));
+    isNothing($("#user-goods-usetime"));
+    isNothing($("#user-name"));
+  }
 })
 

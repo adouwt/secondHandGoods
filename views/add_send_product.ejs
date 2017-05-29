@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/custom-styles.css">
     <link rel="stylesheet" href="/css/font-awesome.css">
-    <link rel="stylesheet" href="/css/fileinput.css">
   </head>
   <body>
     <% include header.ejs%>
@@ -22,7 +21,7 @@
           <section>
               <div class="container">
                 <div class="add_product_details">
-                  <form  enctype="multipart/form-data" method="post">
+                  <form  enctype="multipart/form-data" method="post" class= "form-good-submit">
                     <div class="row">
                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="">
@@ -30,22 +29,19 @@
                             <span class="input-group-addon" id="basic-addon1">宝贝类别</span>
                             <input type="text" class="form-control" id = "user-goods-sort" placeholder="Username" aria-describedby="basic-addon1">
                           </div>
+                          <span class="error-msg">不能为空</span>
                           <br>
                           <div class="input-group">
                             <span class="input-group-addon" id="basic-addon2">宝贝名称</span>
                             <input type="text" class="form-control" id = "user-goods-name" placeholder="Username" aria-describedby="basic-addon2">
                           </div>
-                          <br>
+                          <span class="error-msg">不能为空</span>
+                          <br>     
                           <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon3">宝贝用时</span>
-                            <input type="text" class="form-control" id = "user-goods-usetime" placeholder="Username" aria-describedby="basic-addon3">
+                            <span class="input-group-addon" id="basic-tel">交易类型</span>
+                            <input type="text" class="form-control" id = "user-selectway"  aria-describedby="basic-tel" value="send" disabled>
                           </div>
-                          <br>
-                          <div class="input-group">
-                            <span class="input-group-addon" id="basic-price">宝贝原价</span>
-                            <input type="text" class="form-control" id = "user-goods-price" placeholder="Username" aria-describedby="basic-price">
-                          </div>
-                          <br>
+                                               
                           <div class="form-group">
                             <div id="uploadForm"  method="post" enctype="multipart/form-data">
                               <div class="upload_box">
@@ -56,6 +52,7 @@
                                     </div>
                                     <div id="preview" class="upload_preview"></div>
                                   </div>
+                                  <span class="error-img-file">请选择四张不同的图片</span>
                                   <div class="upload_submit">
                                     <button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
                                   </div>
@@ -65,26 +62,21 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                          <div class="input-group">
-                            <span class="input-group-addon" id="basic-change">想换</span>
-                            <input type="text" class="form-control" id = "user-change-target" placeholder="Username" aria-describedby="basic-change">
-                          </div>
-                          <br>
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                         
                           <div class="input-group">
                             <span class="input-group-addon" id="basic-username">姓名</span>
                             <input type="text" class="form-control" id = "user-name" placeholder="Username" aria-describedby="basic-username">
                           </div>
+                          <span class="error-msg">不能为空</span>
                           <br>
                           <div class="input-group">
                             <span class="input-group-addon" id="basic-tel">电话</span>
                             <input type="text" class="form-control" id = "user-phone" placeholder="Username" aria-describedby="basic-tel">
                           </div>
+                          <span class="error-msg">不能为空</span>
+                          <span class="error-msg-formate">请输入正确的号码</span>
                           <br>
-                          <div class="input-group">
-                            <span class="input-group-addon" id="basic-tel">交易类型</span>
-                            <input type="text" class="form-control" id = "user-selectway"  aria-describedby="basic-tel" value="send" disabled>
-                          </div>
+                          
                       </div>
                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group">

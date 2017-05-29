@@ -369,4 +369,23 @@ section>h4 {
   margin-left: 3rem;
 }
 
+/*表单验证*/
+.error-msg,.error-msg-formate {
+  position: absolute;
+  right: 6%;
+  color: red;
+  display: none;
+}
+ 
+.error-msg.error-fadeIn,.error-msg-formate.error-fadeIn{
+  display: block;
+}
+
+input.error-border {
+  border-color: red;
+}
+.error-img-file {
+  color: red;
+  display: none;
+}
 
