@@ -174,7 +174,7 @@ var params = {
                 if (html) {
                   //删除方法
                   $(".upload_delete").click(function() {
-                    params.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
+                    ZXXFILE.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
                     return false; 
                   });
                   //提交按钮显示
@@ -216,5 +216,7 @@ var params = {
             $("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
           }
     };
+    
 ZXXFILE = $.extend(ZXXFILE, params);
+
 ZXXFILE.init();
