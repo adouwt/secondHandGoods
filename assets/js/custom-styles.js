@@ -78,7 +78,7 @@ $(function(){
   			}
   			
   			setTimeout(function () {
-  				window.location = "/";
+  				window.location = "/exchangelistMsg?page=0";
   			},1000);
 
   			alert("1s后，跳回主主页，查看你发布的宝贝");//改成模态框 在模态框上倒计时
@@ -149,7 +149,7 @@ $(function(){
         }
         
         setTimeout(function () {
-          window.location = "/sale";
+          window.location = "/salelistMsg?page=0";
         },1000);
 
         alert("1s后，跳回商品变卖页，查看你发布的宝贝");//改成模态框 在模态框上倒计时
@@ -218,7 +218,7 @@ $(function(){
         }
         
         setTimeout(function () {
-          window.location = "/send";
+          window.location = "/sendlistMsg?page=0";
         },1000);
 
         alert("1s后，跳回商品变卖页，查看你发布的宝贝");//改成模态框 在模态框上倒计时
@@ -287,7 +287,7 @@ $(function(){
         }
         
         setTimeout(function () {
-          window.location = "/donate";
+          window.location = "/donatelistMsg?page=0";
         },1000);
 
         alert("1s后，跳回商品捐赠页，查看你发布的宝贝");//改成模态框 在模态框上倒计时

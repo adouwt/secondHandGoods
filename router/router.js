@@ -11,50 +11,6 @@ var fs = require("fs");
 
 var file = require("../model/file.js");
 
-//显示主页(exchage)
-exports.showExchange = function (req, res, next) {
-    // var pageData = {};
-    //检索数据库，查找此人的头像
-    if (req.session.login == "1") {
-        //如果登陆了
-        var username  = req.session.username;
-        var login     = true;
-        var selectWay = "exchange";
-
-    } else {
-        //没有登陆
-        var username = "";  //制定一个空用户名
-        var login = false;
-    }
-
-    //已经登陆了，那么就要检索数据库，查登陆这个人的头像
-    db.find("users", {}, function (err, result) {
-        if (result.length == 0) {
-            var avatar = "default.jpg";
-        } else {
-            var avatar = result[0].avatar;
-        }
-
-        // console.log(result); 
-
-        loginInfo = {
-            login: login,
-            username: username,
-            avatar: avatar,
-            active: "active"
-        }
-
-        db.find("exchangelist",{},{"sort":{"publicTime":-1}},function(err,result) {
-          res.render("exchange",{
-            "result"    : result,
-            "loginInfo" : loginInfo
-          });      
-        })
-
-    });
-
-};
-
 //注册业务
 exports.doRegist = function (req,res,next) {
 	  var form = new formidable.IncomingForm();
@@ -210,7 +166,7 @@ exports.showAddExchangeProduct = function (req,res,next) {
   db.find("users", {username: username}, function (err, result) {
 
       res.render("add_exchange_product", {
-          "login": login,
+          "login":    login,
           "username": username,
           "avatar":  "default.jpg",
       });
@@ -653,7 +609,8 @@ exports.donatelistMsg = function(req,res,next){
     db.find("donatelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("donate",{
             "result"    : result,
-            "username"  : username
+            "username"  : username,
+            "login"     : login
           });     
     });
 };
@@ -685,7 +642,8 @@ exports.exchangelistMsg = function(req,res,next){
     db.find("exchangelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("exchange",{
             "result"    : result,
-            "username"  : username
+            "username"  : username,
+            "login"     : login
           });     
     });
 };
@@ -717,7 +675,8 @@ exports.sendlistMsg = function(req,res,next){
     db.find("sendlist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("send",{
             "result"    : result,
-            "username"  : username
+            "username"  : username,
+            "login"     : login
           });     
     });
 };
@@ -749,7 +708,8 @@ exports.salelistMsg = function(req,res,next){
     db.find("salelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("send",{
             "result"    : result,
-            "username"  : username
+            "username"  : username,
+            "login"     : login
           });     
     });
 };
@@ -788,6 +748,19 @@ exports.searchSql = function (req,res,next) {
 // 超级垃圾的嵌套查询
 
 exports.dataCount = function (req,res,next) {
+
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username  = req.session.username;
+      var login     = true;
+      var selectWay = "exchange";
+
+  } else {
+      //没有登陆
+      var username = "";  //制定一个空用户名
+      var login = false;
+  }
 
   db.find("donatelist",{},function(err,result){
     if(err){
@@ -840,10 +813,12 @@ exports.dataCount = function (req,res,next) {
               }
               var dataArr = [exchangelistCount,salelistCount,sendlistCount,donatelistCount];
               res.render("data-count",{
-                "exchangelistCount" :exchangelistCount,
-                "salelistCount"     :salelistCount,
-                "sendlistCount"     :sendlistCount,
-                "donatelistCount"   :donatelistCount
+                "exchangelistCount" : exchangelistCount,
+                "salelistCount"     : salelistCount,
+                "sendlistCount"     : sendlistCount,
+                "donatelistCount"   : donatelistCount,
+                "login"             : login,
+                "username"          : username
               });
         });
 

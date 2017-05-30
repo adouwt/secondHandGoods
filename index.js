@@ -19,7 +19,7 @@ app.use("/product_img",express.static("./product_img"));
 //路由表
 
 //展示主页(exchange)
-app.get("/",router.showExchange);
+// app.get("/",router.showExchange);
 
 //展示变卖页
 // app.get("/sale",router.showSale);
@@ -63,7 +63,7 @@ app.post("/donateGoodsSubmit",router.donateGoodsSubmit);
 
 
 //获取所有商品内容的图表统计
-app.get("/dataCount",router.dataCount);
+app.get("/",router.dataCount);
 
 //获取捐赠所有商品内容
 app.get("/donatelistMsg",router.donatelistMsg);
