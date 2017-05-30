@@ -149,47 +149,47 @@ exports.showSend = function (req, res, next) {
 
 
 //显示捐
-exports.showDonate = function (req, res, next) {
-    // var pageData = {};
-    //检索数据库，查找此人的头像
-    if (req.session.login == "1") {
-        //如果登陆了
-        var username  = req.session.username;
-        var login     = true;
-        var selectWay = "donate";
+// exports.showDonate = function (req, res, next) {
+//     // var pageData = {};
+//     //检索数据库，查找此人的头像
+//     if (req.session.login == "1") {
+//         //如果登陆了
+//         var username  = req.session.username;
+//         var login     = true;
+//         var selectWay = "donate";
 
-    } else {
-        //没有登陆
-        var username = "";  //制定一个空用户名
-        var login = false;
-    }
+//     } else {
+//         //没有登陆
+//         var username = "";  //制定一个空用户名
+//         var login = false;
+//     }
 
-    //已经登陆了，那么就要检索数据库，查登陆这个人的头像
-    db.find("users", {}, function (err, result) {
-        if (result.length == 0) {
-            var avatar = "default.jpg";
-        } else {
-            var avatar = result[0].avatar;
-        }
+//     //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+//     db.find("users", {}, function (err, result) {
+//         if (result.length == 0) {
+//             var avatar = "default.jpg";
+//         } else {
+//             var avatar = result[0].avatar;
+//         }
 
-        // console.log(result); 
+//         // console.log(result); 
 
-        loginInfo = {
-            login: login,
-            username: username,
-            avatar: avatar
-        }
+//         loginInfo = {
+//             login: login,
+//             username: username,
+//             avatar: avatar
+//         }
 
-        db.find("donatelist",{},{"sort":{"publicTime":-1}},function(err,result) {
-          res.render("donate",{
-            "result"    : result,
-            "loginInfo" : loginInfo
-          });      
-        })
+//         db.find("donatelist",{},{"sort":{"publicTime":-1}},function(err,result) {
+//           res.render("donate",{
+//             "result"    : result,
+//             "loginInfo" : loginInfo
+//           });      
+//         })
 
-    });
+//     });
 
-};
+// };
 
 
 //注册业务
@@ -772,17 +772,20 @@ exports.donateGoodsSubmit = function(req,res,next) {
 }
 
 //获取商品总数
-exports.alllogs = function(req,res,next){
+exports.donatelistMsg = function(req,res,next){
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("logs",{},{"pageamount":6,"page":page,"sort":{"datetime":-1}},function(err,result){
-        res.json(result);
+    db.find("donatelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+        res.render("donate",{
+            "result"    : result
+          });     
     });
 };
 
 //商品总数分页总数
-exports.alllogsamount = function(req,res,next){
-    db.getAllCount("logs",function(count){
+exports.donateNumberAmount = function(req,res,next){
+    db.getAllCount("donatelist",function(count){
+        // console.log(count);
         res.send(count.toString());
     });
 };
@@ -803,7 +806,7 @@ exports.searchSql = function (req,res,next) {
             res.send("-5");//随便去，服务器错误
             return;
         }
-        console.log(result);
+        // console.log(result);
       })
     })
 }

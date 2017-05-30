@@ -309,7 +309,7 @@ $(function(){
       $.post("/search-sql",{
         "search-goods-contents": searchGoodContents
       },function (result) {
-        console.log(result);
+        // console.log(result);
         if (result == "1") {
           console.log("查询成功");
         }
@@ -318,13 +318,7 @@ $(function(){
   })
 
 
-
-
-
-
-
   //路由的不同，做菜单的高亮显示
-
   var window_href = location.pathname;
   var href_a  = $(".left_colum").find("a");
       href_a.each(function(){
@@ -373,5 +367,41 @@ $(function(){
     isNothing($("#user-goods-usetime"));
     isNothing($("#user-name"));
   }
+
+  //分页条获得分页数字
+  function getPage(page) {
+    var window_href   = location.pathname;
+    var newWindowHref =  window_href + "?page=" + page;
+    window.location = newWindowHref;
+  }
+
+  // 给分页条追加active
+  function addActive () {
+    var window_href = window.location.href;
+    window_href = window_href.split("=");
+    var pageNumber = parseInt(window_href[1])+1;
+    $(".pagination li a:contains(" + pageNumber +")").addClass("active");
+  }
+  
+
+  //分页查询
+
+  //捐赠 分页条的Ajax
+  $.get("/donateNumberAmount", function (result) {
+      var amount = parseInt(result);
+      //总页数
+      pageamount = Math.ceil(amount /2);//返回的是 与它相近的大1数值 
+      for (var i = 0; i < pageamount; i++) {
+        $(".pagination").append("<li ><a href='javascript:void(0);'>" +(i+1)+ "</a></li>");
+      }
+      addActive();
+      //监听
+      $(".pagination li").click(function () {
+          var page = $(this).index();
+          getPage(page);
+          $(this).addClass("active").siblings().removeClass("active");
+      });
+  })
+
 })
 

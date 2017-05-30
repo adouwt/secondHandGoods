@@ -28,7 +28,7 @@ app.get("/sale",router.showSale);
 app.get("/send",router.showSend);
 
 //展示捐献
-app.get("/donate",router.showDonate);
+// app.get("/donate",router.showDonate);
 
 
 //获得交换商品提交页面
@@ -65,11 +65,11 @@ app.post("/donateGoodsSubmit",router.donateGoodsSubmit);
 //获取所有商品内容的图表统计
 app.get("/dataCount",router.dataCount);
 
-//获取所有商品内容
-app.get("/alllogs",router.alllogs);
+//获取捐赠所有商品内容
+app.get("/donatelistMsg",router.donatelistMsg);
 
 //商品内容分页总数
-app.get("/alllogsamount",router.alllogsamount);  
+app.get("/donateNumberAmount",router.donateNumberAmount);  
 
 
 

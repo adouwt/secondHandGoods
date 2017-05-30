@@ -389,3 +389,8 @@ input.error-border {
   display: none;
 }
 
+.pagination li a.active {
+  background-color: #337ab7;
+  color: #fff;
+}
+
