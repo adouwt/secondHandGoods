@@ -319,10 +319,10 @@ $(function(){
 
 
   //路由的不同，做菜单的高亮显示
-  var window_href = location.pathname;
+  var window_href = location.href;
   var href_a  = $(".left_colum").find("a");
       href_a.each(function(){
-        if(window_href == $(this).attr("href")) {
+        if(window_href.indexOf($(this).attr("href")) !=-1) {
            $(this).addClass("active");
         }
       })
@@ -368,7 +368,7 @@ $(function(){
     isNothing($("#user-name"));
   }
 
-  //分页条获得分页数字
+  //分页条获得分页数字,然后跳转到拼接字符串的页面
   function getPage(page) {
     var window_href   = location.pathname;
     var newWindowHref =  window_href + "?page=" + page;
@@ -385,23 +385,37 @@ $(function(){
   
 
   //分页查询
-
-  //捐赠 分页条的Ajax
-  $.get("/donateNumberAmount", function (result) {
+  //函数封装，将请求分页条的数据进行封装
+  function pageReq (reqUrl,ele) {
+    $.get("/"+reqUrl,function (result) {
       var amount = parseInt(result);
-      //总页数
-      pageamount = Math.ceil(amount /2);//返回的是 与它相近的大1数值 
-      for (var i = 0; i < pageamount; i++) {
-        $(".pagination").append("<li ><a href='javascript:void(0);'>" +(i+1)+ "</a></li>");
-      }
-      addActive();
-      //监听
-      $(".pagination li").click(function () {
-          var page = $(this).index();
-          getPage(page);
-          $(this).addClass("active").siblings().removeClass("active");
-      });
-  })
+        //总页数
+        var pageamount = Math.ceil(amount /2);//返回的是 与它相近的大1数值 
+        for (var i = 0; i < pageamount; i++) {
+          $("."+ele).append("<li ><a href='javascript:void(0);'>" +(i+1)+ "</a></li>");
+        }
+        addActive();
+        //监听
+        $(".pagination li").click(function () {
+            var page = $(this).index();
+            getPage(page);
+        });
+    })
+  }
+  var donateNumberAmount    = "donateNumberAmount";
+  var exchangeNumberAmount  = "exchangeNumberAmount";
+  var sendNumberAmount      = "sendNumberAmount";
+  var saleNumberAmount      = "saleNumberAmount";
 
+  var indexNumberAmount     = "indexNumberAmount";
+
+ 
+  pageReq(donateNumberAmount,"donatePagination");
+  pageReq(exchangeNumberAmount,"exchangePagination");
+  pageReq(sendNumberAmount,"sendPagination");
+  pageReq(saleNumberAmount,"salePagination");
+  // pageReq(indexNumberAmount,"exchangePagination");
+
+  
 })
 

@@ -22,10 +22,10 @@ app.use("/product_img",express.static("./product_img"));
 app.get("/",router.showExchange);
 
 //展示变卖页
-app.get("/sale",router.showSale);
+// app.get("/sale",router.showSale);
 
 //展示赠送
-app.get("/send",router.showSend);
+// app.get("/send",router.showSend);
 
 //展示捐献
 // app.get("/donate",router.showDonate);
@@ -71,6 +71,23 @@ app.get("/donatelistMsg",router.donatelistMsg);
 //商品内容分页总数
 app.get("/donateNumberAmount",router.donateNumberAmount);  
 
+//获取交换所有商品内容
+app.get("/exchangelistMsg",router.exchangelistMsg);
+
+//交换内容分页总数
+app.get("/exchangeNumberAmount",router.exchangeNumberAmount); 
+
+//获取赠与所有商品内容
+app.get("/sendlistMsg",router.sendlistMsg);
+
+//交换内容分页总数
+app.get("/sendNumberAmount",router.sendNumberAmount); 
+
+//获取变卖所有商品内容
+app.get("/salelistMsg",router.salelistMsg);
+
+//变卖内容分页总数
+app.get("/saleNumberAmount",router.saleNumberAmount); 
 
 
 //搜索

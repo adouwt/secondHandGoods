@@ -178,7 +178,7 @@
         if(result=="1"){
 					alert("登录成功,将回到首页");
 					// window.location = "/";
-          history.go(0);
+          window.location = "/";
 				}else if(result=="-1"){
 					$("#login_error_cue").fadeIn().html("用户名不存在");
 				}else if(result=="-5"){
