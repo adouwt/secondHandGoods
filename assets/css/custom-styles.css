@@ -53,6 +53,7 @@ li {
     line-height: 3.5rem;
     margin-top: 0.9rem;
     border-radius: 50%;
+    display: none;
 }
 
 header li.dropdown>a.dropdown-toggle {

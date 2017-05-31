@@ -319,10 +319,11 @@ $(function(){
 
 
   //路由的不同，做菜单的高亮显示
-  var window_href = location.href;
+  // var window_href = location.href;
+  var window_postName = location.pathname;
   var href_a  = $(".left_colum").find("a");
       href_a.each(function(){
-        if(window_href.indexOf($(this).attr("href")) !=-1) {
+        if(($(this).attr("href")).indexOf(window_postName) !=-1) {
            $(this).addClass("active");
         }
       })
