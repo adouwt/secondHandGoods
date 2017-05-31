@@ -769,10 +769,10 @@ exports.dataCount = function (req,res,next) {
     }
     var donatelistCount = result.length;
 
-    if(result.length == 0){
-      res.send("-1");//用户名不存在
-      return;
-    }
+    // if(result.length == 0){
+    //   res.send("-1");//用户名不存在
+    //   return;
+    // }
 
     db.find("exchangelist",{},function(err,result){
       if(err){
@@ -781,10 +781,10 @@ exports.dataCount = function (req,res,next) {
       }
       var exchangelistCount = result.length;
 
-      if(result.length == 0){
-          res.send("-1");//用户名不存在
-          return;
-      }
+      // if(result.length == 0){
+      //     res.send("-1");//用户名不存在
+      //     return;
+      // }
 
       db.find("sendlist",{},function(err,result){
           if(err){
@@ -794,10 +794,10 @@ exports.dataCount = function (req,res,next) {
 
           var sendlistCount = result.length;
 
-          if(result.length == 0){
-              res.send("-1");//用户名不存在
-              return;
-          }
+          // if(result.length == 0){
+          //     res.send("-1");//用户名不存在
+          //     return;
+          // }
 
 
           db.find("salelist",{},function(err,result){
@@ -807,10 +807,10 @@ exports.dataCount = function (req,res,next) {
               }
               var salelistCount = result.length;
 
-              if(result.length == 0){
-                  res.send("-1");//用户名不存在
-                  return;
-              }
+              // if(result.length == 0){
+              //     res.send("-1");//用户名不存在
+              //     return;
+              // }
               var dataArr = [exchangelistCount,salelistCount,sendlistCount,donatelistCount];
               res.render("data-count",{
                 "exchangelistCount" : exchangelistCount,
