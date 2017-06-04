@@ -39,7 +39,7 @@ $(function(){
       
   		//发布商品表单内容
   		var userGoodsSort    		= $("#user-goods-sort").val();
-  		var userGoodsName    		= $("#user-goods-name").val();
+  		var userGoodsName    		= ($("#user-goods-name").val().replace(" ",""));
   		var userGoodsUseTime 		= $("#user-goods-usetime").val();
   		var userGoodsaddText 		= $("#user-goods-addText").val();
   		var userChangeTar   		= $("#user-change-target").val();
@@ -113,6 +113,7 @@ $(function(){
     isNothing($("#user-phone"))
     isPhone($("#user-phone"));   
     isNothing($("#user-goods-price"));
+    isNothing($("#user-goods-salePrice"));
     isNothing($("#user-goods-usetime"));
     isNothing($("#user-name"));
 
@@ -120,21 +121,25 @@ $(function(){
       
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
-      var userGoodsName       = $("#user-goods-name").val();
+      var userGoodsName       = ($("#user-goods-name").val().replace(" ",""));
       var userGoodsUseTime    = $("#user-goods-usetime").val();
       var userGoodsaddText    = $("#user-goods-addText").val();
       var userName            = $("#user-name").val();
       var userPhone           = $("#user-phone").val();
       var username            = $("#username").val();
       var userGoodsPrice      = $("#user-goods-price").val();
+      var userGoodsSalePrice  = $("#user-goods-salePrice").val();
       var selectWay           = $("#user-selectway").val();
+
 
       $.post("/saleGoodsSubmit",{
         "username"            : username,
         "selectWay"           : selectWay,
         "userGoodsSort"       : userGoodsSort,
         "userGoodsPrice"      : userGoodsPrice,
+        "userGoodsSalePrice"  : userGoodsSalePrice,
         "userGoodsName"       : userGoodsName,
+        "userPhone"           : userPhone,
         "userGoodsUseTime"    : userGoodsUseTime,
         "userGoodsaddText"    : userGoodsaddText,
         "userName"            : userName,
@@ -145,7 +150,6 @@ $(function(){
         "userImgFore"         : userImgFore,
       },function(result) {
         if(result=="1"){
-          
         }
         
         setTimeout(function () {
@@ -189,7 +193,7 @@ $(function(){
       
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
-      var userGoodsName       = $("#user-goods-name").val();
+      var userGoodsName       = ($("#user-goods-name").val().replace(" ",""));
       var userGoodsUseTime    = $("#user-goods-usetime").val();
       var userGoodsaddText    = $("#user-goods-addText").val();
       var userChangeTar       = $("#user-change-target").val();
@@ -198,7 +202,6 @@ $(function(){
       var username            = $("#username").val();
       var userGoodsPrice      = $("#user-goods-price").val();
       var selectWay           = $("#user-selectway").val();
-
       $.post("/sendGoodsSubmit",{
         "username"            : username,
         "selectWay"           : selectWay,
@@ -258,7 +261,7 @@ $(function(){
       
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
-      var userGoodsName       = $("#user-goods-name").val();
+      var userGoodsName       = ($("#user-goods-name").val().replace(" ",""));
       var userGoodsUseTime    = $("#user-goods-usetime").val();
       var userGoodsaddText    = $("#user-goods-addText").val();
       var userChangeTar       = $("#user-change-target").val();

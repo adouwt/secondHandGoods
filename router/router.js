@@ -364,10 +364,10 @@ exports.saleGoodsSubmit = function(req,res,next) {
       var selectWay          = fields.selectWay;
       var userGoodsSort      = fields.userGoodsSort;
       var userGoodsPrice     = fields.userGoodsPrice;
+      var userGoodsSalePrice = fields.userGoodsSalePrice;
       var userGoodsName      = fields.userGoodsName;
       var userGoodsUseTime   = fields.userGoodsUseTime;
       var userGoodsaddText   = fields.userGoodsaddText;
-      var userChangeTar      = fields.userChangeTar;
       var userName           = fields.userName;
       var userPhone          = fields.userPhone;
       var publicTime         = fields.publicTime;
@@ -405,11 +405,11 @@ exports.saleGoodsSubmit = function(req,res,next) {
           "selectWay"         :  selectWay,
           "userGoodsSort"     :  userGoodsSort,
           "userGoodsPrice"    :  userGoodsPrice,
+          "userGoodsSalePrice":  userGoodsSalePrice,
           "userGoodsName"     :  userGoodsName,
           "userGoodsUseTime"  :  userGoodsUseTime,
           "userGoodsaddText"  :  userGoodsaddText,
           "userName"          :  userName,
-          "userChangeTar"     :  userChangeTar,
           "userPhone"         :  userPhone,
           "publicTime"        :  publicTime,
           "imgBase64Arr"      :  imgBase64Arr,
@@ -597,8 +597,6 @@ exports.donatelistMsg = function(req,res,next){
         //如果登陆了
         var username  = req.session.username;
         var login     = true;
-        var selectWay = "exchange";
-
     } else {
         //没有登陆
         var username = "";  //制定一个空用户名
@@ -629,7 +627,6 @@ exports.exchangelistMsg = function(req,res,next){
         //如果登陆了
         var username  = req.session.username;
         var login     = true;
-        var selectWay = "exchange";
 
     } else {
         //没有登陆
@@ -662,7 +659,6 @@ exports.sendlistMsg = function(req,res,next){
         //如果登陆了
         var username  = req.session.username;
         var login     = true;
-        var selectWay = "exchange";
 
     } else {
         //没有登陆
@@ -695,8 +691,6 @@ exports.salelistMsg = function(req,res,next){
         //如果登陆了
         var username  = req.session.username;
         var login     = true;
-        var selectWay = "exchange";
-
     } else {
         //没有登陆
         var username = "";  //制定一个空用户名
@@ -706,7 +700,7 @@ exports.salelistMsg = function(req,res,next){
     //这个页面接收一个参数，页面
     var page = req.query.page;
     db.find("salelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
-        res.render("send",{
+        res.render("sale",{
             "result"    : result,
             "username"  : username,
             "login"     : login
@@ -770,7 +764,7 @@ exports.dataCount = function (req,res,next) {
     var donatelistCount = result.length;
 
     // if(result.length == 0){
-    //   res.send("-1");//用户名不存在
+    //   res.send("-1");//
     //   return;
     // }
 
@@ -782,7 +776,7 @@ exports.dataCount = function (req,res,next) {
       var exchangelistCount = result.length;
 
       // if(result.length == 0){
-      //     res.send("-1");//用户名不存在
+      //     res.send("-1");//
       //     return;
       // }
 
@@ -795,7 +789,7 @@ exports.dataCount = function (req,res,next) {
           var sendlistCount = result.length;
 
           // if(result.length == 0){
-          //     res.send("-1");//用户名不存在
+          //     res.send("-1");//
           //     return;
           // }
 
@@ -808,7 +802,7 @@ exports.dataCount = function (req,res,next) {
               var salelistCount = result.length;
 
               // if(result.length == 0){
-              //     res.send("-1");//用户名不存在
+              //     res.send("-1");/
               //     return;
               // }
               var dataArr = [exchangelistCount,salelistCount,sendlistCount,donatelistCount];
