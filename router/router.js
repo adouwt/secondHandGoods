@@ -296,7 +296,7 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
         var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
         var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
         var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-        
+
         console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
         fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
             if(err){
@@ -334,10 +334,10 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
           }
           req.session.login = "1";
           req.session.username = username;
-          res.send("1");//发布成功         
+          res.send("1");//发布成功
         });
        });
-        
+
     });
 
 }
@@ -382,7 +382,7 @@ exports.saleGoodsSubmit = function(req,res,next) {
         var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
         var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
         var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-        
+
         console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
         fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
             if(err){
@@ -420,7 +420,7 @@ exports.saleGoodsSubmit = function(req,res,next) {
           }
           req.session.login = "1";
           req.session.username = username;
-          res.send("1");//发布成功         
+          res.send("1");//发布成功
         });
        });
     });
@@ -464,7 +464,7 @@ exports.sendGoodsSubmit = function(req,res,next) {
         var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
         var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
         var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-        
+
         console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
         fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
             if(err){
@@ -502,7 +502,7 @@ exports.sendGoodsSubmit = function(req,res,next) {
           }
           req.session.login = "1";
           req.session.username = username;
-          res.send("1");//发布成功         
+          res.send("1");//发布成功
         });
        });
     });
@@ -546,7 +546,7 @@ exports.donateGoodsSubmit = function(req,res,next) {
         var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
         var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
         var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-        
+
         console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
         fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
             if(err){
@@ -584,7 +584,7 @@ exports.donateGoodsSubmit = function(req,res,next) {
           }
           req.session.login = "1";
           req.session.username = username;
-          res.send("1");//发布成功         
+          res.send("1");//发布成功
         });
        });
     });
@@ -609,7 +609,7 @@ exports.donatelistMsg = function(req,res,next){
             "result"    : result,
             "username"  : username,
             "login"     : login
-          });     
+          });
     });
 };
 
@@ -641,7 +641,7 @@ exports.exchangelistMsg = function(req,res,next){
             "result"    : result,
             "username"  : username,
             "login"     : login
-          });     
+          });
     });
 };
 
@@ -673,7 +673,7 @@ exports.sendlistMsg = function(req,res,next){
             "result"    : result,
             "username"  : username,
             "login"     : login
-          });     
+          });
     });
 };
 
@@ -704,7 +704,7 @@ exports.salelistMsg = function(req,res,next){
             "result"    : result,
             "username"  : username,
             "login"     : login
-          });     
+          });
     });
 };
 
@@ -748,7 +748,6 @@ exports.dataCount = function (req,res,next) {
       //如果登陆了
       var username  = req.session.username;
       var login     = true;
-      var selectWay = "exchange";
 
   } else {
       //没有登陆
@@ -816,7 +815,97 @@ exports.dataCount = function (req,res,next) {
               });
         });
 
-      });            
-   }); 
+      });
+   });
   });
 }
+
+exports.showUserCenter = function (req,res,next) {
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username  = req.session.username;
+      var login     = true;
+
+  } else {
+      //没有登陆
+      var username = "";  //制定一个空用户名
+      var login = false;
+  }
+
+
+  db.find("donatelist",{"username" : username},function(err,result1){
+    if(err){
+      res.send("-5");//随便去，服务器错误
+      return;
+    }
+    var donatelistCount = result1;
+
+    db.find("exchangelist",{"username" : username},function(err,result2){
+      if(err){
+          res.send("-5");//随便去，服务器错误
+          return;
+      }
+      var exchangelistCount = result2;
+
+      // if(result.length == 0){
+      //     res.send("-1");//
+      //     return;
+      // }
+
+      db.find("sendlist",{"username" : username},function(err,result3){
+          if(err){
+              res.send("-5");//随便去，服务器错误
+              return;
+          }
+
+          var sendlistCount = result3;
+
+          // if(result.length == 0){
+          //     res.send("-1");//
+          //     return;
+          // }
+
+
+          db.find("salelist",{"username" : username},function(err,result4){
+              if(err){
+                  res.send("-5");//随便去，服务器错误
+                  return;
+              }
+              var salelistCount = result4;
+
+              // console.log(result4,result3,result2,result1);
+              // console.log("当前用户名字：" + username);
+              res.render("usercenter",{
+                "exchangelistCount" : exchangelistCount,
+                "salelistCount"     : salelistCount,
+                "sendlistCount"     : sendlistCount,
+                "donatelistCount"   : donatelistCount,
+                "login"             : login,
+                "username"          : username
+              });
+        });
+
+      });
+   });
+  });
+}
+
+//个人中心的分页总数
+exports.userGoodsNumberAmount = function(req,res,next){
+    db.getAllCount("salelist",function(saleCount){
+        // res.send(count.toString());
+				var saleCount = saleCount;
+				db.getAllCount("exchangelist",function (exchangeCount) {
+					var exchangeCount = exchangeCount;
+						db.getAllCount("sendlist",function (sendCount) {
+							var sendCount = sendCount;
+								db.getAllCount("donatelist",function (donateCount) {
+									var donateCount = donateCount;
+									var allCount = saleCount + exchangeCount + sendCount + donateCount;
+									res.send(allCount.toString());
+								})
+						})
+				})
+    });
+};

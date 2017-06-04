@@ -18,7 +18,7 @@
                 <p>
                   送-send
                 </p>
-              </div> 
+              </div>
               <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 h1">
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Search for...">
@@ -26,7 +26,7 @@
                     <button class="btn btn-default" type="button">Go!</button>
                   </span>
                 </div><!-- /input-group -->
-              </div>                          
+              </div>
           </header>
             <% for(var i= 0;i<result.length;i++) {%>
               <section>
@@ -46,28 +46,28 @@
                         <div class="carousel-inner" role="listbox">
                           <div class="item active sec-goods-img-default">
                             <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'0.png' || '/img/down_img.jpg' %>);">
-                              
+
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
                             <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'1.png' || '/img/down_img.jpg' %>);">
-                              
+
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
                             <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'2.png' || '/img/down_img.jpg' %>);">
-                              
+
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
                             <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ result[i].username + result[i].userGoodsName + result[i].selectWay +'3.png' || '/img/down_img.jpg' %>);">
-                              
+
                             </div>
                             <div class="carousel-caption">
                             </div>
@@ -97,6 +97,10 @@
                             <span class="right_board_categories_name"><%= result[i].userGoodsName%></span>
                           </li>
                           <li>
+                            <span class="right_board_categories">联系人：</span>
+                            <span class="right_board_categories_name"><%= result[i].userName%></span>
+                          </li>
+                          <li>
                             <span class="right_board_categories">联系电话：</span>
                             <span class="right_board_categories_name"><%= result[i].userPhone%></span>
                           </li>
@@ -121,7 +125,7 @@
           <footer class="deliver-page">
             <nav aria-label="Page navigation" class="navbar  navbar-right">
               <ul class="pagination sendPagination">
-                
+
               </ul>
               </nav>
           </footer>

@@ -36,7 +36,7 @@ $(function(){
     formVertify ();
 
     if(imgBase64Arr.length>=4) {
-      
+
   		//发布商品表单内容
   		var userGoodsSort    		= $("#user-goods-sort").val();
   		var userGoodsName    		= ($("#user-goods-name").val().replace(" ",""));
@@ -76,7 +76,7 @@ $(function(){
   				$(".right_board_categories_tel").html(userPhone);
   				$(".product_details_addText").html(userGoodsaddText);
   			}
-  			
+
   			setTimeout(function () {
   				window.location = "/exchangelistMsg?page=0";
   			},1000);
@@ -86,7 +86,7 @@ $(function(){
   		})
     } else {
       $(".error-img-file").fadeIn();
-      return false;     
+      return false;
     }
 
 		return false;
@@ -111,14 +111,14 @@ $(function(){
     isNothing($("#user-goods-sort"));
     isNothing($("#user-goods-name"));
     isNothing($("#user-phone"))
-    isPhone($("#user-phone"));   
+    isPhone($("#user-phone"));
     isNothing($("#user-goods-price"));
     isNothing($("#user-goods-salePrice"));
     isNothing($("#user-goods-usetime"));
     isNothing($("#user-name"));
 
     if(imgBase64Arr.length>=4) {
-      
+
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
       var userGoodsName       = ($("#user-goods-name").val().replace(" ",""));
@@ -151,7 +151,7 @@ $(function(){
       },function(result) {
         if(result=="1"){
         }
-        
+
         setTimeout(function () {
           window.location = "/salelistMsg?page=0";
         },1000);
@@ -161,7 +161,7 @@ $(function(){
       })
     } else {
       $(".error-img-file").fadeIn();
-      return false;  
+      return false;
     }
 
     return false;
@@ -186,11 +186,11 @@ $(function(){
     isNothing($("#user-goods-sort"));
     isNothing($("#user-goods-name"));
     isNothing($("#user-phone"))
-    isPhone($("#user-phone"));   
+    isPhone($("#user-phone"));
     isNothing($("#user-name"));
 
     if(imgBase64Arr.length>=4) {
-      
+
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
       var userGoodsName       = ($("#user-goods-name").val().replace(" ",""));
@@ -217,9 +217,9 @@ $(function(){
         "userImgFore"         : userImgFore,
       },function(result) {
         if(result=="1"){
-          
+
         }
-        
+
         setTimeout(function () {
           window.location = "/sendlistMsg?page=0";
         },1000);
@@ -229,7 +229,7 @@ $(function(){
       })
     } else {
       $(".error-img-file").fadeIn();
-      return false;  
+      return false;
     }
 
     return false;
@@ -254,11 +254,11 @@ $(function(){
     isNothing($("#user-goods-sort"));
     isNothing($("#user-goods-name"));
     isNothing($("#user-phone"))
-    isPhone($("#user-phone"));   
+    isPhone($("#user-phone"));
     isNothing($("#user-name"));
 
     if(imgBase64Arr.length>=4) {
-      
+
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
       var userGoodsName       = ($("#user-goods-name").val().replace(" ",""));
@@ -286,9 +286,9 @@ $(function(){
         "userImgFore"         : userImgFore,
       },function(result) {
         if(result=="1"){
-          
+
         }
-        
+
         setTimeout(function () {
           window.location = "/donatelistMsg?page=0";
         },1000);
@@ -298,7 +298,7 @@ $(function(){
       })
     } else {
       $(".error-img-file").fadeIn();
-      return false;  
+      return false;
     }
 
     return false;
@@ -347,17 +347,17 @@ $(function(){
     $(this).removeClass('error-border')
     .parent("div").next().next(".error-msg-formate").removeClass("error-fadeIn");
   });
-  
+
    $("#fileImage").click(function () {
-      $(".error-img-file").fadeOut();    
+      $(".error-img-file").fadeOut();
    })
   //电话号码的验证
   function isPhone(dom) {
     var domValue = dom.val();
-    if(domValue.length>1 && !(/^1[34578]\d{9}$/.test(domValue))){ 
-        dom.addClass("error-border").parent("div").next().next(".error-msg-formate").addClass("error-fadeIn"); 
-        return false; 
-    } 
+    if(domValue.length>1 && !(/^1[34578]\d{9}$/.test(domValue))){
+        dom.addClass("error-border").parent("div").next().next(".error-msg-formate").addClass("error-fadeIn");
+        return false;
+    }
   }
 
   //所有页面提交的时候，表单数值的验证
@@ -366,7 +366,7 @@ $(function(){
     isNothing($("#user-goods-name"));
     isNothing($("#user-change-target"));
     isNothing($("#user-phone"))
-    isPhone($("#user-phone"));   
+    isPhone($("#user-phone"));
     isNothing($("#user-goods-price"));
     isNothing($("#user-goods-usetime"));
     isNothing($("#user-name"));
@@ -386,7 +386,7 @@ $(function(){
     var pageNumber = parseInt(window_href[1])+1;
     $(".pagination li a:contains(" + pageNumber +")").addClass("active");
   }
-  
+
 
   //分页查询
   //函数封装，将请求分页条的数据进行封装
@@ -394,7 +394,7 @@ $(function(){
     $.get("/"+reqUrl,function (result) {
       var amount = parseInt(result);
         //总页数
-        var pageamount = Math.ceil(amount /2);//返回的是 与它相近的大1数值 
+        var pageamount = Math.ceil(amount /2);//返回的是 与它相近的大1数值
         for (var i = 0; i < pageamount; i++) {
           $("."+ele).append("<li ><a href='javascript:void(0);'>" +(i+1)+ "</a></li>");
         }
@@ -410,16 +410,26 @@ $(function(){
   var exchangeNumberAmount  = "exchangeNumberAmount";
   var sendNumberAmount      = "sendNumberAmount";
   var saleNumberAmount      = "saleNumberAmount";
+  var userGoodsNumberAmount = "userGoodsNumberAmount";
 
   var indexNumberAmount     = "indexNumberAmount";
 
- 
+
   pageReq(donateNumberAmount,"donatePagination");
   pageReq(exchangeNumberAmount,"exchangePagination");
   pageReq(sendNumberAmount,"sendPagination");
   pageReq(saleNumberAmount,"salePagination");
+  pageReq(userGoodsNumberAmount,"userGoodsPagination");
   // pageReq(indexNumberAmount,"exchangePagination");
 
-  
+  //修改交易完成状态
+  $(".finish").click(function () {
+    alert("确认交易完成吗");//改成模态框
+    $(this).attr("disabled","disabled").html("完成")
+    .parents(".right_product_details")
+    .addClass("disabled")
+    .prev(".left_product_img")
+    .addClass("disabled")
+    .parents(".goodsList").find(".fa").fadeIn();
+  })
 })
-

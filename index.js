@@ -65,33 +65,39 @@ app.post("/donateGoodsSubmit",router.donateGoodsSubmit);
 //获取所有商品内容的图表统计
 app.get("/",router.dataCount);
 
+app.get("/userGoodsNumberAmount",router.userGoodsNumberAmount);
+
 //获取捐赠所有商品内容
 app.get("/donatelistMsg",router.donatelistMsg);
 
 //商品内容分页总数
-app.get("/donateNumberAmount",router.donateNumberAmount);  
+app.get("/donateNumberAmount",router.donateNumberAmount);
 
 //获取交换所有商品内容
 app.get("/exchangelistMsg",router.exchangelistMsg);
 
 //交换内容分页总数
-app.get("/exchangeNumberAmount",router.exchangeNumberAmount); 
+app.get("/exchangeNumberAmount",router.exchangeNumberAmount);
 
 //获取赠与所有商品内容
 app.get("/sendlistMsg",router.sendlistMsg);
 
 //交换内容分页总数
-app.get("/sendNumberAmount",router.sendNumberAmount); 
+app.get("/sendNumberAmount",router.sendNumberAmount);
 
 //获取变卖所有商品内容
 app.get("/salelistMsg",router.salelistMsg);
 
 //变卖内容分页总数
-app.get("/saleNumberAmount",router.saleNumberAmount); 
+app.get("/saleNumberAmount",router.saleNumberAmount);
+
+
+//个人中心页
+app.get("/usercenter",router.showUserCenter);
 
 
 //搜索
-app.post("/search-sql",router.searchSql);  
+app.post("/search-sql",router.searchSql);
 
 
 //退出

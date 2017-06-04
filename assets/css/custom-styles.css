@@ -377,7 +377,7 @@ section>h4 {
   color: red;
   display: none;
 }
- 
+
 .error-msg.error-fadeIn,.error-msg-formate.error-fadeIn{
   display: block;
 }
@@ -396,3 +396,37 @@ input.error-border {
 }
 
 
+/*个人中心*/
+.saleList h3,.exchangeList h3,.sendList h3 ,.donateList h3{
+  margin-left: 30px;
+}
+.right_board .h5 {
+  margin-top: 50px;
+}
+.exchangeList .fa ,
+.donateList .fa ,
+.sendList .fa ,
+.saleList .fa {
+  display: none;
+}
+.right_product_details.disabled,.left_product_img.disabled {
+  opacity: .5;
+}
+
+.exchangeList .fa,
+.donateList .fa,
+.sendList .fa,
+.saleList .fa{
+  position: relative;
+  font-size: 140px;
+  top: -320px;
+  left: 50%;
+  color: red;
+}
+
+.exchangeList.disabled .fa ,
+.donateList.disabled .fa ,
+.sendList.disabled .fa ,
+.saleList.disabled .fa {
+  display: block;
+}
