@@ -99,6 +99,18 @@ app.get("/usercenter",router.showUserCenter);
 //搜索
 app.post("/search-sql",router.searchSql);
 
+//修改交易状态
+app.post("/changeEXchangeStatus",router.changeExchangeStatus);
+
+//修改变卖状态
+app.post("/changeSaleStatus",router.changeSaleStatus);
+
+//修改赠送状态
+app.post("/changeSendStatus",router.changeSendStatus);
+
+//修改捐献状态
+app.post("/changeDonateStatus",router.changeDonateStatus);
+
 
 //退出
 app.get("/user_exit",router.index);

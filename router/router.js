@@ -909,3 +909,160 @@ exports.userGoodsNumberAmount = function(req,res,next){
 				})
     });
 };
+
+//改变交易状态--交换
+exports.changeExchangeStatus = function (req,res,next) {
+	//检索数据库，查找此人的头像
+	if (req.session.login == "1") {
+			//如果登陆了
+			var username = req.session.username;
+			var login = true;
+	} else {
+			//没有登陆
+			var username = "";  //制定一个空用户名
+			var login = false;
+	}
+
+	var form = new formidable.IncomingForm();
+
+	form.parse(req, function(err, fields, files) {
+		var goodsStatus = fields.goodsStatus;
+		// console.log(goodsStatus);
+		db.find("exchangelist",{username : username},function (err,result) {
+			if(err) {
+				res.send("-5");
+				return;
+			}
+			db.updateMany("exchangelist",{"goodsStatus" : "" },{
+				$set : {
+					goodsStatus : "finish"
+				}
+			},function (err,result) {
+				if(err) {
+					console.log(err);
+					res.send("-4");
+					return;
+				}
+				res.send("1");//发布成功
+			})
+		})
+	})
+}
+
+//改变交易状态--变卖
+exports.changeSaleStatus = function (req,res,next) {
+	//检索数据库，查找此人的头像
+	if (req.session.login == "1") {
+			//如果登陆了
+			var username = req.session.username;
+			var login = true;
+	} else {
+			//没有登陆
+			var username = "";  //制定一个空用户名
+			var login = false;
+	}
+
+	var form = new formidable.IncomingForm();
+
+	form.parse(req, function(err, fields, files) {
+		var goodsStatus = fields.goodsStatus;
+		// console.log(goodsStatus);
+		db.find("salelist",{username : username},function (err,result) {
+			if(err) {
+				res.send("-5");
+				return;
+			}
+			db.updateMany("salelist",{"goodsStatus" : "" },{
+				$set : {
+					goodsStatus : "finish"
+				}
+			},function (err,result) {
+				if(err) {
+					console.log(err);
+					res.send("-4");
+					return;
+				}
+				res.send("1");//发布成功
+			})
+		})
+	})
+}
+
+//改变交易状态--变卖
+exports.changeSendStatus = function (req,res,next) {
+	//检索数据库，查找此人的头像
+	if (req.session.login == "1") {
+			//如果登陆了
+			var username = req.session.username;
+			var login = true;
+	} else {
+			//没有登陆
+			var username = "";  //制定一个空用户名
+			var login = false;
+	}
+
+	var form = new formidable.IncomingForm();
+
+	form.parse(req, function(err, fields, files) {
+		var goodsStatus = fields.goodsStatus;
+		// console.log(goodsStatus);
+		db.find("sendlist",{username : username},function (err,result) {
+			if(err) {
+				res.send("-5");
+				return;
+			}
+			db.updateMany("sendlist",{"goodsStatus" : "" },{
+				$set : {
+					goodsStatus : "finish"
+				}
+			},function (err,result) {
+				if(err) {
+					// console.log(err);
+					res.send("-4");
+					return;
+				}
+				res.send("1");//发布成功
+			})
+		})
+	})
+}
+
+//改变交易状态--捐献
+exports.changeDonateStatus = function (req,res,next) {
+	//检索数据库，查找此人的头像
+	if (req.session.login == "1") {
+			//如果登陆了
+			var username = req.session.username;
+			var login = true;
+	} else {
+			//没有登陆
+			var username = "";  //制定一个空用户名
+			var login = false;
+	}
+
+	var form = new formidable.IncomingForm();
+
+	form.parse(req, function(err, fields, files) {
+		var goodsStatus = fields.goodsStatus;
+		// console.log(goodsStatus);
+		db.find("donatelist",{username : username},function (err,result) {//通过用户名查找有问题，就选中当前用户的所有的商品,可复合查询
+			//http://docs.mongoing.com/manual-zh/tutorial/query-documents.html
+			if(err) {
+				res.send("-5");
+				return;
+			}
+			db.updateMany("donatelist",{"goodsStatus" : "" },{
+				$set : {
+					goodsStatus : "finish"
+				}
+			},function (err,result) {
+				if(err) {
+					// console.log(err);
+					res.send("-4");
+					return;
+				}
+				res.send("1");//发布成功
+			})
+		})
+	})
+}

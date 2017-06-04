@@ -85,6 +85,7 @@ exports.deleteMany = function (collectionName, json, callback) {
     });
 }
 
+
 //修改
 exports.updateMany = function (collectionName, json1, json2, callback) {
     _connectDB(function (err, db) {
@@ -94,7 +95,7 @@ exports.updateMany = function (collectionName, json1, json2, callback) {
             function (err, results) {
                 callback(err, results);
                 db.close();
-            });
+        });
     })
 }
 

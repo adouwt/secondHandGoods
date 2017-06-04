@@ -18,7 +18,7 @@ $(function(){
   //暂时每个页面的单独提交，看看以后有么有办法，同意提交，后台再做区分
   // 交换商品
 
-	$("#exchangeGoods-submit").click(function() {
+  $("#exchangeGoods-submit").click(function() {
 
 		// 获取图片的base64的代码
         //后端的formindable 无法接受数组，因此暂时分开数组 单个传输给后端
@@ -422,14 +422,31 @@ $(function(){
   pageReq(userGoodsNumberAmount,"userGoodsPagination");
   // pageReq(indexNumberAmount,"exchangePagination");
 
-  //修改交易完成状态
-  $(".finish").click(function () {
-    alert("确认交易完成吗");//改成模态框
-    $(this).attr("disabled","disabled").html("完成")
-    .parents(".right_product_details")
-    .addClass("disabled")
-    .prev(".left_product_img")
-    .addClass("disabled")
-    .parents(".goodsList").find(".fa").fadeIn();
-  })
+
+  //按照交易类型分类，封装函数，
+  function changeGoodsStatus (ele,url) {
+    $("." + ele).click(function() {
+      alert("修改状态吗？");
+      $(this).attr("disabled","disabled").html("完成")
+      .parents(".right_product_details")
+      .addClass("disabled")
+      .prev(".left_product_img")
+      .addClass("disabled")
+      .parents(".goodsList").find(".fa").fadeIn();
+      $.post("/"+url,{
+        goodsStatus : "finish"
+      },function (result) {
+        if (result=="1") {
+          alert("当前交易状态已完成");
+        } else {
+          alert("状态异常，稍后尝试");
+        }
+      })
+    })
+  }
+
+  changeGoodsStatus ("exchangeFinish","changeExchangeStatus");
+  changeGoodsStatus ("saleFinish","changeSaleStatus");
+  changeGoodsStatus ("sendFinish","changeSendStatus");
+  changeGoodsStatus ("donateFinish","changeDonateStatus");
 })
