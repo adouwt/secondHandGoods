@@ -403,13 +403,8 @@ input.error-border {
 .right_board .h5 {
   margin-top: 50px;
 }
-.exchangeList .fa ,
-.donateList .fa ,
-.sendList .fa ,
-.saleList .fa {
-  display: none;
-}
-.right_product_details.disabled,.left_product_img.disabled {
+
+.row.disabled {
   opacity: .5;
 }
 
@@ -424,9 +419,4 @@ input.error-border {
   color: red;
 }
 
-.exchangeList.disabled .fa ,
-.donateList.disabled .fa ,
-.sendList.disabled .fa ,
-.saleList.disabled .fa {
-  display: block;
-}
+

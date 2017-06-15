@@ -426,13 +426,12 @@ $(function(){
   //按照交易类型分类，封装函数，
   function changeGoodsStatus (ele,url) {
     $("." + ele).click(function() {
-      alert("修改状态吗？");
-      $(this).attr("disabled","disabled").html("完成")
-      .parents(".right_product_details")
+      alert("修改状态吗？");//改为模态框
+      $(this).attr("disabled","disabled").html($(".finish").val())
+      .parents(".row")
       .addClass("disabled")
-      .prev(".left_product_img")
-      .addClass("disabled")
-      .parents(".goodsList").find(".fa").fadeIn();
+      .parents(".goodsList")
+      .find(".fa").fadeIn();
       $.post("/"+url,{
         goodsStatus : "finish"
       },function (result) {

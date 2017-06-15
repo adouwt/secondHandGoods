@@ -30,13 +30,18 @@
                 </div><!-- /input-group -->
               </div>
           </header>
+
           <section class="exchangeList">
             <div>
               <h3  id= "exchange-jump">所有交换</h3>
               <% for(var i= 0;i<exchangelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
+                    <% if(exchangelistCount[i].goodsStatus == "finish") { %>
+                        <div class="row disabled">
+                    <% } else {%>
                     <div class="row">
+                    <% } %>
                       <div class="left_product_img col-lg-7 col-md-7 col-sm-12 col-xs-12">
                         <div id="carousel-example-generic<%= i %>" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
@@ -127,7 +132,13 @@
                             </li>
                             <li>
                               <span class="right_board_categories">交易状态：</span>
-                              <button class ="btn btn-success exchangeFinish">未完成</button>
+
+                              <% if(exchangelistCount[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-success exchangeFinish" disabled>交易结束</button>
+                              <% } else {%>
+                                <button class ="btn btn-success exchangeFinish">交易结束</button>
+                              <%}%>
+
                             </li>
                             <li>
                               <span class="right_board_categories">详细补充：</span> <br>
@@ -140,7 +151,11 @@
                       </div>
                     </div>
                   </div>
-                  <i class="fa fa-times"></i>
+                  <% if(exchangelistCount[i].goodsStatus == "finish") { %>
+                      <i class="fa fa-times"></i>
+                  <% } else {%> 
+                    <i class="fa fa-times" style="display: none;"></i>
+                  <% } %>               
                 </section>
                 <hr>
               <% }%>
@@ -152,15 +167,19 @@
               <% for(var i= 0;i<salelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
-                    <div class="row">
+                    <% if(salelistCount[i].goodsStatus == "finish") { %>
+                      <div class="row disabled">
+                    <% } else {%>
+                      <div class="row">
+                    <% } %>
                       <div class="left_product_img col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                        <div id="carousel-example-generic<%= i %>" class="carousel slide" data-ride="carousel">
+                        <div id="<%= i %>" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
                           <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale')+'1.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale')+'2.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#c<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale')+'1.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale')+'2.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);"></li>
                           </ol>
 
                           <!-- Wrapper for slides -->
@@ -196,11 +215,11 @@
                           </div>
 
                           <!-- Controls -->
-                          <a class="left carousel-control" href="#carousel-example-generic<%= i %>" role="button" data-slide="prev">
+                          <a class="left carousel-control" href="#<%= i %>" role="button" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                           </a>
-                          <a class="right carousel-control" href="#carousel-example-generic<%= i %>" role="button" data-slide="next">
+                          <a class="right carousel-control" href="#<%= i %>" role="button" data-slide="next">
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                           </a>
@@ -243,7 +262,13 @@
                             </li>
                             <li>
                               <span class="right_board_categories">交易状态：</span>
-                              <button class ="btn btn-success saleFinish">未完成</button>
+
+                              <% if(salelistCount[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-success exchangeFinish" disabled>交易结束</button>
+                              <% } else {%>
+                                <button class ="btn btn-success exchangeFinish">交易进行中</button>
+                              <%}%>
+
                             </li>
                             <li>
                               <span class="right_board_categories">详细补充：</span> <br>
@@ -256,7 +281,11 @@
                       </div>
                     </div>
                   </div>
-                  <i class="fa fa-times"></i>
+                  <% if(salelistCount[i].goodsStatus == "finish") { %>
+                      <i class="fa fa-times"></i>
+                  <% } else {%> 
+                    <i class="fa fa-times" style="display: none;"></i>
+                  <% } %>
                 </section>
                 <hr>
               <% }%>
@@ -268,15 +297,19 @@
               <% for(var i= 0;i<sendlistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
+                    <% if(sendlistCount[i].goodsStatus == "finish") { %>
+                        <div class="row disabled">
+                    <% } else {%>
                     <div class="row">
+                    <% } %>
                       <div class="left_product_img col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                        <div id="carousel-example-generic<%= i %>" class="carousel slide" data-ride="carousel">
+                        <div id="carousel-sendList-generic<%= i %>" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
                           <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
                           </ol>
 
                           <!-- Wrapper for slides -->
@@ -312,11 +345,11 @@
                           </div>
 
                           <!-- Controls -->
-                          <a class="left carousel-control" href="#carousel-example-generic<%= i %>" role="button" data-slide="prev">
+                          <a class="left carousel-control" href="#carousel-sendList-generic<%= i %>" role="button" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                           </a>
-                          <a class="right carousel-control" href="#carousel-example-generic<%= i %>" role="button" data-slide="next">
+                          <a class="right carousel-control" href="#carousel-sendList-generic<%= i %>" role="button" data-slide="next">
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                           </a>
@@ -347,7 +380,13 @@
                             </li>
                             <li>
                               <span class="right_board_categories">交易状态：</span>
-                              <button class ="btn btn-success sendFinish">未完成</button>
+
+                              <% if(sendlistCount[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-success sendFinish" disabled>交易结束</button>
+                              <% } else {%>
+                                <button class ="btn btn-success sendFinish">交易结束</button>
+                              <%}%>
+
                             </li>
                             <li>
                               <span class="right_board_categories">详细补充：</span> <br>
@@ -360,7 +399,11 @@
                       </div>
                     </div>
                   </div>
-                  <i class="fa fa-times"></i>
+                  <% if(sendlistCount[i].goodsStatus == "finish") { %>
+                      <i class="fa fa-times"></i>
+                  <% } else {%> 
+                    <i class="fa fa-times" style="display: none;"></i>
+                  <% } %>
                 </section>
                 <hr>
               <% }%>
@@ -371,15 +414,19 @@
               <% for(var i= 0;i<donatelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
+                    <% if(donatelistCount[i].goodsStatus == "finish") { %>
+                        <div class="row disabled">
+                    <% } else {%>
                     <div class="row">
+                    <% } %>
                       <div class="left_product_img col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                        <div id="carousel-example-generic<%= i %>" class="carousel slide" data-ride="carousel">
+                        <div id="carousel-donateList-generic<%= i %>" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
                           <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
                           </ol>
 
                           <!-- Wrapper for slides -->
@@ -415,11 +462,11 @@
                           </div>
 
                           <!-- Controls -->
-                          <a class="left carousel-control" href="#carousel-example-generic<%= i %>" role="button" data-slide="prev">
+                          <a class="left carousel-control" href="#carousel-donateList-generic<%= i %>" role="button" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                           </a>
-                          <a class="right carousel-control" href="#carousel-example-generic<%= i %>" role="button" data-slide="next">
+                          <a class="right carousel-control" href="#carousel-donateList-generic<%= i %>" role="button" data-slide="next">
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                           </a>
@@ -450,7 +497,13 @@
                             </li>
                             <li>
                               <span class="right_board_categories">交易状态：</span>
-                              <button class ="btn btn-success donateFinish">未完成</button>
+
+                              <% if(donatelistCount[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-success sendFinish" disabled>交易结束</button>
+                              <% } else {%>
+                                <button class ="btn btn-success sendFinish">交易进行中</button>
+                              <%}%>
+
                             </li>
                             <li>
                               <span class="right_board_categories">详细补充：</span> <br>
@@ -463,7 +516,11 @@
                       </div>
                     </div>
                   </div>
-                  <i class="fa fa-times"></i>
+                  <% if(donatelistCount[i].goodsStatus == "finish") { %>
+                    <i class="fa fa-times" style="display: block;"></i>
+                  <% } else {%> 
+                    <i class="fa fa-times" style="display: none;"></i>
+                  <%}%>
                 </section>
                 <hr>
               <% }%>
@@ -480,6 +537,8 @@
           </footer>
         </div>
     </section>
+
+    <input type="" name="" class="finish" value="交易结束" hidden>
 
     <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>

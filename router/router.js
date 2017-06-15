@@ -326,6 +326,7 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
           "userChangeTar"     :  userChangeTar,
           "userPhone"         :  userPhone,
           "publicTime"        :  publicTime,
+          "goodsStatus"       :  'unfinish',
           "imgBase64Arr"      :  imgBase64Arr,
         },function(err,result){
           if(err){
@@ -412,6 +413,7 @@ exports.saleGoodsSubmit = function(req,res,next) {
           "userName"          :  userName,
           "userPhone"         :  userPhone,
           "publicTime"        :  publicTime,
+          "goodsStatus"       :  'unfinish',
           "imgBase64Arr"      :  imgBase64Arr,
         },function(err,result){
           if(err){
@@ -494,6 +496,7 @@ exports.sendGoodsSubmit = function(req,res,next) {
           "userChangeTar"     :  userChangeTar,
           "userPhone"         :  userPhone,
           "publicTime"        :  publicTime,
+          "goodsStatus"       :  'unfinish',
           "imgBase64Arr"      :  imgBase64Arr,
         },function(err,result){
           if(err){
@@ -576,6 +579,7 @@ exports.donateGoodsSubmit = function(req,res,next) {
           "userChangeTar"     :  userChangeTar,
           "userPhone"         :  userPhone,
           "publicTime"        :  publicTime,
+          "goodsStatus"       :  'unfinish',
           "imgBase64Arr"      :  imgBase64Arr,
         },function(err,result){
           if(err){
@@ -933,7 +937,7 @@ exports.changeExchangeStatus = function (req,res,next) {
 				res.send("-5");
 				return;
 			}
-			db.updateMany("exchangelist",{"goodsStatus" : "" },{
+			db.updateMany("exchangelist",{"goodsStatus" : "unfinish" },{
 				$set : {
 					goodsStatus : "finish"
 				}
@@ -972,7 +976,7 @@ exports.changeSaleStatus = function (req,res,next) {
 				res.send("-5");
 				return;
 			}
-			db.updateMany("salelist",{"goodsStatus" : "" },{
+			db.updateMany("salelist",{"goodsStatus" : "unfinish" },{
 				$set : {
 					goodsStatus : "finish"
 				}
@@ -988,7 +992,7 @@ exports.changeSaleStatus = function (req,res,next) {
 	})
 }
 
-//改变交易状态--变卖
+//改变交易状态--送
 exports.changeSendStatus = function (req,res,next) {
 	//检索数据库，查找此人的头像
 	if (req.session.login == "1") {
@@ -1011,7 +1015,7 @@ exports.changeSendStatus = function (req,res,next) {
 				res.send("-5");
 				return;
 			}
-			db.updateMany("sendlist",{"goodsStatus" : "" },{
+			db.updateMany("sendlist",{"goodsStatus" : "unfinish" },{
 				$set : {
 					goodsStatus : "finish"
 				}
@@ -1045,13 +1049,13 @@ exports.changeDonateStatus = function (req,res,next) {
 	form.parse(req, function(err, fields, files) {
 		var goodsStatus = fields.goodsStatus;
 		// console.log(goodsStatus);
-		db.find("donatelist",{username : username},function (err,result) {//通过用户名查找有问题，就选中当前用户的所有的商品,可复合查询
+		db.find("donatelist",{username : username,},function (err,result) {//通过用户名查找有问题，就选中当前用户的所有的商品,可复合查询
 			//http://docs.mongoing.com/manual-zh/tutorial/query-documents.html
 			if(err) {
 				res.send("-5");
 				return;
 			}
-			db.updateMany("donatelist",{"goodsStatus" : "" },{
+			db.updateMany("donatelist",{"goodsStatus" : "unfinish" },{
 				$set : {
 					goodsStatus : "finish"
 				}
@@ -1065,4 +1069,11 @@ exports.changeDonateStatus = function (req,res,next) {
 			})
 		})
 	})
+}
+
+exports.hello = function (req,res,next) {
+  res.json({
+    a:"1",
+    b:"2"
+  })
 }

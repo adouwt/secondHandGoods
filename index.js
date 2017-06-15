@@ -118,6 +118,8 @@ app.get("/user_exit",router.index);
 //设置头像的业务
 app.get("/setavatar",router.showSetavatar);
 
+app.get("/hello",router.hello);
+
 
 //上传图片
 //执行设置头像的业务

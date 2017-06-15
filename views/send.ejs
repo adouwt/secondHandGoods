@@ -28,10 +28,15 @@
                 </div><!-- /input-group -->
               </div>
           </header>
+          <section class="sendList" >
             <% for(var i= 0;i<result.length;i++) {%>
-              <section>
+              <section class="goodsList">
                 <div class="container-fluid">
-                  <div class="row">
+                    <% if(result[i].goodsStatus == "finish") { %>
+                    <div class="row disabled">
+                    <% } else {%>
+                    <div class="row">
+                    <% } %>
                     <div class="left_product_img col-lg-7 col-md-7 col-sm-12 col-xs-12">
                       <div id="carousel-example-generic<%= i %>" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
@@ -109,6 +114,16 @@
                             <span class="right_board_categories_name"><%= result[i].publicTime%></span>
                           </li>
                           <li>
+                              <span class="right_board_categories">交易状态：</span>
+
+                              <% if(result[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-success" disabled>交易结束</button>
+                              <% } else {%>
+                                <button class ="btn btn-success">交易进行中</button>
+                              <%}%>
+
+                          </li>
+                          <li>
                             <span class="right_board_categories">详细补充：</span> <br>
                             <span class="product_details_addText right_board_categories_name">
                                 <%= result[i].userGoodsaddText%>
@@ -119,9 +134,15 @@
                     </div>
                   </div>
                 </div>
+                <% if(result[i].goodsStatus == "finish") { %>
+                      <i class="fa fa-times"></i>
+                  <% } else {%> 
+                    <i class="fa fa-times" style="display: none;"></i>
+                  <% } %>
               </section>
               <hr>
             <% }%>
+          </section>
           <footer class="deliver-page">
             <nav aria-label="Page navigation" class="navbar  navbar-right">
               <ul class="pagination sendPagination">
