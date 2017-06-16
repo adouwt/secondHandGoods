@@ -305,19 +305,22 @@ $(function(){
   })
 
   //搜索框
-  $("#search-goods").click(function (argument) {
-    var searchGoodContents = $("#search-exchange-goods").val();
+  $(".search-goods").click(function (argument) {
+    var searchGoodContents = $(".search-exchange-goods").val();
 
-    if(searchGoodContents.length>0) {
+    // if(searchGoodContents.length>0) {
+      // console.log(searchGoodContents);
       $.post("/search-sql",{
-        "search-goods-contents": searchGoodContents
+        "searchGoodContents": searchGoodContents
       },function (result) {
         // console.log(result);
         if (result == "1") {
           console.log("查询成功");
+        }else {
+          console.log("没有查到")
         }
       })
-    }
+    // }
   })
 
 

@@ -720,27 +720,6 @@ exports.saleNumberAmount = function(req,res,next){
 };
 
 
-// 搜索框 数据库查询
-exports.searchSql = function (req,res,next) {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-
-      //表单数据
-      var searchGoodContents = fields.searchGoodContents;
-
-      db.find("exchangelist",{
-        "username"          :  searchGoodContents
-      },
-      function(err,result){
-        if(err){
-            res.send("-5");//随便去，服务器错误
-            return;
-        }
-        // console.log(result);
-      })
-    })
-}
-
 //数据统计页面的图表显示
 
 // 超级垃圾的嵌套查询
@@ -1076,4 +1055,26 @@ exports.hello = function (req,res,next) {
     a:"1",
     b:"2"
   })
+}
+
+// 搜索框 数据库查询
+exports.searchSql = function (req,res,next) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+
+      //表单数据
+      var searchGoodContents = fields.searchGoodContents;
+      console.log(searchGoodContents);
+      db.find("donatelist",{
+        "username"          :  searchGoodContents
+      },
+      function(err,result){
+        if(err){
+            res.send("-5");//随便去，服务器错误
+            return;
+        }
+        console.log(result);
+      })
+    })
+
 }

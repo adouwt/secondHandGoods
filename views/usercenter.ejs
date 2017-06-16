@@ -136,7 +136,7 @@
                               <% if(exchangelistCount[i].goodsStatus == "finish") { %>
                                 <button class ="btn btn-success exchangeFinish" disabled>交易结束</button>
                               <% } else {%>
-                                <button class ="btn btn-success exchangeFinish">交易结束</button>
+                                <button class ="btn btn-success exchangeFinish">交易进行中</button>
                               <%}%>
 
                             </li>
@@ -157,6 +157,7 @@
                     <i class="fa fa-times" style="display: none;"></i>
                   <% } %>               
                 </section>
+                <button>删除此记录</button>
                 <hr>
               <% }%>
             </div>
@@ -384,7 +385,7 @@
                               <% if(sendlistCount[i].goodsStatus == "finish") { %>
                                 <button class ="btn btn-success sendFinish" disabled>交易结束</button>
                               <% } else {%>
-                                <button class ="btn btn-success sendFinish">交易结束</button>
+                                <button class ="btn btn-success sendFinish">交易进行中</button>
                               <%}%>
 
                             </li>
@@ -405,6 +406,7 @@
                     <i class="fa fa-times" style="display: none;"></i>
                   <% } %>
                 </section>
+                <button>删除此记录</button>
                 <hr>
               <% }%>
             </div>
