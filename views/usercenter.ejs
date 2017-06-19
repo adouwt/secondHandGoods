@@ -134,7 +134,7 @@
                               <span class="right_board_categories">交易状态：</span>
 
                               <% if(exchangelistCount[i].goodsStatus == "finish") { %>
-                                <button class ="btn btn-success exchangeFinish" disabled>交易结束</button>
+                                <button class ="btn btn-success" disabled>交易结束</button>
                               <% } else {%>
                                 <button class ="btn btn-success exchangeFinish">交易进行中</button>
                               <%}%>
@@ -153,9 +153,9 @@
                   </div>
                   <% if(exchangelistCount[i].goodsStatus == "finish") { %>
                       <i class="fa fa-times"></i>
-                  <% } else {%> 
+                  <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
-                  <% } %>               
+                  <% } %>
                 </section>
                 <button>删除此记录</button>
                 <hr>
@@ -265,9 +265,9 @@
                               <span class="right_board_categories">交易状态：</span>
 
                               <% if(salelistCount[i].goodsStatus == "finish") { %>
-                                <button class ="btn btn-success exchangeFinish" disabled>交易结束</button>
+                                <button class ="btn btn-success " disabled>交易结束</button>
                               <% } else {%>
-                                <button class ="btn btn-success exchangeFinish">交易进行中</button>
+                                <button class ="btn btn-success saleFinish">交易进行中</button>
                               <%}%>
 
                             </li>
@@ -284,7 +284,7 @@
                   </div>
                   <% if(salelistCount[i].goodsStatus == "finish") { %>
                       <i class="fa fa-times"></i>
-                  <% } else {%> 
+                  <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
                   <% } %>
                 </section>
@@ -383,7 +383,7 @@
                               <span class="right_board_categories">交易状态：</span>
 
                               <% if(sendlistCount[i].goodsStatus == "finish") { %>
-                                <button class ="btn btn-success sendFinish" disabled>交易结束</button>
+                                <button class ="btn btn-success" disabled>交易结束</button>
                               <% } else {%>
                                 <button class ="btn btn-success sendFinish">交易进行中</button>
                               <%}%>
@@ -402,7 +402,7 @@
                   </div>
                   <% if(sendlistCount[i].goodsStatus == "finish") { %>
                       <i class="fa fa-times"></i>
-                  <% } else {%> 
+                  <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
                   <% } %>
                 </section>
@@ -501,9 +501,9 @@
                               <span class="right_board_categories">交易状态：</span>
 
                               <% if(donatelistCount[i].goodsStatus == "finish") { %>
-                                <button class ="btn btn-success sendFinish" disabled>交易结束</button>
+                                <button class ="btn btn-success" disabled>交易结束</button>
                               <% } else {%>
-                                <button class ="btn btn-success sendFinish">交易进行中</button>
+                                <button class ="btn btn-success donateFinish">交易进行中</button>
                               <%}%>
 
                             </li>
@@ -520,7 +520,7 @@
                   </div>
                   <% if(donatelistCount[i].goodsStatus == "finish") { %>
                     <i class="fa fa-times" style="display: block;"></i>
-                  <% } else {%> 
+                  <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
                   <%}%>
                 </section>

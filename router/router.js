@@ -1027,7 +1027,7 @@ exports.changeDonateStatus = function (req,res,next) {
 
 	form.parse(req, function(err, fields, files) {
 		var goodsStatus = fields.goodsStatus;
-		// console.log(goodsStatus);
+
 		db.find("donatelist",{username : username,},function (err,result) {//通过用户名查找有问题，就选中当前用户的所有的商品,可复合查询
 			//http://docs.mongoing.com/manual-zh/tutorial/query-documents.html
 			if(err) {
@@ -1036,7 +1036,7 @@ exports.changeDonateStatus = function (req,res,next) {
 			}
 			db.updateMany("donatelist",{"goodsStatus" : "unfinish" },{
 				$set : {
-					goodsStatus : "finish"
+					"goodsStatus" : goodsStatus
 				}
 			},function (err,result) {
 				if(err) {
@@ -1073,7 +1073,6 @@ exports.searchSql = function (req,res,next) {
             res.send("-5");//随便去，服务器错误
             return;
         }
-        console.log(result);
       })
     })
 
