@@ -170,7 +170,7 @@
                     <div class="modal-body">
                       <ul id="chat<%=_id%>">
                         <input type="" name="" class="Input_text">
-                        <button class="postBtn">add </button>
+                        <button class="postBtn">add</button>
                         <div class="_id"></div>
                       </ul>
                     </div>
@@ -198,8 +198,22 @@
 
     <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/custom-styles.js">
+    <script type="text/javascript" src="/js/socket.io.js"></script>
+    <script type="text/javascript" src="/js/custom-styles.js"></script>
+    <script>  
+      //立即联系
+      var socket = io();
+      $(".postBtn").click(function(e){
+        //传输文本内容
+        alert(3333)
+        socket.emit("chats",$(".Input_text").html());
+        $(".Input_text").html("");
 
+      });
+      socket.on("chats",function (msg2) {
+        //console.log(msg);// object{contents:..,user:...}
+        $("._id").prepend("<li><b>"+msg2.contents+"</li>")
+      })
     </script>
   </body>
 </html>

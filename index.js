@@ -7,7 +7,6 @@ var session = require('express-session');
 //socket.io 公式
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
 //使用session
 app.use(session({
   secret: 'keyboard cat',
