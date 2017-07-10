@@ -2,6 +2,12 @@ var express = require("express");
 var app = express();
 var router = require("./router/router.js");
 var session = require('express-session');
+
+
+//socket.io 公式
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 //使用session
 app.use(session({
   secret: 'keyboard cat',
@@ -125,6 +131,17 @@ app.get("/hello",router.hello);
 //执行设置头像的业务
 app.post("/doSetavatar",router.doSetavatar);
 //app.get("/doSetavatar",router.doSetavatar);
+
+//立即联系
+// app.post("/doContact",router.doContact);
+
+io.on("connection",function(socket){//socket实际在运行的时候，表示用户的客户端
+  socket.on("chats",function (msg) {
+    //把接受到的信息在返回到页面中去 （广播）
+    console.log(msg);
+    io.emit("chats",msg);
+  });
+});
 
 
 app.listen(3000,function () {

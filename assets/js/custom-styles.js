@@ -452,3 +452,17 @@ $(function(){
   changeGoodsStatus ("sendFinish","changeSendStatus");
   changeGoodsStatus ("donateFinish","changeDonateStatus");
 })
+
+//立即联系
+$(".postBtn").click(function(e){
+      //传输文本内容
+      socket.emit("chats",{
+        "contents" : $(".Input_text").html(),
+      });
+      $(".Input_text").html("");
+
+    });
+    socket.on("chats",function (msg2) {
+      //console.log(msg);// object{contents:..,user:...}
+      $("._id").prepend("<li><b>"+msg2.contents+"</li>")
+    })

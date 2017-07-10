@@ -11,6 +11,8 @@ var fs = require("fs");
 
 var file = require("../model/file.js");
 
+//socket.io 公式
+
 //注册业务
 exports.doRegist = function (req,res,next) {
 	  var form = new formidable.IncomingForm();
@@ -1077,3 +1079,7 @@ exports.searchSql = function (req,res,next) {
     })
 
 }
+
+//立即联系
+
+
