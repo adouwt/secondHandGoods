@@ -2,11 +2,6 @@ var express = require("express");
 var app = express();
 var router = require("./router/router.js");
 var session = require('express-session');
-
-
-//socket.io 公式
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 //使用session
 app.use(session({
   secret: 'keyboard cat',
@@ -22,19 +17,6 @@ app.use("/avatar",express.static("./avatar"));
 app.use("/product_img",express.static("./product_img"));
 
 //路由表
-
-//展示主页(exchange)
-// app.get("/",router.showExchange);
-
-//展示变卖页
-// app.get("/sale",router.showSale);
-
-//展示赠送
-// app.get("/send",router.showSend);
-
-//展示捐献
-// app.get("/donate",router.showDonate);
-
 
 //获得交换商品提交页面
 app.get("/add_exchange_product",router.showAddExchangeProduct);
@@ -133,14 +115,6 @@ app.post("/doSetavatar",router.doSetavatar);
 
 //立即联系
 // app.post("/doContact",router.doContact);
-
-io.on("connection",function(socket){//socket实际在运行的时候，表示用户的客户端
-  socket.on("chats",function (msg) {
-    //把接受到的信息在返回到页面中去 （广播）
-    console.log(msg);
-    io.emit("chats",msg);
-  });
-});
 
 
 app.listen(3000,function () {

@@ -409,20 +409,15 @@ $(function(){
         });
     })
   }
-  var donateNumberAmount    = "donateNumberAmount";
-  var exchangeNumberAmount  = "exchangeNumberAmount";
-  var sendNumberAmount      = "sendNumberAmount";
-  var saleNumberAmount      = "saleNumberAmount";
-  var userGoodsNumberAmount = "userGoodsNumberAmount";
 
   var indexNumberAmount     = "indexNumberAmount";
 
 
-  pageReq(donateNumberAmount,"donatePagination");
-  pageReq(exchangeNumberAmount,"exchangePagination");
-  pageReq(sendNumberAmount,"sendPagination");
-  pageReq(saleNumberAmount,"salePagination");
-  pageReq(userGoodsNumberAmount,"userGoodsPagination");
+  pageReq("donateNumberAmount","donatePagination");
+  pageReq("exchangeNumberAmount","exchangePagination");
+  pageReq("sendNumberAmount","sendPagination");
+  pageReq("saleNumberAmount","salePagination");
+  pageReq("userGoodsNumberAmount","userGoodsPagination");
   // pageReq(indexNumberAmount,"exchangePagination");
 
 
