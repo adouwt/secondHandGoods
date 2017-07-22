@@ -131,7 +131,7 @@
                               <% if(result[i].goodsStatus == "finish") { %>
                                 <button class ="btn btn-success" disabled>交易结束</button>
                               <% } else {%>
-                                <button class ="btn btn-success">交易进行中</button>
+                                <button class ="btn btn-success" disabled>交易进行中</button>
                               <%}%>
 
                           </li>
@@ -162,11 +162,13 @@
               </ul>
               </nav>
           </footer>
-          <footer class="copy_right">
-              <p>Copyright © 2017.Adou All rights reserved.</p>
-          </footer>
+        
         </div>
     </section>
+
+    <footer class="copy_right">
+      <p>Copyright © 2017. <a href="/adou-intro" target="blank">Adou</a> All rights reserved.</p>
+    </footer>
 
     <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>

@@ -2,6 +2,11 @@ var express = require("express");
 var app = express();
 var router = require("./router/router.js");
 var session = require('express-session');
+
+//socket.io 公式
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 //使用session
 app.use(session({
   secret: 'keyboard cat',
@@ -15,6 +20,37 @@ app.set("view engine","ejs");
 app.use(express.static("./assets"));
 app.use("/avatar",express.static("./avatar"));
 app.use("/product_img",express.static("./product_img"));
+
+
+//确认登录，检查此人是否有用户名，并且不能重复
+  app.get("/check",function (req,res,next) {
+  	var username = req.query.username;
+  	if(!username){
+  		res.send("必须有用户名");
+  		return;
+  	}
+  	if(alluser.indexOf(username) != -1){
+  		res.send("该名字被占用");
+  		return;
+  	}
+  	alluser.push(username);
+
+  	//赋给session
+  	req.session.username = username;
+  	//充定向
+  	res.redirect("/chat");
+  });
+
+  //聊天室
+  app.get("/chat",function (req,res,next) {
+  	if(!req.session.username){
+  		res.redirect("/");
+  		return;
+  	}
+  	res.render("chat",{
+  		"username":req.session.username
+  	});
+  });
 
 //路由表
 
@@ -106,6 +142,8 @@ app.get("/user_exit",router.index);
 app.get("/setavatar",router.showSetavatar);
 
 app.get("/hello",router.hello);
+app.get("/adou-intro",router.adou);
+app.get("/help",router.help);
 
 
 //上传图片
@@ -117,6 +155,15 @@ app.post("/doSetavatar",router.doSetavatar);
 // app.post("/doContact",router.doContact);
 
 
-app.listen(3000,function () {
+io.on("connection",function(socket){//socket实际在运行的时候，表示用户的客户端
+	socket.on("chats",function (msg) {
+	  //把接受到的信息在返回到页面中去 （广播）
+	  io.emit("chats",msg);
+	});
+});
+
+
+
+http.listen(8000,function () {
 	console.log("项目启动成功！");
 });

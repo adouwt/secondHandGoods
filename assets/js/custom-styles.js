@@ -397,7 +397,7 @@ $(function(){
     $.get("/"+reqUrl,function (result) {
       var amount = parseInt(result);
         //总页数
-        var pageamount = Math.ceil(amount /2);//返回的是 与它相近的大1数值
+        var pageamount = Math.ceil(amount /10);//返回的是 与它相近的大1数值
         for (var i = 0; i < pageamount; i++) {
           $("."+ele).append("<li ><a href='javascript:void(0);'>" +(i+1)+ "</a></li>");
         }

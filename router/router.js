@@ -610,7 +610,7 @@ exports.donatelistMsg = function(req,res,next){
     }
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("donatelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+    db.find("donatelist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("donate",{
             "result"    : result,
             "username"  : username,
@@ -642,7 +642,7 @@ exports.exchangelistMsg = function(req,res,next){
 
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("exchangelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+    db.find("exchangelist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("exchange",{
             "result"    : result,
             "username"  : username,
@@ -674,7 +674,7 @@ exports.sendlistMsg = function(req,res,next){
 
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("sendlist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+    db.find("sendlist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("send",{
             "result"    : result,
             "username"  : username,
@@ -705,7 +705,7 @@ exports.salelistMsg = function(req,res,next){
 
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("salelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+    db.find("salelist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("sale",{
             "result"    : result,
             "username"  : username,
@@ -1057,6 +1057,12 @@ exports.hello = function (req,res,next) {
     a:"1",
     b:"2"
   })
+}
+exports.adou = function (req,res,next) {
+  res.send("The author is so lazy, noting to leave.")
+}
+exports.help = function (req,res,next) {
+  res.send("敬请期待.")
 }
 
 // 搜索框 数据库查询

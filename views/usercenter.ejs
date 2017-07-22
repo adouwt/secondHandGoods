@@ -34,6 +34,9 @@
           <section class="exchangeList">
             <div>
               <h3  id= "exchange-jump">所有交换</h3>
+              <% if(!salelistCount) {%>
+                <p class="shg-empty">目前没有哦！</p>
+              <%} else {%>
               <% for(var i= 0;i<exchangelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
@@ -160,11 +163,15 @@
                 <button>删除此记录</button>
                 <hr>
               <% }%>
+              <% }%>
             </div>
           </section>
           <section class="saleList" >
             <div>
               <h3 id= "sale-jump">所有变卖</h3>
+              <% if(!salelistCount) {%>
+                <p class="shg-empty">目前没有哦！</p>
+              <%} else {%>
               <% for(var i= 0;i<salelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
@@ -290,11 +297,15 @@
                 </section>
                 <hr>
               <% }%>
+              <% }%>
             </div>
           </section>
           <section class="sendList" >
             <div>
               <h3 id= "send-jump">所有赠送</h3>
+              <% if(!salelistCount) {%>
+                <p class="shg-empty">目前没有哦！</p>
+              <%} else {%>
               <% for(var i= 0;i<sendlistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
@@ -406,13 +417,16 @@
                     <i class="fa fa-times" style="display: none;"></i>
                   <% } %>
                 </section>
-                <button>删除此记录</button>
                 <hr>
+              <% }%>
               <% }%>
             </div>
           </section>
           <section class="donateList" >
               <h3 id= "donate-jump">所有捐献</h3>
+              <% if(!salelistCount) {%>
+                <p class="shg-empty">目前没有哦！</p>
+              <%} else {%>
               <% for(var i= 0;i<donatelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
@@ -524,6 +538,7 @@
                   <%}%>
                 </section>
                 <hr>
+              <% }%>
               <% }%>
           </section>
           <footer class="deliver-page">
