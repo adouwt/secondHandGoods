@@ -255,6 +255,10 @@ exports.showAddDonateProduct = function (req,res,next) {
 
 //交换商品表单提交
 exports.exchangeGoodsSubmit = function(req,res,next) {
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -267,10 +271,6 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
     }
 
     var userDir = req.session.username;
-
-    // if(!fs.existsSync(userDir)){
-    //     fs.mkdir(userDir);//创建到asset指定文件下
-    // }
 
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -347,6 +347,11 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
 
 //添加卖的商品提交
 exports.saleGoodsSubmit = function(req,res,next) {
+
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -432,6 +437,11 @@ exports.saleGoodsSubmit = function(req,res,next) {
 
 // //添加送的商品提交
 exports.sendGoodsSubmit = function(req,res,next) {
+
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -515,6 +525,11 @@ exports.sendGoodsSubmit = function(req,res,next) {
 
 // //添加捐的商品提交
 exports.donateGoodsSubmit = function(req,res,next) {
+
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
