@@ -142,8 +142,21 @@ app.get("/user_exit",router.index);
 app.get("/setavatar",router.showSetavatar);
 
 app.get("/hello",router.hello);
+
 app.get("/adou-intro",router.adou);
-app.get("/help",router.help);
+
+app.get("/addHelp",router.showAddHelp);
+
+app.get("/HelpListMsg",router.HelpListMsg);
+
+ //执行help 提交内容
+app.post("/helpSubmit",router.helpSubmit);
+
+//help内容分页总数
+app.get("/helpNumberAmount",router.helpNumberAmount);
+
+//修改help状态
+app.post("/changeHelpStatus",router.changeDonateStatus);
 
 
 //上传图片
