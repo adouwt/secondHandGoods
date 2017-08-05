@@ -3,10 +3,10 @@ var app = express();
 var router = require("./router/router.js");
 var session = require('express-session');
 
-
 //socket.io 公式
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
 //使用session
 app.use(session({
   secret: 'keyboard cat',
@@ -21,20 +21,38 @@ app.use(express.static("./assets"));
 app.use("/avatar",express.static("./avatar"));
 app.use("/product_img",express.static("./product_img"));
 
+
+//确认登录，检查此人是否有用户名，并且不能重复
+  app.get("/check",function (req,res,next) {
+  	var username = req.query.username;
+  	if(!username){
+  		res.send("必须有用户名");
+  		return;
+  	}
+  	if(alluser.indexOf(username) != -1){
+  		res.send("该名字被占用");
+  		return;
+  	}
+  	alluser.push(username);
+
+  	//赋给session
+  	req.session.username = username;
+  	//充定向
+  	res.redirect("/chat");
+  });
+
+  //聊天室
+  app.get("/chat",function (req,res,next) {
+  	if(!req.session.username){
+  		res.redirect("/");
+  		return;
+  	}
+  	res.render("chat",{
+  		"username":req.session.username
+  	});
+  });
+
 //路由表
-
-//展示主页(exchange)
-// app.get("/",router.showExchange);
-
-//展示变卖页
-// app.get("/sale",router.showSale);
-
-//展示赠送
-// app.get("/send",router.showSend);
-
-//展示捐献
-// app.get("/donate",router.showDonate);
-
 
 //获得交换商品提交页面
 app.get("/add_exchange_product",router.showAddExchangeProduct);
@@ -125,6 +143,21 @@ app.get("/setavatar",router.showSetavatar);
 
 app.get("/hello",router.hello);
 
+app.get("/adou-intro",router.adou);
+
+app.get("/addHelp",router.showAddHelp);
+
+app.get("/HelpListMsg",router.HelpListMsg);
+
+ //执行help 提交内容
+app.post("/helpSubmit",router.helpSubmit);
+
+//help内容分页总数
+app.get("/helpNumberAmount",router.helpNumberAmount);
+
+//修改help状态
+app.post("/changeHelpStatus",router.changeDonateStatus);
+
 
 //上传图片
 //执行设置头像的业务
@@ -134,15 +167,16 @@ app.post("/doSetavatar",router.doSetavatar);
 //立即联系
 // app.post("/doContact",router.doContact);
 
+
 io.on("connection",function(socket){//socket实际在运行的时候，表示用户的客户端
-  socket.on("chats",function (msg) {
-    //把接受到的信息在返回到页面中去 （广播）
-    console.log(msg);
-    io.emit("chats",msg);
-  });
+	socket.on("chats",function (msg) {
+	  //把接受到的信息在返回到页面中去 （广播）
+	  io.emit("chats",msg);
+	});
 });
 
 
-app.listen(3000,function () {
+
+http.listen(8080,function () {
 	console.log("项目启动成功！");
 });

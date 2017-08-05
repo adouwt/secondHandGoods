@@ -255,6 +255,10 @@ exports.showAddDonateProduct = function (req,res,next) {
 
 //交换商品表单提交
 exports.exchangeGoodsSubmit = function(req,res,next) {
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -267,10 +271,6 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
     }
 
     var userDir = req.session.username;
-
-    // if(!fs.existsSync(userDir)){
-    //     fs.mkdir(userDir);//创建到asset指定文件下
-    // }
 
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -347,6 +347,11 @@ exports.exchangeGoodsSubmit = function(req,res,next) {
 
 //添加卖的商品提交
 exports.saleGoodsSubmit = function(req,res,next) {
+
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -432,6 +437,11 @@ exports.saleGoodsSubmit = function(req,res,next) {
 
 // //添加送的商品提交
 exports.sendGoodsSubmit = function(req,res,next) {
+
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -515,6 +525,11 @@ exports.sendGoodsSubmit = function(req,res,next) {
 
 // //添加捐的商品提交
 exports.donateGoodsSubmit = function(req,res,next) {
+
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
     //检索数据库，查找此人的头像
     if (req.session.login == "1") {
         //如果登陆了
@@ -610,8 +625,154 @@ exports.donatelistMsg = function(req,res,next){
     }
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("donatelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+    db.find("donatelist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("donate",{
+            "result"    : result,
+            "username"  : username,
+            "login"     : login
+          });
+    });
+};
+
+//help 提交页
+exports.helpSubmit = function(req,res,next) {
+
+    if(req.session.login != "1") {
+      res.end("没有登录，请登录");
+      return;
+    }
+    //检索数据库，查找此人的头像
+    if (req.session.login == "1") {
+        //如果登陆了
+        var username = req.session.username;
+        var login = true;
+    } else {
+        //没有登陆
+        var username = "";  //制定一个空用户名
+        var login = false;
+    }
+
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function(err, fields, files) {
+      var username           = req.session.username;
+      var selectWay          = fields.selectWay;
+      var userGoodsSort      = fields.userGoodsSort;
+      var userGoodsPrice     = fields.userGoodsPrice;
+      var userGoodsName      = fields.userGoodsName;
+      var userGoodsUseTime   = fields.userGoodsUseTime;
+      var userGoodsaddText   = fields.userGoodsaddText;
+      var userChangeTar      = fields.userChangeTar;
+      var userName           = fields.userName;
+      var userPhone          = fields.userPhone;
+      var publicTime         = fields.publicTime;
+
+      var userImgOne         = fields.userImgOne;
+      var userImgTwo         = fields.userImgTwo;
+      var userImgThree       = fields.userImgThree;
+      var userImgFour        = fields.userImgFour;
+      var imgBase64Arr       = [userImgOne,userImgTwo,userImgThree,userImgFour];
+
+      for(var i = 0;i<imgBase64Arr.length;i++) {
+        var path       = 'assets/img/'+ username + userGoodsName + selectWay + i + '.png';
+        var base64     = imgBase64Arr[i].replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
+        var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+
+        console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
+        fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
+            if(err){
+                console.log(err);
+            }else{
+               console.log('图片上传成功！');
+            }
+        })
+      }
+      //查询数据库的名字是否重复
+      db.find("helplist",{"selectWay": selectWay},function (err,result) {
+        if(err) {
+          res.send("-3");
+          return;
+        }
+        // console.log(username);
+        //返回result.length的长度为０，说明数据库中没有此名字
+        db.insertOne("helplist",{
+          "username"          :  username,
+          "selectWay"         :  selectWay,
+          "userGoodsSort"     :  userGoodsSort,
+          "userGoodsPrice"    :  userGoodsPrice,
+          "userGoodsName"     :  userGoodsName,
+          "userGoodsUseTime"  :  userGoodsUseTime,
+          "userGoodsaddText"  :  userGoodsaddText,
+          "userName"          :  userName,
+          "userChangeTar"     :  userChangeTar,
+          "userPhone"         :  userPhone,
+          "publicTime"        :  publicTime,
+          "goodsStatus"       :  'unfinish',
+          "imgBase64Arr"      :  imgBase64Arr,
+        },function(err,result){
+          if(err){
+            res.send("-3");//服务器错误
+            return;
+          }
+          req.session.login = "1";
+          req.session.username = username;
+          res.send("1");//发布成功
+        });
+       });
+    });
+}
+
+//显示help提交页
+exports.showAddHelp = function (req,res,next) {
+  //必须登录
+  if(req.session.login != "1") {
+    res.end("没有登录，请登录");
+    return;
+  }
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username = req.session.username;
+      var login = true;
+      var avatar = req.session.avatar;
+  }
+
+  //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+  db.find("users", {username: username}, function (err, result) {
+
+      res.render("add_need_help", {
+          "login": login,
+          "username": username,
+          "avatar":  "default.jpg",
+      });
+  });
+};
+
+//help 分页总数
+exports.helpNumberAmount = function(req,res,next){
+    db.getAllCount("helplist",function(count){
+        res.send(count.toString());
+    });
+};
+
+//help 显示页
+
+//获取捐总数
+exports.HelpListMsg = function(req,res,next){
+
+   if (req.session.login == "1") {
+        //如果登陆了
+        var username  = req.session.username;
+        var login     = true;
+    } else {
+        //没有登陆
+        var username = "";  //制定一个空用户名
+        var login = false;
+    }
+    //这个页面接收一个参数，页面
+    var page = req.query.page;
+    db.find("helplist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
+        res.render("help",{
             "result"    : result,
             "username"  : username,
             "login"     : login
@@ -642,7 +803,7 @@ exports.exchangelistMsg = function(req,res,next){
 
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("exchangelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+    db.find("exchangelist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("exchange",{
             "result"    : result,
             "username"  : username,
@@ -674,7 +835,7 @@ exports.sendlistMsg = function(req,res,next){
 
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("sendlist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+    db.find("sendlist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("send",{
             "result"    : result,
             "username"  : username,
@@ -705,7 +866,7 @@ exports.salelistMsg = function(req,res,next){
 
     //这个页面接收一个参数，页面
     var page = req.query.page;
-    db.find("salelist",{},{"pageamount":2,"page":page,"sort":{"publicTime":-1}},function(err,result){
+    db.find("salelist",{},{"pageamount":10,"page":page,"sort":{"publicTime":-1}},function(err,result){
         res.render("sale",{
             "result"    : result,
             "username"  : username,
@@ -785,19 +946,23 @@ exports.dataCount = function (req,res,next) {
               }
               var salelistCount = result.length;
 
-              // if(result.length == 0){
-              //     res.send("-1");/
-              //     return;
-              // }
-              var dataArr = [exchangelistCount,salelistCount,sendlistCount,donatelistCount];
+
+              db.find("helplist",{},function(err,result){ 
+
+              var helplistCount = result.length;
+              
+              var dataArr = [exchangelistCount,salelistCount,sendlistCount,donatelistCount,helplistCount];
               res.render("data-count",{
                 "exchangelistCount" : exchangelistCount,
                 "salelistCount"     : salelistCount,
                 "sendlistCount"     : sendlistCount,
                 "donatelistCount"   : donatelistCount,
+                "helplistCount"     : helplistCount,
                 "login"             : login,
                 "username"          : username
               });
+
+            })
         });
 
       });
@@ -858,17 +1023,20 @@ exports.showUserCenter = function (req,res,next) {
                   return;
               }
               var salelistCount = result4;
+              db.find("helplist",{"username" : username},function(err,result5){ 
 
-              // console.log(result4,result3,result2,result1);
-              // console.log("当前用户名字：" + username);
+              var helplistCount = result5;
+
               res.render("usercenter",{
                 "exchangelistCount" : exchangelistCount,
                 "salelistCount"     : salelistCount,
                 "sendlistCount"     : sendlistCount,
                 "donatelistCount"   : donatelistCount,
+                "helplistCount"     : helplistCount,
                 "login"             : login,
                 "username"          : username
               });
+            })
         });
 
       });
@@ -879,7 +1047,6 @@ exports.showUserCenter = function (req,res,next) {
 //个人中心的分页总数
 exports.userGoodsNumberAmount = function(req,res,next){
     db.getAllCount("salelist",function(saleCount){
-        // res.send(count.toString());
 				var saleCount = saleCount;
 				db.getAllCount("exchangelist",function (exchangeCount) {
 					var exchangeCount = exchangeCount;
@@ -887,10 +1054,13 @@ exports.userGoodsNumberAmount = function(req,res,next){
 							var sendCount = sendCount;
 								db.getAllCount("donatelist",function (donateCount) {
 									var donateCount = donateCount;
-									var allCount = saleCount + exchangeCount + sendCount + donateCount;
-									res.send(allCount.toString());
+                  db.getAllCount("helplist",function (donateCount) {
+                    var helpCount = helpCount;
+                    var allCount = saleCount + exchangeCount + sendCount + donateCount;
+                    res.send(allCount.toString());
+                  })
 								})
-						})
+            })
 				})
     });
 };
@@ -1052,12 +1222,51 @@ exports.changeDonateStatus = function (req,res,next) {
 	})
 }
 
-exports.hello = function (req,res,next) {
-  res.json({
-    a:"1",
-    b:"2"
+//改变状态--need help
+exports.changeHelpStatus = function (req,res,next) {
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username = req.session.username;
+      var login = true;
+  } else {
+      //没有登陆
+      var username = "";  //制定一个空用户名
+      var login = false;
+  }
+
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, function(err, fields, files) {
+    var goodsStatus = fields.goodsStatus;
+
+    db.find("donatelist",{username : username,},function (err,result) {//通过用户名查找有问题，就选中当前用户的所有的商品,可复合查询
+      //http://docs.mongoing.com/manual-zh/tutorial/query-documents.html
+      if(err) {
+        res.send("-5");
+        return;
+      }
+      db.updateMany("helplist",{"helpStatus" : "unfinish" },{
+        $set : {
+          "helpStatus" : goodsStatus
+        }
+      },function (err,result) {
+        if(err) {
+          // console.log(err);
+          res.send("-4");
+          return;
+        }
+        res.send("1");//发布成功
+      })
+    })
   })
 }
+
+
+exports.adou = function (req,res,next) {
+  res.send("The author is so lazy, noting to leave.")
+}
+
 
 // 搜索框 数据库查询
 exports.searchSql = function (req,res,next) {
@@ -1078,6 +1287,14 @@ exports.searchSql = function (req,res,next) {
       })
     })
 
+}
+
+//test
+exports.hello = function (req,res,next) {
+  res.json({
+    a:"1",
+    b:"2"
+  })
 }
 
 //立即联系

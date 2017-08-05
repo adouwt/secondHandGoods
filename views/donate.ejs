@@ -14,18 +14,10 @@
         <%include left_colum.ejs%>
         <div class="right_board">
           <header>
-              <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 h1">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 h1">
                 <p>
                   捐-Donate
                 </p>
-              </div>
-              <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 h1">
-                <div class="input-group">
-                  <input type="text" class="form-control search-exchange-goods" placeholder="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default search-goods" type="button">Go!</button>
-                  </span>
-                </div><!-- /input-group -->
               </div>
           </header>
           <section class="exchangeList" >
@@ -119,7 +111,7 @@
                               <% if(result[i].goodsStatus == "finish") { %>
                                 <button class ="btn btn-success" disabled>交易结束</button>
                               <% } else {%>
-                                <button class ="btn btn-success">交易进行中</button>
+                                <button class ="btn btn-success" disabled>交易进行中</button>
                               <%}%>
 
                           </li>
@@ -150,12 +142,13 @@
               </ul>
               </nav>
           </footer>
-          <footer class="copy_right">
-              <p>Copyright © 2017.Adou All rights reserved.</p>
-          </footer>
+          
         </div>
     </section>
 
+    <footer class="copy_right">
+      <p>Copyright © 2017. <a href="/adou-intro" target="blank">Adou</a> All rights reserved.</p>
+    </footer>
     <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/custom-styles.js">

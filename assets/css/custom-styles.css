@@ -281,15 +281,28 @@ li .header-regist,.header-login{
   height: 500px;
   background-size: cover;
   background-position: center center;
-  background-image: url(/img/down_img.jpg);
 }
-.sec-goods-img- {
+
+.sec-goods-img-{
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center center;
 }
 
+.sec-goods-img-sample-one {
+  background-image: url(/img/sample-one.jpg);
+
+}
+.sec-goods-img-sample-two {
+  background-image: url(/img/sample-two.jpg);
+}
+.sec-goods-img-sample-three {
+  background-image: url(/img/sample-three.jpg);
+}
+.sec-goods-img-sample-four {
+  background-image: url(/img/sample-four.jpg);
+}
 
 .upload_box {
   width:1000px;
@@ -397,7 +410,7 @@ input.error-border {
 
 
 /*个人中心*/
-.saleList h3,.exchangeList h3,.sendList h3 ,.donateList h3{
+.saleList h3,.exchangeList h3,.sendList h3 ,.donateList h3, .helpList h3{
   margin-left: 30px;
 }
 .right_board .h5 {
@@ -419,4 +432,21 @@ input.error-border {
   color: red;
 }
 
+.shg-empty {
+  height: 50px;
+  background-color: #ddd;
+  line-height: 50px;
+  text-align: center;
+  font-size: 16px;
+  color: #00c1de;
+}
+.copy_right {
+  margin-left: 250px;
+}
 
+.fa.fa-times {
+  display:inline-block;
+  background-image: url(/sys-img/out.jpg);
+  width: 50px;
+  height: 50px;
+}

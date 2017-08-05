@@ -81,7 +81,7 @@ $(function(){
   				window.location = "/exchangelistMsg?page=0";
   			},1000);
 
-  			alert("1s后，跳回主主页，查看你发布的宝贝");//改成模态框 在模态框上倒计时
+  			alert("1s后，跳回主页，查看你发布的内容");//改成模态框 在模态框上倒计时
   			// 前几个事预览数据，登录后可查看所有
   		})
     } else {
@@ -156,7 +156,7 @@ $(function(){
           window.location = "/salelistMsg?page=0";
         },1000);
 
-        alert("1s后，跳回商品变卖页，查看你发布的宝贝");//改成模态框 在模态框上倒计时
+        alert("1s后，跳回商品变卖页，查看你发布的内容");//改成模态框 在模态框上倒计时
         // 前几个事预览数据，登录后可查看所有
       })
     } else {
@@ -224,7 +224,7 @@ $(function(){
           window.location = "/sendlistMsg?page=0";
         },1000);
 
-        alert("1s后，跳回商品变卖页，查看你发布的宝贝");//改成模态框 在模态框上倒计时
+        alert("1s后，跳回商品变卖页，查看你发布的内容");//改成模态框 在模态框上倒计时
         // 前几个事预览数据，登录后可查看所有
       })
     } else {
@@ -293,7 +293,76 @@ $(function(){
           window.location = "/donatelistMsg?page=0";
         },1000);
 
-        alert("1s后，跳回商品捐赠页，查看你发布的宝贝");//改成模态框 在模态框上倒计时
+        alert("1s后，跳回商品捐赠页，查看你发布的内容");//改成模态框 在模态框上倒计时
+        // 前几个事预览数据，登录后可查看所有
+      })
+    } else {
+      $(".error-img-file").fadeIn();
+      return false;
+    }
+
+    return false;
+  })
+
+  //help
+  $("#help-submit").click(function() {
+
+    // 获取图片的base64的代码
+        //后端的formindable 无法接受数组，因此暂时分开数组 单个传输给后端
+    var imgBase64    = $("#preview img");
+    var imgBase64Arr = [];
+    imgBase64.each(function (i) {
+      imgBase64Arr.push($(this).attr("src"));
+    })
+
+    var userImgOne   = imgBase64Arr[0];
+    var userImgTwo   = imgBase64Arr[1];
+    var userImgThree    = imgBase64Arr[2];
+    var userImgFour   = imgBase64Arr[3];
+
+    isNothing($("#user-goods-sort"));
+    isNothing($("#user-goods-name"));
+    isNothing($("#user-phone"))
+    isPhone($("#user-phone"));
+    isNothing($("#user-name"));
+
+    if(imgBase64Arr.length>=4) {
+
+      //发布商品表单内容
+      var userGoodsSort       = $("#user-goods-sort").val();
+      var userGoodsName       = ($("#user-goods-name").val().replace(" ",""));
+      var userGoodsUseTime    = $("#user-goods-usetime").val();
+      var userGoodsaddText    = $("#user-goods-addText").val();
+      var userChangeTar       = $("#user-change-target").val();
+      var userName            = $("#user-name").val();
+      var userPhone           = $("#user-phone").val();
+      var username            = $("#username").val();
+      var userGoodsPrice      = $("#user-goods-price").val();
+      var selectWay           = $("#user-selectway").val();
+
+      $.post("/helpSubmit",{
+        "username"            : username,
+        "selectWay"           : selectWay,
+        "userGoodsSort"       : userGoodsSort,
+        "userGoodsName"       : userGoodsName,
+        "userGoodsaddText"    : userGoodsaddText,
+        "userName"            : userName,
+        "publicTime"          : FormatDate(new Date()),
+        "userPhone"           : userPhone,
+        "userImgOne"          : userImgOne,
+        "userImgTwo"          : userImgTwo,
+        "userImgThree"          : userImgThree,
+        "userImgFour"          : userImgFour,
+      },function(result) {
+        if(result=="1"){
+
+        }
+
+        setTimeout(function () {
+          window.location = "/helplistMsg?page=0";
+        },1000);
+
+        alert("1s后，跳回求助页，查看你发布的内容");//改成模态框 在模态框上倒计时
         // 前几个事预览数据，登录后可查看所有
       })
     } else {
@@ -397,7 +466,7 @@ $(function(){
     $.get("/"+reqUrl,function (result) {
       var amount = parseInt(result);
         //总页数
-        var pageamount = Math.ceil(amount /2);//返回的是 与它相近的大1数值
+        var pageamount = Math.ceil(amount /10);//返回的是 与它相近的大1数值
         for (var i = 0; i < pageamount; i++) {
           $("."+ele).append("<li ><a href='javascript:void(0);'>" +(i+1)+ "</a></li>");
         }
@@ -409,20 +478,15 @@ $(function(){
         });
     })
   }
-  var donateNumberAmount    = "donateNumberAmount";
-  var exchangeNumberAmount  = "exchangeNumberAmount";
-  var sendNumberAmount      = "sendNumberAmount";
-  var saleNumberAmount      = "saleNumberAmount";
-  var userGoodsNumberAmount = "userGoodsNumberAmount";
 
   var indexNumberAmount     = "indexNumberAmount";
 
 
-  pageReq(donateNumberAmount,"donatePagination");
-  pageReq(exchangeNumberAmount,"exchangePagination");
-  pageReq(sendNumberAmount,"sendPagination");
-  pageReq(saleNumberAmount,"salePagination");
-  pageReq(userGoodsNumberAmount,"userGoodsPagination");
+  pageReq("donateNumberAmount","donatePagination");
+  pageReq("exchangeNumberAmount","exchangePagination");
+  pageReq("sendNumberAmount","sendPagination");
+  pageReq("saleNumberAmount","salePagination");
+  pageReq("userGoodsNumberAmount","userGoodsPagination");
   // pageReq(indexNumberAmount,"exchangePagination");
 
 
