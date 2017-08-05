@@ -3,19 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
 	<link rel="stylesheet" href="/css/bootstrap.css">
-<<<<<<< HEAD
-	<style>
-	    body {
-	    	background: #f2dede;
-	    } 
-=======
 	<link rel="stylesheet" href="/css/myemojiPl.css">
 	<style>
 	    body {
 	    	background: #f2dede;
 	    }
->>>>>>> 238e6575dfb96e5f5e95b17e5d9aaf4ec6ff6502
 		nav {
 			background-color: #d9edf7 !important;
 			height: 6em;
@@ -25,26 +19,7 @@
 			font-weight: bold;
 			display: inline-block;
 		}
-<<<<<<< HEAD
-		section {
-			margin-top: 6em;
-		}
-		.contents_show {
-			background-color: 
-		}
-		.chatcontents li {
-			line-height: 2em;
-			border-radius: 3px;
-		}
-		.chatcontents li:nth-child(even){
-			background-color: #bce8f1;
-		}
-		.chatcontents li:nth-child(odd){
-			background-color: #dff0d8;
-		}
 
-		
-=======
 		section.section {
 			margin-top: 6em;
 		}
@@ -83,7 +58,6 @@
 			border-radius: 3px;
 		}
 
->>>>>>> 238e6575dfb96e5f5e95b17e5d9aaf4ec6ff6502
 	</style>
 </head>
 <body>
@@ -91,47 +65,26 @@
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		 	<div class="container">
 			 	<div class="text-center">
-<<<<<<< HEAD
-			 		<h2>欢迎进入501</h2>
-			 	</div>	
-			 	<span>当前主人：</span><span id="user"><%=username%></span>	 		
-		    </div>
-		</nav>
-	</header>
-	<section class="container">
-=======
 			 		<h2>群魔乱舞</h2>
 			 	</div>
-			 	<span>当前主人：</span><span id="user"><%=username%></span>
+			 	<span>Hello!</span> <span id="user"><%=username%></span>
 			 	<a href="/">退出</a href="/">
 		    </div>
 		</nav>
 	</header>
 	<section class="container section">
->>>>>>> 238e6575dfb96e5f5e95b17e5d9aaf4ec6ff6502
 		<div class="col-md-6 co-xs-12 col-sm-12 contents_show">
-			<h3>这里显示：</h3>
+			<h3>聊骚滴 here 滴</h3>
 			<div class="">
-				<ul class="chatcontents">
-<<<<<<< HEAD
-					
-=======
+				<ul class="chatcontents" style="margin-left: -50px;">
 
->>>>>>> 238e6575dfb96e5f5e95b17e5d9aaf4ec6ff6502
 				</ul>
 			</div>
 		</div>
 		<div class="col-md-6 co-xs-12 col-sm-12 user_input">
 			<h3>这里输入：</h3>
 			<div>
-<<<<<<< HEAD
-			    <div class="input-group">
-			        <input type="text" class="form-control" id="contents">
-			        <span class="input-group-btn">
-			          <button class="btn btn-default" type="button" id="submit">Go!</button>
-			        </span>
-			    </div>
-=======
+
 				<div class="Main">
 			        <div class="Input_Box">
 			        	<div contenteditable="true" class="Input_text"></div>
@@ -145,43 +98,12 @@
 			        	<section class="emoji_tab"></section>
 			        </div>
 			     </div>
->>>>>>> 238e6575dfb96e5f5e95b17e5d9aaf4ec6ff6502
 			</div>
 		</div>
 	</section>
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-	<script>
-		var socket = io();
-		$("#contents").keydown(function(e){
-			if(e.keyCode == 13){
-				//传输文本内容
-				socket.emit("chats",{
-					"contents" : $("#contents").val(),
-					"user": $("#user").html()
-				});
-				$(this).val("");
-			}
-		})
-		$("#submit").click(function(e){
-			//传输文本内容
-			socket.emit("chats",{
-				"contents" : $("#contents").val(),
-				"user": $("#user").html()
-			});
-			$(this).val("");
-
-		});
-		socket.on("chats",function (msg) {
-			//console.log(msg);// object{contents:..,user:...}
-			$(".chatcontents").prepend("<li><b>"+msg.user+":</b>"+msg.contents+"</li>")
-		})
-
-		var window_width = $(window).width();
-		console.log(window_width)
-=======
 	<script src="/js/myemojiPl.js"></script>
 	<script>
 		var socket = io();
@@ -213,7 +135,6 @@
 		})
 
 		var window_width = $(window).width();
->>>>>>> 238e6575dfb96e5f5e95b17e5d9aaf4ec6ff6502
 		if(window_width<678) {
 			$(".user_input")
 			.addClass("navbar-fixed-bottom")
@@ -226,10 +147,6 @@
 			.css({"display":"none"});
 		}
 	</script>
-<<<<<<< HEAD
-</body>
-</html>
-=======
 	<script>
 		var emojiconfig = {
 		    tieba: {
@@ -354,4 +271,3 @@
 	</script>
 </body>
 </html>
->>>>>>> 238e6575dfb96e5f5e95b17e5d9aaf4ec6ff6502

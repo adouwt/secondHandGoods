@@ -3,10 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>发布宝贝</title>
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/css/custom-styles.css">
-    <link rel="stylesheet" href="/css/font-awesome.css">
+    <% include component/css.ejs %>
   </head>
   <body>
     <% include header.ejs%>
@@ -117,12 +114,7 @@
         </div>
     </section>
 
-    <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script src="/js/h5upload.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/js/custom-styles.js">
-      //前端验证先放置
-    </script>
+    <% include  component/js.ejs%>
 
   </body>
 </html>

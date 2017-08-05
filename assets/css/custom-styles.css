@@ -443,10 +443,22 @@ input.error-border {
 .copy_right {
   margin-left: 250px;
 }
+section {
+  margin-bottom: 20px;
+}
 
-.fa.fa-times {
-  display:inline-block;
-  background-image: url(/sys-img/out.jpg);
-  width: 50px;
-  height: 50px;
+
+.fa.fa-times::before {
+    content: '';
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: -38px;
+    left: 38%;
+    background-size: 140px 140px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    background-image: url(/sys-img/out.jpg);
+    z-index: 1;
 }
