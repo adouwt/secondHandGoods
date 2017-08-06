@@ -11,6 +11,11 @@ ul,li,dd,dl,dt,h1,h2,h3,h4,h5,h6,p {
 li {
   list-style: none;
 }
+
+/*公用的类*/
+.vertical-bottom {
+  vertical-align: bottom;
+}
 .navbar {
   margin-bottom: 0;
 }

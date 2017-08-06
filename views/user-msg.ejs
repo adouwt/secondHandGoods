@@ -29,7 +29,7 @@
 
                   <div class="form-group">
                     <label for="">我的昵称</label>
-                    <input type="text" class="form-control" id="usernickname" placeholder="请输入昵称">
+                    <input type="text" class="form-control" id="usernickname" placeholder="请输入昵称" value="<%= nickName%>">
                   </div>
 
                   <a class="btn btn-default btn-sm" id="revise-userpassword">修改密码</a>
@@ -55,6 +55,7 @@
                     <div>
                       <p class="sec-my-avatar">
                         <img src="/avatar/default.jpg">
+                        <a href="" class="btn btn-sm btn-default vertical-bottom" id="">更换图片</a>
                       </p>
                     </div>
                     
@@ -71,9 +72,7 @@
         </div>
     </section>
 
-    <footer class="copy_right">
-      <p>Copyright © 2017. <a href="/adou-intro" target="blank">Adou</a> All rights reserved.</p>
-    </footer>
+    
     <% include  component/js.ejs%>
     <script type="text/javascript" src="/js/my-msg.js"></script>
   </body>

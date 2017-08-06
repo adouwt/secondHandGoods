@@ -11,7 +11,8 @@ var fs = require("fs");
 
 var file = require("../model/file.js");
 
-//socket.io 公式
+var userData = {};
+
 
 //注册业务
 exports.doRegist = function (req,res,next) {
@@ -60,8 +61,6 @@ exports.doLogin = function (req,res,next) {
       var userpassword = fields.userpassword;
       userpassword_handel= md5(md5(userpassword)+"adou");
       db.find("users",{"username" : username},function(err,result){
-
-          // console.log(result)
 
           if(err){
               res.send("-5");//随便去，服务器错误
@@ -173,6 +172,7 @@ exports.showAddExchangeProduct = function (req,res,next) {
       res.render("add_exchange_product", {
           "login":    login,
           "username": username,
+          "nickName" : result[0].nickName,
           "avatar":  "default.jpg",
       });
   });
@@ -199,6 +199,7 @@ exports.showAddSendProduct = function (req,res,next) {
       res.render("add_send_product", {
           "login": login,
           "username": username,
+          "nickName" : result[0].nickName,
           "avatar":  "default.jpg",
       });
   });
@@ -225,6 +226,7 @@ exports.showAddSailProduct = function (req,res,next) {
       res.render("add_sale_product", {
           "login": login,
           "username": username,
+          "nickName" : result[0].nickName,
           "avatar":  "default.jpg",
       });
   });
@@ -251,6 +253,7 @@ exports.showAddDonateProduct = function (req,res,next) {
       res.render("add_donate_product", {
           "login": login,
           "username": username,
+          "nickName" : result[0].nickName,
           "avatar":  "default.jpg",
       });
   });
@@ -632,6 +635,7 @@ exports.donatelistMsg = function(req,res,next){
         res.render("donate",{
             "result"    : result,
             "username"  : username,
+            "nickName"  : result[0].nickName,
             "login"     : login
           });
     });
@@ -743,10 +747,13 @@ exports.showAddHelp = function (req,res,next) {
   //已经登陆了，那么就要检索数据库，查登陆这个人的头像
   db.find("users", {username: username}, function (err, result) {
 
+    console.log(result)
+
       res.render("add_need_help", {
           "login": login,
           "username": username,
-          "avatar":  "default.jpg",
+          "nickName"  : result[0].nickName,
+          "avatar":  "default.jpg"
       });
   });
 };
@@ -778,6 +785,7 @@ exports.HelpListMsg = function(req,res,next){
         res.render("help",{
             "result"    : result,
             "username"  : username,
+            "nickName"  : result[0].nickName,
             "login"     : login
           });
     });
@@ -810,6 +818,7 @@ exports.exchangelistMsg = function(req,res,next){
         res.render("exchange",{
             "result"    : result,
             "username"  : username,
+            "nickName"  : result[0].nickName,
             "login"     : login
           });
     });
@@ -842,6 +851,7 @@ exports.sendlistMsg = function(req,res,next){
         res.render("send",{
             "result"    : result,
             "username"  : username,
+            "nickName"  : result[0].nickName,
             "login"     : login
           });
     });
@@ -873,6 +883,7 @@ exports.salelistMsg = function(req,res,next){
         res.render("sale",{
             "result"    : result,
             "username"  : username,
+            "nickName"  : result[0].nickName,
             "login"     : login
           });
     });
@@ -962,7 +973,8 @@ exports.dataCount = function (req,res,next) {
                 "donatelistCount"   : donatelistCount,
                 "helplistCount"     : helplistCount,
                 "login"             : login,
-                "username"          : username
+                "username"          : username,
+                "nickName"  : result[0].nickName,
               });
 
             })
@@ -1037,7 +1049,8 @@ exports.showUserCenter = function (req,res,next) {
                 "donatelistCount"   : donatelistCount,
                 "helplistCount"     : helplistCount,
                 "login"             : login,
-                "username"          : username
+                "username"          : username,
+                "nickName"  : result5[0].nickName,
               });
             })
         });
@@ -1315,6 +1328,7 @@ exports.userMsg = function (req,res,next) {
       res.render("user-msg", {
           "login":    login,
           "username": username,
+          "nickName" : result[0].nickName,
           "avatar":  "default.jpg",
       });
   });
