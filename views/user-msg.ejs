@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> 我的信息</title>
+    <% include component/css.ejs %>
+  </head>
+  <body>
+    <%include header.ejs%>
+    <section>
+        <%include left_colum.ejs%>
+        <div class="right_board">
+          <header>
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 h1">
+                <p>
+                  我的信息
+                </p>
+              </div>
+          </header>
+          <div class="sec-my-msg">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="form-good-submit">
+                  <div class="form-group">
+                    <label for="">我的邮箱</label>
+                    <input type="email" class="form-control" id="userName" value="<%= username%>" readonly disabled>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="">我的昵称</label>
+                    <input type="text" class="form-control" id="usernickname" placeholder="请输入昵称">
+                  </div>
+
+                  <a class="btn btn-default btn-sm" id="revise-userpassword">修改密码</a>
+
+                  <div class="revise-userpassword-area a-btn">
+                    <div class="form-group">
+                      <label for="">原密码</label> 
+                      <input type="password" class="form-control" id="old-pwd" placeholder="请输入旧密码">
+                    </div>
+                    <span class="old-msg">请输入正确的原密码</span>
+
+                    
+                    <div class="form-group">
+                      <label for="">新密码</label>
+                      <input type="password" class="form-control" id="new-pwd" placeholder="请输入新密码">
+                    </div>
+                    <span class="true-pwd-msg">请输入6-8位数字或字母</span>
+                  </div>
+                  
+                  
+                  <div class="form-group a-btn">
+                    <label for="">我的头像</label>
+                    <div>
+                      <p class="sec-my-avatar">
+                        <img src="/avatar/default.jpg">
+                      </p>
+                    </div>
+                    
+                  </div>
+                  <button  class="btn btn-default" id="save-my-msg">保存修改</button>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                
+              </div>    
+            </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <footer class="copy_right">
+      <p>Copyright © 2017. <a href="/adou-intro" target="blank">Adou</a> All rights reserved.</p>
+    </footer>
+    <% include  component/js.ejs%>
+    <script type="text/javascript" src="/js/my-msg.js"></script>
+  </body>
+</html>

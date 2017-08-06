@@ -149,6 +149,13 @@ app.get("/addHelp",router.showAddHelp);
 
 app.get("/HelpListMsg",router.HelpListMsg);
 
+//我的信息
+app.get("/user-msg",router.userMsg);
+//提交修改密码
+app.post("/reviseMyMsg",router.reviseMyMsg);
+//添加昵称
+app.post("/addNickName",router.addNickName);
+
  //执行help 提交内容
 app.post("/helpSubmit",router.helpSubmit);
 

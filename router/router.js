@@ -60,6 +60,9 @@ exports.doLogin = function (req,res,next) {
       var userpassword = fields.userpassword;
       userpassword_handel= md5(md5(userpassword)+"adou");
       db.find("users",{"username" : username},function(err,result){
+
+          // console.log(result)
+
           if(err){
               res.send("-5");//随便去，服务器错误
               return;
@@ -1288,6 +1291,128 @@ exports.searchSql = function (req,res,next) {
     })
 
 }
+
+//我的信息
+exports.userMsg = function (req,res,next) {
+  //必须登录
+  if(req.session.login != "1") {
+    res.end("没有登录，请登录");
+    return;
+  }
+  //检索数据库，查找此人的头像
+  if (req.session.login == "1") {
+      //如果登陆了
+      var username = req.session.username;
+      var login = true;
+      var avatar = req.session.avatar;
+  }
+
+  //已经登陆了，那么就要检索数据库，查登陆这个人的头像
+  db.find("users", {username: username}, function (err, result) {
+
+    // console.log(result);
+
+      res.render("user-msg", {
+          "login":    login,
+          "username": username,
+          "avatar":  "default.jpg",
+      });
+  });
+};
+
+//修改我的密码
+exports.reviseMyMsg = function (req,res,next) {
+
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+
+      console.log(fields)
+      //表单数据
+
+      var username = fields.username;
+
+      var nickName = fields.nickName;
+
+      var userpassword = fields.oldPwd;
+
+      var userNewPwd = fields.newPwd;
+
+      userNewPwd_handel= md5(md5(userNewPwd)+"adou");
+
+      userpassword_handel= md5(md5(userpassword)+"adou");
+
+      // console.log(username)
+
+      db.find("users",{"username" : username},function(err,result){
+
+          // console.log(result)
+
+          if(err){
+              res.send("-5");//随便去，服务器错误
+              return;
+          }
+
+          if(result[0].userpassword == userpassword_handel) {
+
+          } else {
+
+            // console.log("原密码不正确");
+            res.send("4");//
+            return;
+          }
+
+
+          db.updateMany("users",{"username" :  username},{
+            $set : {
+              "userpassword" : userNewPwd_handel,
+              "nickName" : nickName
+            }
+          },function (err,result) {
+
+            // console.log(result)
+            if(err) {
+              // console.log(err);
+              res.send("-4");
+              return;
+            }
+            res.send("1");//发布成功
+          })    
+      })
+    })
+}
+
+//只添加我的昵称
+
+exports.addNickName = function (req,res,next) {
+
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+      //表单数据
+
+      var username = fields.username;
+
+      var nickName = fields.nickName;
+
+      db.find("users",{"username" : username},function(err,result){
+
+        db.updateMany("users",{"username" :  username},{
+            $set : {
+              "nickName" : nickName
+            }
+          },function (err,result) {
+            if(err) {
+              // console.log(err);
+              res.send("-4");
+              return;
+            }
+            res.send("1");//发布成功
+          }) 
+
+      })
+    })
+}
+
+
 
 //test
 exports.hello = function (req,res,next) {

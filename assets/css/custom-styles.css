@@ -241,7 +241,7 @@ li .header-regist,.header-login{
   font-size: 1.4rem;
   text-overflow: ellipsis;
 }
-#login_error_cue,#error_cue {
+#login_error_cue,#error_cue,.a-btn {
   margin-top: 10px;
 }
 
@@ -462,3 +462,18 @@ section {
     background-image: url(/sys-img/out.jpg);
     z-index: 1;
 }
+
+/*我的信息*/
+.revise-userpassword-area {
+  display: none;
+}
+.old-msg ,.true-pwd-msg{
+  position: relative;
+  top: -8px;
+  color: red;
+  display: none;
+}
+.old-msg.fadeOut ,.true-pwd-msg.fadeOut{ 
+  display: none;
+}
+
