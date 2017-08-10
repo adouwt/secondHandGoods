@@ -184,6 +184,6 @@ io.on("connection",function(socket){//socket实际在运行的时候，表示用
 
 
 
-http.listen(8080,function () {
+http.listen(80,function () {
 	console.log("项目启动成功！");
 });
