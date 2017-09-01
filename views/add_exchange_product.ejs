@@ -6,9 +6,9 @@
      <% include component/css.ejs %>
   </head>
   <body>
-    <% include header.ejs%>
-    <section>
-        <%include left_colum.ejs%>
+    <% include component/header.ejs%>
+    <section class="section-wrapper">
+        <%include component/left_colum.ejs%>
         <div class="right_board">
           <header>
             <h1>
@@ -16,7 +16,7 @@
             </h1>
           </header>
           <section>
-              <div class="container">
+              <div class="sec-container">
                 <div class="add_product_details">
                   <form  enctype="multipart/form-data" method="post" class= "form-good-submit">
                     <div class="row">
@@ -35,14 +35,22 @@
                             <span class="error-msg">不能为空</span>
                           <br>
                           <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon3">宝贝用时</span>
-                            <input type="text" class="form-control" id = "user-goods-usetime" placeholder="已经使用的时间" aria-describedby="basic-addon3">
+                            <span class="input-group-addon" id="basic-price">宝贝原价</span>
+                            <input type="text" class="form-control" id = "user-goods-price" placeholder="原价格" aria-describedby="basic-price">
                           </div>
                             <span class="error-msg">不能为空</span>                         
                           <br>
                           <div class="input-group">
-                            <span class="input-group-addon" id="basic-price">宝贝原价</span>
-                            <input type="text" class="form-control" id = "user-goods-price" placeholder="购买时价格" aria-describedby="basic-price">
+                            <span class="input-group-addon" id="basic-time">宝贝用时</span>
+                            <select name="" id ="user-goods-time" class="form-control" aria-describedby="basic-time">
+                              <option value="">半年内</option>
+                              <option value="">半个月内</option>
+                              <option value="">一个月内</option>
+                              <option value="">三个月内</option>
+                              <option value="">一个星期以内</option>
+                              <option value="">一年内</option>
+                              <option value="">超过一年</option>
+                            </select>
                           </div>
                             <span class="error-msg">不能为空</span>
                           <br>
@@ -97,7 +105,7 @@
                             <textarea class="form-control" id="user-goods-addText"></textarea>
                           </div>
                           <br>
-                          <button type="submit" class="btn btn-default" id ="exchangeGoods-submit">Submit</button>
+                          <button type="button" class="btn btn-default" id ="exchangeGoods-submit">提交</button>
 
                       </div>
                     </div>
@@ -106,15 +114,17 @@
               </div>
           </section>
           <hr>          
-          <h4 class="text-center">你将要发布的东西，会在主页以及相关页面如下所示：</h4>
-          <hr>
-          <% include sample.ejs%>
-          <footer class="copy_right">
-              <p>Copyright © 2017.Adou All rights reserved.</p>
-          </footer>
+          <div class="sample-show">      
+            <h4 class="text-center">你将要发布的东西，会在主页以及相关页面如下所示：</h4>
+            <hr>       
+            <% include component/sample.ejs%>
+          </div> 
+          
         </div>
     </section>
-
+    <footer class="copy_right">
+      <p>Copyright © 2017.Brother Team All rights reserved.</p>
+    </footer>
     <% include  component/js.ejs%>
 
   </body>

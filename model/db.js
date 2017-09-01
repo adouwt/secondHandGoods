@@ -3,11 +3,11 @@
  */
 //这个模块里面封装了所有对数据库的常用操作
 var MongoClient = require('mongodb').MongoClient;
-var settings = require("../settings.js");
+var config = require("../config.js");
 //不管数据库什么操作，都是先连接数据库，所以我们可以把连接数据库
 //封装成为内部函数
 function _connectDB(callback) {
-    var url = settings.dburl;   //从settings文件中，都数据库地址
+    var url = config.dburl;   //从 config.js 文件中，都数据库地址
     //连接数据库
     MongoClient.connect(url, function (err, db) {
         if (err) {
@@ -106,4 +106,22 @@ exports.getAllCount = function (collectionName,callback) {
             db.close();
         });
     })
+}
+
+exports.count = function(cname,cond,cb){
+    _connectDB(function (err, db) {
+        db.collection(cname).count(cond).then(function(count) {
+            cb(count);
+            db.close();
+        });
+    });
+}
+
+exports.one = function(cname, cond, cb){
+    _connectDB(function (err, db) {
+        db.collection(cname).count(cond).then(function(err, one) {
+            cb(err, one);
+            db.close();
+        });
+    });
 }

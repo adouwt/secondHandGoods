@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>校园大事件-发布</title>
+    <% include component/css.ejs %>
+  </head>
+  <body>
+    <% include component/header.ejs%>
+    <section  class="section-warpper">
+        <%include component/left_colum.ejs%>
+        <div class="right_board">
+          <header>
+            <h1>
+              发布--校园大事件
+            </h1>
+          </header>
+          <section>
+              <div class="sec-container">
+                <div class="add_product_details">
+                  <form  enctype="multipart/form-data" method="post" class="form-good-submit">
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">事件名称</span>
+                            <input type="text" class="form-control" id = "event-title" placeholder="有人表白了" aria-describedby="basic-addon1">
+                          </div>
+                          <span class="error-msg">不能为空</span>
+                          <br>
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon2">事件地点</span>
+                            <input type="text" class="form-control" id = "event-address" placeholder="操场" aria-describedby="basic-addon2">
+                          </div>
+                          <span class="error-msg">不能为空</span>
+                          <br>
+                         
+                          <div class="form-group">
+                            <div id="uploadForm"  method="post" enctype="multipart/form-data">
+                              <div class="upload_box">
+                                  <div class="upload_main">
+                                    <div class="upload_choose">
+                                      <input id="fileImage" type="file" size="30" name="fileselect" multiple />
+                                      <span id="fileDragArea" class="upload_drag_area">请选择四张图片或者将图片拖到此处</span>
+                                    </div>
+                                    <div id="preview" class="upload_preview"></div>
+                                  </div>
+                                  <span class="error-img-file">请选择四张不同的图片</span>
+                                  <div class="upload_submit">
+                                    <button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
+                                  </div>
+                                  <div id="uploadInf" class="upload_inf"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-username">事件人物</span>
+                            <input type="text" class="form-control" id = "event-people" placeholder="比如表白大队人马" aria-describedby="basic-username">
+                          </div>
+                          <span class="error-msg">不能为空</span>
+                          <br>
+                          <div class="input-group" >
+                            <span class="input-group-addon" id="basic-time">事件时间</span>
+                            <input type="text" class="form-control" id = "event-time"  aria-describedby="basic-time"  >
+                          </div>
+                          <span class="error-msg">不能为空</span>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label for="message-text" class="control-label">啥事:</label>
+                            <textarea class="form-control" id="event-content"></textarea>
+                          </div>
+                          <span class="error-msg">不能为空</span>
+                          <br>
+                          <button type="button" class="btn btn-default" id ="event-submit">提交</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </section>
+          <hr>          
+          <div class="sample-show">      
+            <h4 class="text-center">你将要发布的东西，会在主页以及相关页面如下所示：</h4>
+            <hr>       
+            <% include component/sample.ejs%>
+          </div> 
+         
+        </div>
+    </section>
+    <footer class="copy_right">
+      <p>Copyright © 2017.Brother Team All rights reserved.</p>
+    </footer>
+    <% include  component/js.ejs%>
+  </body>
+</html>

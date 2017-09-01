@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>校园大事件</title>
+    <% include component/css.ejs %>
+  </head>
+  <body>
+    <%include component/header.ejs%>
+    <section class="section-wrapper">
+        <%include component/left_colum.ejs%>
+        <div class="right_board">
+          <header>
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 h1">
+                <h3>
+                  校园大事件
+                </h3>
+              </div>
+          </header>
+          <section class="exchangeList" >
+            <% for(var i= 0;i<pagedata.result.length;i++) {%>
+              <section class="goodsList">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="right_product_details col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                      <div class="">
+                        <ul>
+                          <li>
+                            <span class="right_board_categories">事件名称：</span>
+                            <span class="right_board_categories_name"><%= pagedata.result[i].eventTitle%></span>
+                          </li>
+                          <li>
+                            <span class="right_board_categories">地点：</span>
+                            <span class="right_board_categories_name"><%= pagedata.result[i].eventAddress%></span>
+                          </li>
+                          <li>
+                            <span class="right_board_categories">参与人：</span>
+                            <span class="right_board_categories_name"><%= pagedata.result[i].eventPeople%></span>
+                          </li>
+                          <li>
+                            <span class="right_board_categories">发生时间：</span>
+                            <span class="right_board_categories_name"><%= pagedata.result[i].eventTime%></span>
+                          </li>
+                          <li>
+                            <span class="right_board_categories">发贴时间：</span>
+                            <span class="right_board_categories_name"><%= pagedata.result[i].publicTime%></span>
+                          </li>
+                          
+                          <li>
+                            <span class="right_board_categories">事情经过：</span> <br>
+                            <span class="product_details_addText right_board_categories_name">
+                                <%= pagedata.result[i].eventContent%>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="left_product_img col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                      <% include component/common-carousel.ejs%>
+                    </div>
+                  </div>
+                </div>
+                <% if(pagedata.result[i].goodsStatus == "finish") { %>
+                      <i class="fa fa-times"></i>
+                  <% } else {%>
+                    <i class="fa fa-times" style="display: none;"></i>
+                  <% } %>
+              </section>
+              <hr>
+              <% include component/common-model %>
+            <% }%>
+          </section>
+          <footer class="deliver-page">
+            <nav aria-label="Page navigation" class="navbar  navbar-right">
+              <ul class="pagination donatePagination">
+
+              </ul>
+              </nav>
+          </footer>
+          
+        </div>
+    </section>
+
+    <footer class="copy_right">
+      <p>Copyright © 2017. Brother Team All rights reserved.</p>
+    </footer>
+    <% include  component/js.ejs%>
+  </body>
+</html>

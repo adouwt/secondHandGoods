@@ -6,10 +6,11 @@
    <% include component/css.ejs %>
   </head>
   <body>
-    <%include header.ejs%>
-    <section>
-        <%include left_colum.ejs%>
+    <%include component/header.ejs%>
+    <section class="section-wrapper">
+        <%include component/left_colum.ejs%>
         <div class="right_board">
+          <% pagedata = pagedata.result %>
           <header>
               <h4 style= "margin-top: 30px;margin-left:30px">个人中心</h4>
               <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 h5">
@@ -19,27 +20,18 @@
                 <a href="#donate-jump">所有捐献</a>
                 <a href="#help-jump">所有求助</a>
               </div>
-
-                <!-- <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 h1">
-                <div class="input-group">
-                  <input type="text" class="form-control" id= "search-exchange-goods"  placeholder="Search for you need ...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" id="search-goods">Go!</button>
-                  </span>
-                </div>
-              </div> -->
           </header>
            <hr>
           <section class="exchangeList">
             <div>
               <h3  id= "exchange-jump">所有交换</h3>
-              <% if(exchangelistCount.length == 0) {%>
+              <% if(pagedata.exchangelistCount.length == 0) {%>
                 <p class="shg-empty">目前没有哦！</p>
               <%} else {%>
-              <% for(var i= 0;i<exchangelistCount.length;i++) {%>
+              <% for(var i= 0;i<pagedata.exchangelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
-                    <% if(exchangelistCount[i].goodsStatus == "finish") { %>
+                    <% if(pagedata.exchangelistCount[i].goodsStatus == "finish") { %>
                         <div class="row disabled">
                     <% } else {%>
                     <div class="row">
@@ -48,37 +40,37 @@
                         <div id="carousel-example-generic<%= i %>" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
                           <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ exchangelistCount[i].username + exchangelistCount[i].userGoodsName + (exchangelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ exchangelistCount[i].username + exchangelistCount[i].userGoodsName + (exchangelistCount[i].selectWay||'sale')+'1.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ exchangelistCount[i].username + exchangelistCount[i].userGoodsName + (exchangelistCount[i].selectWay||'sale')+'2.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ exchangelistCount[i].username + exchangelistCount[i].userGoodsName + (exchangelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ pagedata.exchangelistCount[i].username + pagedata.exchangelistCount[i].userGoodsName + (pagedata.exchangelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ pagedata.exchangelistCount[i].username + pagedata.exchangelistCount[i].userGoodsName + (pagedata.exchangelistCount[i].selectWay||'sale')+'1.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ pagedata.exchangelistCount[i].username + pagedata.exchangelistCount[i].userGoodsName + (pagedata.exchangelistCount[i].selectWay||'sale')+'2.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ pagedata.exchangelistCount[i].username + pagedata.exchangelistCount[i].userGoodsName + (pagedata.exchangelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);"></li>
                           </ol>
 
                           <!-- Wrapper for slides -->
                           <div class="carousel-inner" role="listbox">
                             <div class="item active sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ exchangelistCount[i].username + exchangelistCount[i].userGoodsName + (exchangelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.exchangelistCount[i].username + pagedata.exchangelistCount[i].userGoodsName + (pagedata.exchangelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ exchangelistCount[i].username + exchangelistCount[i].userGoodsName + (exchangelistCount[i].selectWay||'sale') +'1.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.exchangelistCount[i].username + pagedata.exchangelistCount[i].userGoodsName + (pagedata.exchangelistCount[i].selectWay||'sale') +'1.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ exchangelistCount[i].username + exchangelistCount[i].userGoodsName + (exchangelistCount[i].selectWay||'sale') +'2.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.exchangelistCount[i].username + pagedata.exchangelistCount[i].userGoodsName + (pagedata.exchangelistCount[i].selectWay||'sale') +'2.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ exchangelistCount[i].username + exchangelistCount[i].userGoodsName + (exchangelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.exchangelistCount[i].username + pagedata.exchangelistCount[i].userGoodsName + (pagedata.exchangelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
@@ -102,41 +94,41 @@
                           <ul>
                             <li>
                               <span class="right_board_categories">类别：</span>
-                              <span class="right_board_categories_name"><%= exchangelistCount[i].userGoodsSort%></span>
+                              <span class="right_board_categories_name"><%= pagedata.exchangelistCount[i].userGoodsSort%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">名称：</span>
-                              <span class="right_board_categories_name"><%= exchangelistCount[i].userGoodsName%></span>
+                              <span class="right_board_categories_name"><%= pagedata.exchangelistCount[i].userGoodsName%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">原价(¥)：</span>
-                              <span class="right_board_categories_name"><%= exchangelistCount[i].userGoodsPrice%></span>
+                              <span class="right_board_categories_name"><%= pagedata.exchangelistCount[i].userGoodsPrice%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">换向：</span>
-                              <span class="right_board_categories_name"><%= exchangelistCount[i].userChangeTar%></span>
+                              <span class="right_board_categories_name"><%= pagedata.exchangelistCount[i].userChangeTar%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">用时：</span>
-                              <span class="right_board_categories_name"><%= exchangelistCount[i].userGoodsUseTime%></span>
+                              <span class="right_board_categories_name"><%= pagedata.exchangelistCount[i].userGoodsUseTime%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">联系人：</span>
-                              <span class="right_board_categories_name"><%= exchangelistCount[i].userName%></span>
+                              <span class="right_board_categories_name"><%= pagedata.exchangelistCount[i].userName%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">联系电话：</span>
-                              <span class="right_board_categories_name"><%= exchangelistCount[i].userPhone%></span>
+                              <span class="right_board_categories_name"><%= pagedata.exchangelistCount[i].userPhone%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">发布时间：</span>
-                              <span class="right_board_categories_name"><%= exchangelistCount[i].publicTime%></span>
+                              <span class="right_board_categories_name"><%= pagedata.exchangelistCount[i].publicTime%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">交易状态：</span>
 
-                              <% if(exchangelistCount[i].goodsStatus == "finish") { %>
-                                <button class ="btn btn-success" disabled>交易结束</button>
+                              <% if(pagedata.exchangelistCount[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-danger" disabled>交易结束</button>
                               <% } else {%>
                                 <button class ="btn btn-success exchangeFinish">交易进行中</button>
                               <%}%>
@@ -145,7 +137,7 @@
                             <li>
                               <span class="right_board_categories">详细补充：</span> <br>
                               <span class="product_details_addText right_board_categories_name">
-                                  <%= exchangelistCount[i].userGoodsaddText%>
+                                  <%= pagedata.exchangelistCount[i].userGoodsaddText%>
                               </span>
                             </li>
                           </ul>
@@ -153,7 +145,7 @@
                       </div>
                     </div>
                   </div>
-                  <% if(exchangelistCount[i].goodsStatus == "finish") { %>
+                  <% if(pagedata.exchangelistCount[i].goodsStatus == "finish") { %>
                       <i class="fa fa-times"></i>
                   <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
@@ -167,13 +159,13 @@
           <section class="saleList" >
             <div>
               <h3 id= "sale-jump">所有变卖</h3>
-              <% if(salelistCount.length == 0) {%>
+              <% if(pagedata.salelistCount.length == 0) {%>
                 <p class="shg-empty">目前没有哦！</p>
               <%} else {%>
-              <% for(var i= 0;i<salelistCount.length;i++) {%>
+              <% for(var i= 0;i<pagedata.salelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
-                    <% if(salelistCount[i].goodsStatus == "finish") { %>
+                    <% if(pagedata.salelistCount[i].goodsStatus == "finish") { %>
                       <div class="row disabled">
                     <% } else {%>
                       <div class="row">
@@ -182,37 +174,37 @@
                         <div id="<%= i %>" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
                           <ol class="carousel-indicators">
-                            <li data-target="#<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#c<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale')+'1.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale')+'2.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ pagedata.salelistCount[i].username + pagedata.salelistCount[i].userGoodsName + (pagedata.salelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#c<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ pagedata.salelistCount[i].username + pagedata.salelistCount[i].userGoodsName + (pagedata.salelistCount[i].selectWay||'sale')+'1.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ pagedata.salelistCount[i].username + pagedata.salelistCount[i].userGoodsName + (pagedata.salelistCount[i].selectWay||'sale')+'2.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ pagedata.salelistCount[i].username + pagedata.salelistCount[i].userGoodsName + (pagedata.salelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);"></li>
                           </ol>
 
                           <!-- Wrapper for slides -->
                           <div class="carousel-inner" role="listbox">
                             <div class="item active sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.salelistCount[i].username + pagedata.salelistCount[i].userGoodsName + (pagedata.salelistCount[i].selectWay||'sale') +'0.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'1.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.salelistCount[i].username + pagedata.salelistCount[i].userGoodsName + (pagedata.salelistCount[i].selectWay||'sale') +'1.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'2.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.salelistCount[i].username + pagedata.salelistCount[i].userGoodsName + (pagedata.salelistCount[i].selectWay||'sale') +'2.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ salelistCount[i].username + salelistCount[i].userGoodsName + (salelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.salelistCount[i].username + pagedata.salelistCount[i].userGoodsName + (pagedata.salelistCount[i].selectWay||'sale') +'3.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
@@ -236,40 +228,40 @@
                           <ul>
                             <li>
                               <span class="right_board_categories">类别：</span>
-                              <span class="right_board_categories_name"><%= salelistCount[i].userGoodsSort%></span>
+                              <span class="right_board_categories_name"><%= pagedata.salelistCount[i].userGoodsSort%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">名称：</span>
-                              <span class="right_board_categories_name"><%= salelistCount[i].userGoodsName%></span>
+                              <span class="right_board_categories_name"><%= pagedata.salelistCount[i].userGoodsName%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">原价(¥)：</span>
-                              <span class="right_board_categories_name"><%= salelistCount[i].userGoodsPrice%></span>
+                              <span class="right_board_categories_name"><%= pagedata.salelistCount[i].userGoodsPrice%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">卖价(¥)：</span>
-                              <span class="right_board_categories_name"><%= salelistCount[i].userGoodsSalePrice%></span>
+                              <span class="right_board_categories_name"><%= pagedata.salelistCount[i].userGoodsSalePrice%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">用时：</span>
-                              <span class="right_board_categories_name"><%= salelistCount[i].userGoodsUseTime%></span>
+                              <span class="right_board_categories_name"><%= pagedata.salelistCount[i].userGoodsUseTime%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">联系人：</span>
-                              <span class="right_board_categories_name"><%= salelistCount[i].userName%></span>
+                              <span class="right_board_categories_name"><%= pagedata.salelistCount[i].userName%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">联系电话：</span>
-                              <span class="right_board_categories_name"><%= salelistCount[i].userPhone%></span>
+                              <span class="right_board_categories_name"><%= pagedata.salelistCount[i].userPhone%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">发布时间：</span>
-                              <span class="right_board_categories_name"><%= salelistCount[i].publicTime%></span>
+                              <span class="right_board_categories_name"><%= pagedata.salelistCount[i].publicTime%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">交易状态：</span>
 
-                              <% if(salelistCount[i].goodsStatus == "finish") { %>
+                              <% if(pagedata.salelistCount[i].goodsStatus == "finish") { %>
                                 <button class ="btn btn-success " disabled>交易结束</button>
                               <% } else {%>
                                 <button class ="btn btn-success saleFinish">交易进行中</button>
@@ -279,7 +271,7 @@
                             <li>
                               <span class="right_board_categories">详细补充：</span> <br>
                               <span class="product_details_addText right_board_categories_name">
-                                  <%= salelistCount[i].userGoodsaddText%>
+                                  <%= pagedata.salelistCount[i].userGoodsaddText%>
                               </span>
                             </li>
                           </ul>
@@ -287,7 +279,7 @@
                       </div>
                     </div>
                   </div>
-                  <% if(salelistCount[i].goodsStatus == "finish") { %>
+                  <% if(pagedata.salelistCount[i].goodsStatus == "finish") { %>
                       <i class="fa fa-times"></i>
                   <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
@@ -301,13 +293,13 @@
           <section class="sendList" >
             <div>
               <h3 id= "send-jump">所有赠送</h3>
-              <% if(sendlistCount.length == 0) {%>
+              <% if(pagedata.sendlistCount.length == 0) {%>
                 <p class="shg-empty">目前没有哦！</p>
               <%} else {%>
-              <% for(var i= 0;i<sendlistCount.length;i++) {%>
+              <% for(var i= 0;i<pagedata.sendlistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
-                    <% if(sendlistCount[i].goodsStatus == "finish") { %>
+                    <% if(pagedata.sendlistCount[i].goodsStatus == "finish") { %>
                         <div class="row disabled">
                     <% } else {%>
                     <div class="row">
@@ -316,37 +308,37 @@
                         <div id="carousel-sendList-generic<%= i %>" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
                           <ol class="carousel-indicators">
-                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ pagedata.sendlistCount[i].username + pagedata.sendlistCount[i].userGoodsName + pagedata.sendlistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ pagedata.sendlistCount[i].username + pagedata.sendlistCount[i].userGoodsName + pagedata.sendlistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ pagedata.sendlistCount[i].username + pagedata.sendlistCount[i].userGoodsName + pagedata.sendlistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-sendList-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ pagedata.sendlistCount[i].username + pagedata.sendlistCount[i].userGoodsName + pagedata.sendlistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
                           </ol>
 
                           <!-- Wrapper for slides -->
                           <div class="carousel-inner" role="listbox">
                             <div class="item active sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.sendlistCount[i].username + pagedata.sendlistCount[i].userGoodsName + pagedata.sendlistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'1.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.sendlistCount[i].username + pagedata.sendlistCount[i].userGoodsName + pagedata.sendlistCount[i].selectWay +'1.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'2.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.sendlistCount[i].username + pagedata.sendlistCount[i].userGoodsName + pagedata.sendlistCount[i].selectWay +'2.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ sendlistCount[i].username + sendlistCount[i].userGoodsName + sendlistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.sendlistCount[i].username + pagedata.sendlistCount[i].userGoodsName + pagedata.sendlistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
@@ -370,29 +362,29 @@
                           <ul>
                             <li>
                               <span class="right_board_categories">类别：</span>
-                              <span class="right_board_categories_name"><%= sendlistCount[i].userGoodsSort%></span>
+                              <span class="right_board_categories_name"><%= pagedata.sendlistCount[i].userGoodsSort%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">名称：</span>
-                              <span class="right_board_categories_name"><%= sendlistCount[i].userGoodsName%></span>
+                              <span class="right_board_categories_name"><%= pagedata.sendlistCount[i].userGoodsName%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">联系人：</span>
-                              <span class="right_board_categories_name"><%= sendlistCount[i].userName%></span>
+                              <span class="right_board_categories_name"><%= pagedata.sendlistCount[i].userName%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">联系电话：</span>
-                              <span class="right_board_categories_name"><%= sendlistCount[i].userPhone%></span>
+                              <span class="right_board_categories_name"><%= pagedata.sendlistCount[i].userPhone%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">发布时间：</span>
-                              <span class="right_board_categories_name"><%= sendlistCount[i].publicTime%></span>
+                              <span class="right_board_categories_name"><%= pagedata.sendlistCount[i].publicTime%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">交易状态：</span>
 
-                              <% if(sendlistCount[i].goodsStatus == "finish") { %>
-                                <button class ="btn btn-success" disabled>交易结束</button>
+                              <% if(pagedata.sendlistCount[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-danger" disabled>交易结束</button>
                               <% } else {%>
                                 <button class ="btn btn-success sendFinish">交易进行中</button>
                               <%}%>
@@ -401,7 +393,7 @@
                             <li>
                               <span class="right_board_categories">详细补充：</span> <br>
                               <span class="product_details_addText right_board_categories_name">
-                                  <%= sendlistCount[i].userGoodsaddText%>
+                                  <%= pagedata.sendlistCount[i].userGoodsaddText%>
                               </span>
                             </li>
                           </ul>
@@ -409,7 +401,7 @@
                       </div>
                     </div>
                   </div>
-                  <% if(sendlistCount[i].goodsStatus == "finish") { %>
+                  <% if(pagedata.sendlistCount[i].goodsStatus == "finish") { %>
                       <i class="fa fa-times"></i>
                   <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
@@ -422,13 +414,13 @@
           </section>
           <section class="donateList" >
               <h3 id= "donate-jump">所有捐献</h3>
-              <% if(donatelistCount.length == 0) {%>
+              <% if(pagedata.donatelistCount.length == 0) {%>
                 <p class="shg-empty">目前没有哦！</p>
               <%} else {%>
-              <% for(var i= 0;i<donatelistCount.length;i++) {%>
+              <% for(var i= 0;i<pagedata.donatelistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
-                    <% if(donatelistCount[i].goodsStatus == "finish") { %>
+                    <% if(pagedata.donatelistCount[i].goodsStatus == "finish") { %>
                         <div class="row disabled">
                     <% } else {%>
                     <div class="row">
@@ -437,37 +429,37 @@
                         <div id="carousel-donateList-generic<%= i %>" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
                           <ol class="carousel-indicators">
-                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
-                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ pagedata.donatelistCount[i].username + pagedata.donatelistCount[i].userGoodsName + pagedata.donatelistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ pagedata.donatelistCount[i].username + pagedata.donatelistCount[i].userGoodsName + pagedata.donatelistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ pagedata.donatelistCount[i].username + pagedata.donatelistCount[i].userGoodsName + pagedata.donatelistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
+                            <li data-target="#carousel-donateList-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ pagedata.donatelistCount[i].username + pagedata.donatelistCount[i].userGoodsName + pagedata.donatelistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
                           </ol>
 
                           <!-- Wrapper for slides -->
                           <div class="carousel-inner" role="listbox">
                             <div class="item active sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.donatelistCount[i].username + pagedata.donatelistCount[i].userGoodsName + pagedata.donatelistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'1.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.donatelistCount[i].username + pagedata.donatelistCount[i].userGoodsName + pagedata.donatelistCount[i].selectWay +'1.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'2.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.donatelistCount[i].username + pagedata.donatelistCount[i].userGoodsName + pagedata.donatelistCount[i].selectWay +'2.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
                               </div>
                             </div>
                             <div class="item sec-goods-img-default">
-                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ donatelistCount[i].username + donatelistCount[i].userGoodsName + donatelistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);">
+                              <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.donatelistCount[i].username + pagedata.donatelistCount[i].userGoodsName + pagedata.donatelistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);">
 
                               </div>
                               <div class="carousel-caption">
@@ -491,29 +483,29 @@
                           <ul>
                             <li>
                               <span class="right_board_categories">类别：</span>
-                              <span class="right_board_categories_name"><%= donatelistCount[i].userGoodsSort%></span>
+                              <span class="right_board_categories_name"><%= pagedata.donatelistCount[i].userGoodsSort%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">名称：</span>
-                              <span class="right_board_categories_name"><%= donatelistCount[i].userGoodsName%></span>
+                              <span class="right_board_categories_name"><%= pagedata.donatelistCount[i].userGoodsName%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">联系人：</span>
-                              <span class="right_board_categories_name"><%= donatelistCount[i].userName%></span>
+                              <span class="right_board_categories_name"><%= pagedata.donatelistCount[i].userName%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">联系电话：</span>
-                              <span class="right_board_categories_name"><%= donatelistCount[i].userPhone%></span>
+                              <span class="right_board_categories_name"><%= pagedata.donatelistCount[i].userPhone%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">发布时间：</span>
-                              <span class="right_board_categories_name"><%= donatelistCount[i].publicTime%></span>
+                              <span class="right_board_categories_name"><%= pagedata.donatelistCount[i].publicTime%></span>
                             </li>
                             <li>
                               <span class="right_board_categories">交易状态：</span>
 
-                              <% if(donatelistCount[i].goodsStatus == "finish") { %>
-                                <button class ="btn btn-success" disabled>交易结束</button>
+                              <% if(pagedata.donatelistCount[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-danger" disabled>交易结束</button>
                               <% } else {%>
                                 <button class ="btn btn-success donateFinish">交易进行中</button>
                               <%}%>
@@ -521,7 +513,7 @@
                             <li>
                               <span class="right_board_categories">详细补充：</span> <br>
                               <span class="product_details_addText right_board_categories_name">
-                                  <%= donatelistCount[i].userGoodsaddText%>
+                                  <%= pagedata.donatelistCount[i].userGoodsaddText%>
                               </span>
                             </li>
                           </ul>
@@ -529,7 +521,7 @@
                       </div>
                     </div>
                   </div>
-                  <% if(donatelistCount[i].goodsStatus == "finish") { %>
+                  <% if(pagedata.donatelistCount[i].goodsStatus == "finish") { %>
                     <i class="fa fa-times" style="display: block;"></i>
                   <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
@@ -541,13 +533,13 @@
           </section>
           <section class="helpList" >
               <h3 id= "help-jump">所有求助</h3>
-              <% if(helplistCount.length == 0) {%>
+              <% if(pagedata.helplistCount.length == 0) {%>
                 <p class="shg-empty">目前没有哦！</p>
               <%} else {%>
-              <% for(var i= 0;i<helplistCount.length;i++) {%>
+              <% for(var i= 0;i<pagedata.helplistCount.length;i++) {%>
                 <section class="goodsList">
                   <div class="container-fluid">
-                    <% if(helplistCount[i].goodsStatus == "finish") { %>
+                    <% if(pagedata.helplistCount[i].goodsStatus == "finish") { %>
                         <div class="row disabled">
                     <% } else {%>
                     <div class="row">
@@ -556,37 +548,37 @@
                       <div id="carousel-example-generic<%= i %>" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ helplistCount[i].username + helplistCount[i].userGoodsName + helplistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
-                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ helplistCount[i].username + helplistCount[i].userGoodsName + helplistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
-                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ helplistCount[i].username + helplistCount[i].userGoodsName + helplistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
-                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ helplistCount[i].username + helplistCount[i].userGoodsName + helplistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
+                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="0" class="active" style="background-image: url(<%= '/img/'+ pagedata.helplistCount[i].username + pagedata.helplistCount[i].userGoodsName + pagedata.helplistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);"></li>
+                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="1" style="background-image: url(<%= '/img/'+ pagedata.helplistCount[i].username + pagedata.helplistCount[i].userGoodsName + pagedata.helplistCount[i].selectWay+'1.png' || '/img/down_img.jpg' %>);"></li>
+                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="2" style="background-image: url(<%= '/img/'+ pagedata.helplistCount[i].username + pagedata.helplistCount[i].userGoodsName + pagedata.helplistCount[i].selectWay+'2.png' || '/img/down_img.jpg' %>);"></li>
+                          <li data-target="#carousel-example-generic<%= i %>" data-slide-to="3" style="background-image: url(<%= '/img/'+ pagedata.helplistCount[i].username + pagedata.helplistCount[i].userGoodsName + pagedata.helplistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);"></li>
                         </ol>
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                           <div class="item active sec-goods-img-default">
-                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ helplistCount[i].username + helplistCount[i].userGoodsName + helplistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);">
+                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.helplistCount[i].username + pagedata.helplistCount[i].userGoodsName + pagedata.helplistCount[i].selectWay +'0.png' || '/img/down_img.jpg' %>);">
 
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
-                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ helplistCount[i].username + helplistCount[i].userGoodsName + helplistCount[i].selectWay +'1.png' || '/img/down_img.jpg' %>);">
+                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.helplistCount[i].username + pagedata.helplistCount[i].userGoodsName + pagedata.helplistCount[i].selectWay +'1.png' || '/img/down_img.jpg' %>);">
 
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
-                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ helplistCount[i].username + helplistCount[i].userGoodsName + helplistCount[i].selectWay +'2.png' || '/img/down_img.jpg' %>);">
+                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.helplistCount[i].username + pagedata.helplistCount[i].userGoodsName + pagedata.helplistCount[i].selectWay +'2.png' || '/img/down_img.jpg' %>);">
 
                             </div>
                             <div class="carousel-caption">
                             </div>
                           </div>
                           <div class="item sec-goods-img-default">
-                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ helplistCount[i].username + helplistCount[i].userGoodsName + helplistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);">
+                            <div class="sec-goods-img-" style="background-image: url(<%= '/img/'+ pagedata.helplistCount[i].username + pagedata.helplistCount[i].userGoodsName + pagedata.helplistCount[i].selectWay +'3.png' || '/img/down_img.jpg' %>);">
 
                             </div>
                             <div class="carousel-caption">
@@ -610,29 +602,29 @@
                         <ul>
                           <li>
                             <span class="right_board_categories">类别：</span>
-                            <span class="right_board_categories_name"><%= helplistCount[i].userGoodsSort%></span>
+                            <span class="right_board_categories_name"><%= pagedata.helplistCount[i].userGoodsSort%></span>
                           </li>
                           <li>
                             <span class="right_board_categories">名称：</span>
-                            <span class="right_board_categories_name"><%= helplistCount[i].userGoodsName%></span>
+                            <span class="right_board_categories_name"><%= pagedata.helplistCount[i].userGoodsName%></span>
                           </li>
                           <li>
                             <span class="right_board_categories">联系人：</span>
-                            <span class="right_board_categories_name"><%= helplistCount[i].userName%></span>
+                            <span class="right_board_categories_name"><%= pagedata.helplistCount[i].userName%></span>
                           </li>
                           <li>
                             <span class="right_board_categories">联系电话：</span>
-                            <span class="right_board_categories_name"><%= helplistCount[i].userPhone%></span>
+                            <span class="right_board_categories_name"><%= pagedata.helplistCount[i].userPhone%></span>
                           </li>
                           <li>
                             <span class="right_board_categories">发布时间：</span>
-                            <span class="right_board_categories_name"><%= helplistCount[i].publicTime%></span>
+                            <span class="right_board_categories_name"><%= pagedata.helplistCount[i].publicTime%></span>
                           </li>
                           <li>
                               <span class="right_board_categories">交易状态：</span>
 
-                              <% if(helplistCount[i].goodsStatus == "finish") { %>
-                                <button class ="btn btn-success" disabled>交易结束</button>
+                              <% if(pagedata.helplistCount[i].goodsStatus == "finish") { %>
+                                <button class ="btn btn-danger" disabled>交易结束</button>
                               <% } else {%>
                                 <button class ="btn btn-success">交易进行中</button>
                               <%}%>
@@ -641,7 +633,7 @@
                           <li>
                             <span class="right_board_categories">详细补充：</span> <br>
                             <span class="product_details_addText right_board_categories_name">
-                                <%= helplistCount[i].userGoodsaddText%>
+                                <%= pagedata.helplistCount[i].userGoodsaddText%>
                             </span>
                           </li>
                         </ul>
@@ -649,7 +641,7 @@
                     </div>
                     </div>
                   </div>
-                  <% if(helplistCount[i].goodsStatus == "finish") { %>
+                  <% if(pagedata.helplistCount[i].goodsStatus == "finish") { %>
                     <i class="fa fa-times" style="display: block;"></i>
                   <% } else {%>
                     <i class="fa fa-times" style="display: none;"></i>
@@ -666,12 +658,12 @@
               </ul> -->
             </nav>
           </footer>
-          <footer class="copy_right">
-              <p>Copyright © 2017.Adou All rights reserved.</p>
-          </footer>
+          
         </div>
     </section>
-
+    <footer class="copy_right">
+      <p>Copyright © 2017.Brother Team All rights reserved.</p>
+    </footer>
     <input type="" name="" class="finish" value="交易结束" hidden>
 
     <% include  component/js.ejs%>

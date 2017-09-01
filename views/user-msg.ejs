@@ -6,30 +6,31 @@
     <% include component/css.ejs %>
   </head>
   <body>
-    <%include header.ejs%>
-    <section>
-        <%include left_colum.ejs%>
+    <%include component/header.ejs%>
+    <section class="section-wrapper">
+        <%include component/left_colum.ejs%>
         <div class="right_board">
           <header>
               <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 h1">
-                <p>
+                <h3>
                   我的信息
-                </p>
+                </h3>
+                
               </div>
           </header>
           <div class="sec-my-msg">
-          <div class="container">
+          <div class="sec-container">
             <div class="row">
               <div class="col-md-6 col-sm-12 col-xs-12">
               <div class="form-good-submit">
                   <div class="form-group">
                     <label for="">我的邮箱</label>
-                    <input type="email" class="form-control" id="userName" value="<%= username%>" readonly disabled>
+                    <input type="email" class="form-control" id="userName" value="<%= userdata.username%>" readonly disabled>
                   </div>
 
                   <div class="form-group">
                     <label for="">我的昵称</label>
-                    <input type="text" class="form-control" id="usernickname" placeholder="请输入昵称" value="<%= nickName%>">
+                    <input type="text" class="form-control" id="usernickname" placeholder="请输入昵称" value="<%= userdata.nickName%>">
                   </div>
 
                   <a class="btn btn-default btn-sm" id="revise-userpassword">修改密码</a>
@@ -52,28 +53,53 @@
                   
                   <div class="form-group a-btn">
                     <label for="">我的头像</label>
+                    <label for ="change-avatar-input" class="btn-link" id="change-avatar">更改头像</label>
                     <div>
-                      <p class="sec-my-avatar">
-                        <img src="/avatar/default.jpg">
-                        <a href="" class="btn btn-sm btn-default vertical-bottom" id="">更换图片</a>
-                      </p>
-                    </div>
-                    
-                  </div>
-                  <button  class="btn btn-default" id="save-my-msg">保存修改</button>
+                      <div class="sec-my-avatar">
+                        <div class="img-preview">
+                          <img id="imghead"  height=100 border=0 src='<%= userdata.avatar%>'>
+                        </div>
+                        <input type="file" name="" class="hidden" id="change-avatar-input" onchange="previewImage(this)">
+                        
+                      </div>
+                   </div>
+                  <button  class="btn btn-default sec-mt-sm" id="save-my-msg">保存修改</button>
                 </div>
               </div>
               <div class="col-md-6 col-sm-12 col-xs-12">
-                
+                <!-- <div class="avatar-previem">
+                  <div class="img-preview" > </div>
+                </div> -->
               </div>    
             </div>
             </div>
           </div>
         </div>
     </section>
-
+    <footer class="copy_right">
+      <p>Copyright © 2017.Brother Team All rights reserved.</p>
+    </footer>
     
     <% include  component/js.ejs%>
     <script type="text/javascript" src="/js/my-msg.js"></script>
+    <script type="text/javascript" src="/js/compontent/avatar-cutomize.js"></script>
+    <script type="text/javascript">
+      
+      function previewImage(file){
+        var div = $('.img-preview');
+        
+        if (file.files) {
+            div.innerHTML ='<img id=imghead>';
+            var img = document.getElementById('imghead');
+            
+            var reader = new FileReader();
+            reader.onload = function(evt){
+              img.src = evt.target.result;
+            }
+            reader.readAsDataURL(file.files[0]);
+        }
+      }
+
+    </script>
   </body>
 </html>

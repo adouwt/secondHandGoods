@@ -5,12 +5,11 @@ $(document).on('click', "#revise-userpassword", function() {
 
 $(document).on('click', "#save-my-msg", function() {
 
-	var pwdArea = $('.revise-userpassword-area').is(':visible');
-  var nickName = $("#usernickname").val();
-  var username = $("#userName").val();
-
-  console.log(username);
-
+  var pwdArea    = $('.revise-userpassword-area').is(':visible');
+  var nickName   = $("#usernickname").val();
+  var username   = $("#userName").val();
+  var userAvatar = $("#imghead").attr("src");
+  console.log(userAvatar)
 	if(pwdArea == true){
 		var newPwd = $("#new-pwd").val();
 		var oldPwd = $("#old-pwd").val();
@@ -30,6 +29,7 @@ $(document).on('click', "#save-my-msg", function() {
 				"nickName" : nickName,
 				"oldPwd" : oldPwd,
 				"newPwd" : newPwd,
+				"useravatar": userAvatar
 			},function(result){
         if(result=="1"){					
           alert("修改成功")				
@@ -43,8 +43,9 @@ $(document).on('click', "#save-my-msg", function() {
 		})
 	} else {
 		$.post("/addNickName",{
-				"username": username,
-				"nickName" : nickName
+				"username"      : username,
+				"nickName" 		: nickName,
+				"useravatar"    :userAvatar
 			},function(result){
         if(result=="1"){	
         alert("修改成功")				

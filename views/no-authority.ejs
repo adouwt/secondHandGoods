@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>sorry</title>
+    <% include component/css.ejs %>
+  </head>
+  <body>
+    <%include component/header.ejs%>
+    <section>
+        <%include component/left_colum.ejs%>
+        <div class="right_board">
+          <div class="sec-mt-lg sec-height">
+              <h3 class="text-center">
+                  sorry! 您暂时没有权限发布此内容，请联系管理员！
+              </h3>
+              <h2 class='text-center sec-mt-lg'>
+                  <a href="/" class="btn btn-success"> 回主页</a>
+              </h2>
+          </div>
+        </div>
+    </section>
+    <footer class="copy_right">
+      <p>Copyright © 2017. Brother Team All rights reserved.</p>
+    </footer>
+    <% include  component/js.ejs%>
+  </body>
+</html>

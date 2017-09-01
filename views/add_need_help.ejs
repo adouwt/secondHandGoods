@@ -6,9 +6,9 @@
     <% include component/css.ejs %>
   </head>
   <body>
-    <% include header.ejs%>
-    <section>
-        <%include left_colum.ejs%>
+    <% include component/header.ejs%>
+    <section  class="section-wrapper">
+        <%include component/left_colum.ejs%>
         <div class="right_board">
           <header>
             <h1>
@@ -16,7 +16,7 @@
             </h1>
           </header>
           <section>
-              <div class="container">
+              <div class="sec-container">
                 <div class="add_product_details">
                   <form  enctype="multipart/form-data" method="post" class= "form-good-submit">
                     <div class="row">
@@ -81,7 +81,7 @@
                             <textarea class="form-control" id="user-goods-addText"></textarea>
                           </div>
                           <br>
-                          <button type="submit" class="btn btn-default" id ="help-submit">提交</button>
+                          <button type="button" class="btn btn-default" id ="help-submit">提交</button>
 
                       </div>
                     </div>
@@ -90,15 +90,17 @@
               </div>
           </section>
           <hr>          
-          <h4 class="text-center">你将要发布的东西，会在主页以及相关页面如下所示：</h4>
-          <hr>
-          <% include sample.ejs%>
-          <footer class="copy_right">
-              <p>Copyright © 2017.Adou All rights reserved.</p>
-          </footer>
+          <div class="sample-show">      
+            <h4 class="text-center">你将要发布的东西，会在主页以及相关页面如下所示：</h4>
+            <hr>       
+            <% include component/sample.ejs%>
+          </div> 
+          
         </div>
     </section>
-
+    <footer class="copy_right">
+      <p>Copyright © 2017.Brother Team All rights reserved.</p>
+    </footer>
     <% include  component/js.ejs%>
 
   </body>

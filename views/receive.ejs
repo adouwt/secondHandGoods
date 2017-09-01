@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>我的收件</title>
+    <% include component/css.ejs %>
+  </head>
+  <body>
+    <%include component/header.ejs%>
+    <section class="section-wrapper">
+        <%include component/left_colum.ejs%>
+        <div class="right_board">
+          <header>
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 h1">
+                <h3>
+                   我的信息箱
+                </h3>
+                <% pagedata = pagedata.result %>
+                <hr>
+              </div>
+          </header>
+          <section class="receiveList">
+            <ol>
+                <% for (var i= 0;i< pagedata.length;i++ ) {%>
+                <li>
+                  <ul>
+                    <li><span>有位叫</span> <span class="sec-basemark-color"><%= userdata.username %></span> <span>童鞋</span> </li>
+                    <li><span>看中了你要</span> <span class="sec-basemark-color"><%= pagedata[i].selectWay %></span> <span>的</span></li>
+                    <li><span class="sec-basemark-color"><%= pagedata[i].userGoodsName %></span></li>
+                    <li><span>当时时间为</span><span class="sec-basemark-color">2017-8-19-15:37</span></li>
+                    <li>
+                        <p><span>Ta 说：</span><span  class="sec-basemark-color"> 您好，我看中了你在scampus上发布卖的 山地自行车，如果现在还没有出售的话，我想见见车的真实情况。。。，我住在5415，电话XXXXXXX </span></p>
+                        <p class='sec-contain-button'><button class="revert-btn"> 回复 </button></p>
+                        <div class="user-revert">
+                            <textarea name="" class="revert-msg form-control" cols="30" rows="5" ></textarea>
+                            <p class='sec-contain-button'><button class="revert-submit-btn"> 提交 </button></p> 
+                        </div>
+                    </li>
+                  </ul>
+                </li>
+                <li role="separator" class="divider">
+                    <hr>
+                </li>
+              <%}%>
+            </ol>
+          </section>
+          <footer class="deliver-page">
+            <nav aria-label="Page navigation" class="navbar  navbar-right">
+              <ul class="pagination salePagination">
+                
+              </ul>
+            </nav>
+          </footer>
+
+        </div>
+    </section>
+    <footer class="copy_right">
+      <p>Copyright © 2017. Brother Team All rights reserved.</p>
+    </footer>
+    <% include  component/js.ejs%>
+    <script>  
+      $(".revert-btn").click(function(){
+        $(this).parent().next(".user-revert").toggle("500");
+      })
+      $(".revert-submit-btn").click(function(){
+          var revertMsg = $(this).parents(".user-revert").children(".revert-msg").val();
+          console.log(revertMsg);
+      })
+    </script>
+  </body>
+</html>

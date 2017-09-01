@@ -1,8 +1,17 @@
 var express = require("express");
 var app = express();
 var router = require("./router/router.js");
+var routerExchange = require("./router/exchange.js");
+var routerSale = require("./router/sale.js");
+var routerSend = require("./router/send.js");
+var routerDonate = require("./router/donate.js");
+var routerHelp = require("./router/help.js");
+var routerNote = require("./router/note.js");
+var routerCampusevent = require("./router/campusevent.js");
+var routerMsgbox = require("./router/msgbox.js");
+// var router = require("./router/router.js");
 var session = require('express-session');
-
+var config = require("./config.js");
 //socket.io 公式
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -19,7 +28,7 @@ app.use(session({
 app.set("view engine","ejs");
 app.use(express.static("./assets"));
 app.use("/avatar",express.static("./avatar"));
-app.use("/product_img",express.static("./product_img"));
+app.use("/goodsImg",express.static("./goodsImg"));
 
 
 //确认登录，检查此人是否有用户名，并且不能重复
@@ -48,91 +57,72 @@ app.use("/product_img",express.static("./product_img"));
   		return;
   	}
   	res.render("chat",{
-  		"username":req.session.username
-  	});
-  });
-
-//路由表
-
-//获得交换商品提交页面
-app.get("/add_exchange_product",router.showAddExchangeProduct);
-
+		  "username":req.session.username
+		});
+});
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get("/",router.dataCount);
+app.get("/userGoodsNumberAmount",router.userGoodsNumberAmount);
+//获得交换商品提交页面////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get("/exchange/showadd",routerExchange.showadd);
+app.post("/exchange/submit",routerExchange.submit);
+app.get("/exchange/list",routerExchange.list);
+app.get("/exchange/count",routerExchange.count);
+app.post("/exchange/change",routerExchange.change);
+app.get("/exchange/getdetail",routerExchange.detail);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //获得变卖商品提交页面
-app.get("/add_sale_product",router.showAddSailProduct);
-
+app.get("/sale/showadd",routerSale.showadd);
+app.post("/sale/submit",routerSale.submit);
+app.get("/sale/list",routerSale.list);	
+app.get("/sale/count",routerSale.count);
+app.post("/sale/change",routerSale.change);
+app.get("/sale/getdetail", routerSale.detail);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //获得赠送商品提交页面
-app.get("/add_send_product",router.showAddSendProduct);
-
+app.get("/send/showadd",routerSend.showadd);
+app.post("/send/submit",routerSend.submit);
+app.get("/send/list",routerSend.list);	
+app.post("/send/change",routerSend.change);
+app.get("/send/count",routerSend.count);
+app.get("/send/getdetail", routerSend.detail);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //获得捐赠商品提交页面
-app.get("/add_donate_product",router.showAddDonateProduct);
-
+app.get("/donate/showadd",routerDonate.showadd);
+app.post("/donate/submit",routerDonate.submit);
+app.get("/donate/list",routerDonate.list);
+app.get("/donate/count",routerDonate.count);
+app.post("/donate/change",routerDonate.change);
+app.get("/donate/getdetail",routerDonate.detail);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//自由帖/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get("/note/showadd",routerNote.showadd);
+app.get("/note/list",routerNote.list);
+app.post("/note/submit",routerNote.submit);
+app.get("/note/getdetail", routerNote.detail);
+app.get("/note/count", routerNote.count);
+//校园大事件//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get("/event/showadd",routerCampusevent.showadd);
+app.get("/event/list",routerCampusevent.list);
+app.post("/event/submit",routerCampusevent.submit);
+app.get("/event/count", routerCampusevent.count);
+///help 帮帮忙/////////////////////////////////////////////////////////////////////////////////////////////////
+app.get("/help/showadd",routerHelp.showadd);
+app.get("/help/list",routerHelp.list);
+app.post("/help/submit",routerHelp.submit);
+app.get("/help/count",routerHelp.count);
+app.post("/help/change",routerHelp.change);
+app.get("/help/getdetail",routerHelp.detail);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //执行注册业务
 app.post("/doRegist",router.doRegist);
-
 //执行登陆业务
 app.post("/doLogin",router.doLogin);
-
-//执行交换发布商品业务
-app.post("/exchangeGoodsSubmit",router.exchangeGoodsSubmit);
-
-//执行变卖发布商品业务
-app.post("/saleGoodsSubmit",router.saleGoodsSubmit);
-
-// //执行赠送发布商品业务
-app.post("/sendGoodsSubmit",router.sendGoodsSubmit);
-
-// //执行捐赠发布商品业务
-app.post("/donateGoodsSubmit",router.donateGoodsSubmit);
-
-
-//获取所有商品内容的图表统计
-app.get("/",router.dataCount);
-
-app.get("/userGoodsNumberAmount",router.userGoodsNumberAmount);
-
-//获取捐赠所有商品内容
-app.get("/donatelistMsg",router.donatelistMsg);
-
-//商品内容分页总数
-app.get("/donateNumberAmount",router.donateNumberAmount);
-
-//获取交换所有商品内容
-app.get("/exchangelistMsg",router.exchangelistMsg);
-
-//交换内容分页总数
-app.get("/exchangeNumberAmount",router.exchangeNumberAmount);
-
-//获取赠与所有商品内容
-app.get("/sendlistMsg",router.sendlistMsg);
-
-//交换内容分页总数
-app.get("/sendNumberAmount",router.sendNumberAmount);
-
-//获取变卖所有商品内容
-app.get("/salelistMsg",router.salelistMsg);
-
-//变卖内容分页总数
-app.get("/saleNumberAmount",router.saleNumberAmount);
-
-
 //个人中心页
 app.get("/usercenter",router.showUserCenter);
-
-
 //搜索
 app.post("/search-sql",router.searchSql);
-
-//修改交易状态
-app.post("/changeEXchangeStatus",router.changeExchangeStatus);
-
-//修改变卖状态
-app.post("/changeSaleStatus",router.changeSaleStatus);
-
-//修改赠送状态
-app.post("/changeSendStatus",router.changeSendStatus);
-
-//修改捐献状态
-app.post("/changeDonateStatus",router.changeDonateStatus);
 
 
 //退出
@@ -145,9 +135,6 @@ app.get("/hello",router.hello);
 
 app.get("/adou-intro",router.adou);
 
-app.get("/addHelp",router.showAddHelp);
-
-app.get("/HelpListMsg",router.HelpListMsg);
 
 //我的信息
 app.get("/user-msg",router.userMsg);
@@ -156,14 +143,6 @@ app.post("/reviseMyMsg",router.reviseMyMsg);
 //添加昵称
 app.post("/addNickName",router.addNickName);
 
- //执行help 提交内容
-app.post("/helpSubmit",router.helpSubmit);
-
-//help内容分页总数
-app.get("/helpNumberAmount",router.helpNumberAmount);
-
-//修改help状态
-app.post("/changeHelpStatus",router.changeDonateStatus);
 
 
 //上传图片
@@ -172,7 +151,11 @@ app.post("/doSetavatar",router.doSetavatar);
 //app.get("/doSetavatar",router.doSetavatar);
 
 //立即联系
-// app.post("/doContact",router.doContact);
+app.post("/doContact",routerMsgbox.doContact);
+app.get("/user-receive", routerMsgbox.userReceive);
+
+
+
 
 
 io.on("connection",function(socket){//socket实际在运行的时候，表示用户的客户端
@@ -184,6 +167,6 @@ io.on("connection",function(socket){//socket实际在运行的时候，表示用
 
 
 
-http.listen(80,function () {
-	console.log("项目启动成功！");
+http.listen(config.port, function () {
+	console.log("项目启动成功: " + config.port);
 });

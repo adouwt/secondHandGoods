@@ -4,7 +4,7 @@ $(function(){
 
   function FormatDate (strTime) {
     var date = new Date(strTime);
-    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate() + "-" +date.getHours() + "-" +date.getMinutes();
+    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate() + "-" +date.getHours() + "：" +date.getMinutes();
   }
 
 
@@ -17,9 +17,8 @@ $(function(){
 
   //暂时每个页面的单独提交，看看以后有么有办法，同意提交，后台再做区分
   // 交换商品
-
   $("#exchangeGoods-submit").click(function() {
-
+    common.errArr= [];
 		// 获取图片的base64的代码
         //后端的formindable 无法接受数组，因此暂时分开数组 单个传输给后端
 		var imgBase64    = $("#preview img");
@@ -35,12 +34,12 @@ $(function(){
 
     formVertify ();
 
-    if(imgBase64Arr.length>=4) {
+    if(imgBase64Arr.length>=4 && common.errArr.length<=0) {
 
   		//发布商品表单内容
   		var userGoodsSort    		= $("#user-goods-sort").val();
   		var userGoodsName    		= ($("#user-goods-name").val().replace(" ",""));
-  		var userGoodsUseTime 		= $("#user-goods-usetime").val();
+  		var userGoodsUseTime 		= $("#user-goods-time").find("option:selected").text();
   		var userGoodsaddText 		= $("#user-goods-addText").val();
   		var userChangeTar   		= $("#user-change-target").val();
   		var userName   				  = $("#user-name").val();
@@ -48,8 +47,8 @@ $(function(){
   		var username       			= $("#username").val();
       var userGoodsPrice      = $("#user-goods-price").val();
       var selectWay           = $("#user-selectway").val();
-
-  		$.post("/exchangeGoodsSubmit",{
+      
+  		$.post("/exchange/submit",{
         "username"            : username,
   			"selectWay" 				  : selectWay,
   			"userGoodsSort" 		  : userGoodsSort,
@@ -78,7 +77,7 @@ $(function(){
   			}
 
   			setTimeout(function () {
-  				window.location = "/exchangelistMsg?page=0";
+  				window.location = "/exchange/list?page=0";
   			},1000);
 
   			alert("1s后，跳回主页，查看你发布的内容");//改成模态框 在模态框上倒计时
@@ -94,7 +93,7 @@ $(function(){
 
   //变卖
   $("#saleGoods-submit").click(function() {
-
+    common.errArr= [];
     // 获取图片的base64的代码
         //后端的formindable 无法接受数组，因此暂时分开数组 单个传输给后端
     var imgBase64    = $("#preview img");
@@ -114,10 +113,9 @@ $(function(){
     isPhone($("#user-phone"));
     isNothing($("#user-goods-price"));
     isNothing($("#user-goods-salePrice"));
-    isNothing($("#user-goods-usetime"));
     isNothing($("#user-name"));
 
-    if(imgBase64Arr.length>=4) {
+    if(imgBase64Arr.length>=4 && common.errArr.length<=0) {
 
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
@@ -132,7 +130,7 @@ $(function(){
       var selectWay           = $("#user-selectway").val();
 
 
-      $.post("/saleGoodsSubmit",{
+      $.post("/sale/submit",{
         "username"            : username,
         "selectWay"           : selectWay,
         "userGoodsSort"       : userGoodsSort,
@@ -153,7 +151,7 @@ $(function(){
         }
 
         setTimeout(function () {
-          window.location = "/salelistMsg?page=0";
+          window.location = "/sale/list?page=0";
         },1000);
 
         alert("1s后，跳回商品变卖页，查看你发布的内容");//改成模态框 在模态框上倒计时
@@ -169,7 +167,7 @@ $(function(){
 
   //赠送
   $("#sendGoods-submit").click(function() {
-
+    common.errArr= [];
     // 获取图片的base64的代码
         //后端的formindable 无法接受数组，因此暂时分开数组 单个传输给后端
     var imgBase64    = $("#preview img");
@@ -189,7 +187,7 @@ $(function(){
     isPhone($("#user-phone"));
     isNothing($("#user-name"));
 
-    if(imgBase64Arr.length>=4) {
+    if(imgBase64Arr.length>=4 && common.errArr.length<=0) {
 
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
@@ -202,7 +200,7 @@ $(function(){
       var username            = $("#username").val();
       var userGoodsPrice      = $("#user-goods-price").val();
       var selectWay           = $("#user-selectway").val();
-      $.post("/sendGoodsSubmit",{
+      $.post("/send/submit",{
         "username"            : username,
         "selectWay"           : selectWay,
         "userGoodsSort"       : userGoodsSort,
@@ -221,7 +219,7 @@ $(function(){
         }
 
         setTimeout(function () {
-          window.location = "/sendlistMsg?page=0";
+          window.location = "/send/list?page=0";
         },1000);
 
         alert("1s后，跳回商品变卖页，查看你发布的内容");//改成模态框 在模态框上倒计时
@@ -237,7 +235,7 @@ $(function(){
 
   //捐献
   $("#donateGoods-submit").click(function() {
-
+    common.errArr= [];
     // 获取图片的base64的代码
         //后端的formindable 无法接受数组，因此暂时分开数组 单个传输给后端
     var imgBase64    = $("#preview img");
@@ -257,7 +255,7 @@ $(function(){
     isPhone($("#user-phone"));
     isNothing($("#user-name"));
 
-    if(imgBase64Arr.length>=4) {
+    if(imgBase64Arr.length>=4 && common.errArr.length<=0) {
 
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
@@ -271,7 +269,7 @@ $(function(){
       var userGoodsPrice      = $("#user-goods-price").val();
       var selectWay           = $("#user-selectway").val();
 
-      $.post("/donateGoodsSubmit",{
+      $.post("/donate/submit",{
         "username"            : username,
         "selectWay"           : selectWay,
         "userGoodsSort"       : userGoodsSort,
@@ -290,7 +288,7 @@ $(function(){
         }
 
         setTimeout(function () {
-          window.location = "/donatelistMsg?page=0";
+          window.location = "/donate/list?page=0";
         },1000);
 
         alert("1s后，跳回商品捐赠页，查看你发布的内容");//改成模态框 在模态框上倒计时
@@ -306,7 +304,7 @@ $(function(){
 
   //help
   $("#help-submit").click(function() {
-
+    common.errArr= [];
     // 获取图片的base64的代码
         //后端的formindable 无法接受数组，因此暂时分开数组 单个传输给后端
     var imgBase64    = $("#preview img");
@@ -326,7 +324,7 @@ $(function(){
     isPhone($("#user-phone"));
     isNothing($("#user-name"));
 
-    if(imgBase64Arr.length>=4) {
+    if(imgBase64Arr.length>=4 && common.errArr.length<=0) {
 
       //发布商品表单内容
       var userGoodsSort       = $("#user-goods-sort").val();
@@ -340,7 +338,7 @@ $(function(){
       var userGoodsPrice      = $("#user-goods-price").val();
       var selectWay           = $("#user-selectway").val();
 
-      $.post("/helpSubmit",{
+      $.post("/help/submit",{
         "username"            : username,
         "selectWay"           : selectWay,
         "userGoodsSort"       : userGoodsSort,
@@ -359,7 +357,7 @@ $(function(){
         }
 
         setTimeout(function () {
-          window.location = "/helplistMsg?page=0";
+          window.location = "/help/list?page=0";
         },1000);
 
         alert("1s后，跳回求助页，查看你发布的内容");//改成模态框 在模态框上倒计时
@@ -374,6 +372,10 @@ $(function(){
   })
 
   //搜索框
+  $(document).on("click", ".sec-show-search-logo" ,function() {
+    $(this).hide().siblings().show();
+  })
+  
   $(".search-goods").click(function (argument) {
     var searchGoodContents = $(".search-exchange-goods").val();
 
@@ -408,6 +410,7 @@ $(function(){
     var domValue = dom.val();
     if(domValue.length<1) {
       dom.addClass("error-border").parent("div").next(".error-msg").addClass("error-fadeIn");
+      common.errArr.push("error");
       return false;
     }
   }
@@ -428,6 +431,7 @@ $(function(){
     var domValue = dom.val();
     if(domValue.length>1 && !(/^1[34578]\d{9}$/.test(domValue))){
         dom.addClass("error-border").parent("div").next().next(".error-msg-formate").addClass("error-fadeIn");
+        common.errArr.push("error");
         return false;
     }
   }
@@ -440,7 +444,6 @@ $(function(){
     isNothing($("#user-phone"))
     isPhone($("#user-phone"));
     isNothing($("#user-goods-price"));
-    isNothing($("#user-goods-usetime"));
     isNothing($("#user-name"));
   }
 
@@ -482,11 +485,13 @@ $(function(){
   var indexNumberAmount     = "indexNumberAmount";
 
 
-  pageReq("donateNumberAmount","donatePagination");
-  pageReq("exchangeNumberAmount","exchangePagination");
-  pageReq("sendNumberAmount","sendPagination");
-  pageReq("saleNumberAmount","salePagination");
-  pageReq("userGoodsNumberAmount","userGoodsPagination");
+  pageReq("donate/count","donatePagination");
+  pageReq("exchange/count","exchangePagination");
+  pageReq("send/count","sendPagination");
+  pageReq("sale/count","salePagination");
+  pageReq("note/count","notePagination");
+  pageReq("event/count","eventPagination");
+  pageReq("exchange/count","userGoodsPagination");
   // pageReq(indexNumberAmount,"exchangePagination");
 
 
@@ -515,6 +520,8 @@ $(function(){
   changeGoodsStatus ("saleFinish","changeSaleStatus");
   changeGoodsStatus ("sendFinish","changeSendStatus");
   changeGoodsStatus ("donateFinish","changeDonateStatus");
+  changeGoodsStatus ("helpFinish","changeHelpStatus");
+  
 })
 
 
